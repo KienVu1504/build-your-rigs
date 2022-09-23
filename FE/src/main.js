@@ -3,8 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-
-// Import Bootstrap and BootstrapVue CSS files (order is important)
+import VueLoadmore from 'vuejs-loadmore';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -12,9 +11,8 @@ global.jQuery = require('jquery');
 var $ = global.jQuery;
 window.$ = $;
 
-// Make BootstrapVue available throughout your project
+Vue.use(VueLoadmore);
 Vue.use(BootstrapVue)
-// Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 Vue.config.productionTip = false
 
@@ -23,3 +21,10 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+const axios = require('axios');
+
+axios.get('http://localhost:3000/api/v1/types').then(resp => {
+
+  console.log(resp.data);
+});

@@ -10,8 +10,7 @@
         </div>
 
         <div class="header-action">
-          <router-link :to="{name: 'gettingStarted'}" tag="a" >Back</router-link>
-          <!-- <a href="/gettingStarted" class="btn-input"></a> -->
+          <router-link :to="{name: 'gettingStarted'}" tag="a">Back</router-link>
         </div>
       </header>
       <section :class="animation">
@@ -22,6 +21,7 @@
         <div class="separator"></div>
         <div class="input-fields">
           <input type="radio" name="userChoice" id="checkClone" style="display:none" checked>
+
           <div class="tile" v-for="(field, index) in formSteps[activeStep].fields" :key="'field'+index">
             <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice" class="tile-input">
             <label for="userChoice" class="tile-label">

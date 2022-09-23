@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import GettingStarted from '../views/GettingStarted'
 import GettingStarted from '@/views/GettingStarted'
 
 Vue.use(VueRouter)
