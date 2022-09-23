@@ -10,7 +10,8 @@
         </div>
 
         <div class="header-action">
-          <router-link :to="{name: 'gettingStarted'}" type="a">Back</router-link>
+          <router-link :to="{name: 'gettingStarted'}" tag="a" >Back</router-link>
+          <!-- <a href="/gettingStarted" class="btn-input"></a> -->
         </div>
       </header>
       <section :class="animation">
@@ -47,6 +48,7 @@
 
 <script>
 import SectionHeader from '@/components/SectionHeader.vue'
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -54,81 +56,18 @@ export default {
   },
   data: () => {
     return {
-      id: 0,
       activeStep: 0,
       animation: 'animate-in',
       valid: false,
-      formSteps: [
-        {
-          title: "PICK YOUR CPU",
-          fields: [
-            { id: 1, label: "i5 7800K", price: "255", url: "https://brademar.com/wp-content/uploads/2022/05/Intel-Logo-PNG-2006-%E2%80%93-2020.png" },
-            { id: 2, label: "i5 7800K", price: "255", url: "https://brademar.com/wp-content/uploads/2022/05/Intel-Logo-PNG-2006-%E2%80%93-2020.png" },
-            { id: 3, label: "i5 7800K", price: "255", url: "https://brademar.com/wp-content/uploads/2022/05/Intel-Logo-PNG-2006-%E2%80%93-2020.png" },
-            { id: 4, label: "i5 7800K", price: "500", url: "https://brademar.com/wp-content/uploads/2022/05/Intel-Logo-PNG-2006-%E2%80%93-2020.png" },
-            { id: 5, label: "i5 7800K", price: "255", url: "https://brademar.com/wp-content/uploads/2022/05/Intel-Logo-PNG-2006-%E2%80%93-2020.png" },
-          ]
-        },
-        {
-          title: "PICK YOUR MAIN ",
-          fields: [
-            { label: "Z490", price: "500", url: "https://storage-asset.msi.com/event/2020/mb/z490/images/chipset-Z490-10thgen-rgb-3000.png" },
-            { label: "Z490", price: "500", url: "https://storage-asset.msi.com/event/2020/mb/z490/images/chipset-Z490-10thgen-rgb-3000.png" },
-            { label: "Z490", price: "500", url: "https://storage-asset.msi.com/event/2020/mb/z490/images/chipset-Z490-10thgen-rgb-3000.png" },
-            { label: "Z490", price: "500", url: "https://storage-asset.msi.com/event/2020/mb/z490/images/chipset-Z490-10thgen-rgb-3000.png" },
-            { label: "Z490", price: "500", url: "https://storage-asset.msi.com/event/2020/mb/z490/images/chipset-Z490-10thgen-rgb-3000.png" },
-          ]
-        },
-        {
-          title: "PICK YOUR COOLER",
-          fields: [
-            { label: "can it run?" },
-          ]
-        },
-        {
-          title: "PICK YOUR RAM",
-          fields: [
-            { label: "can it run?" },
-          ]
-        },
-        {
-          title: "PICK YOUR SSD",
-          fields: [
-            { label: "can it run?" },
-          ]
-        },
-        {
-          title: "PICK YOUR HDD",
-          fields: [
-            { label: "can it run?" },
-          ]
-        },
-        {
-          title: "PICK YOUR GPU",
-          fields: [
-            { label: "can it run?" },
-          ]
-        },
-        {
-          title: "PICK YOUR PSU",
-          fields: [
-            { label: "can it run?" },
-          ]
-        },
-        {
-          title: "PICK YOUR CASE",
-          fields: [
-            { label: "can it run?" },
-          ]
-        },
-        {
-          title: "This is your completed rig!!!",
-        }
-      ],
     }
   },
   mounted() {
-    this.checkLocalStorage()
+    // this.checkLocalStorage()
+  },
+  computed: {
+    formSteps() {
+      return this.$store.state.formSteps
+    },
   },
   methods: {
     nextStep() {
@@ -150,8 +89,8 @@ export default {
     checkFields() {
       if (this.valid) {
         this.nextStep();
-        this.updateEstimate()
-        this.formatEstimate()
+        // this.updateEstimate()
+        // this.formatEstimate()
       }
       else {
         this.animation = 'animate-wrong';
@@ -160,25 +99,21 @@ export default {
         }, 400);
       }
     },
-    formatEstimate() {
-      const estimated = localStorage.getItem('estimate').replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
-      const estimateP = document.getElementById('estimateP')
-      estimateP.innerHTML = "Estimated: $" + estimated
-    },
+    // formatEstimate() {
+    //   const estimated = localStorage.getItem('estimate').replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
+    //   const estimateP = document.getElementById('estimateP')
+    //   estimateP.innerHTML = "Estimated: $" + estimated
+    // },
     checkValid(index) {
       this.valid = true;
-      console.log(index)
-      this.id = index;
+      // this.id = index;
     },
-    updateEstimate() {
-      let oldEstimate = localStorage.getItem("estimate")
-      let intEstimate = parseInt(oldEstimate)
-      console.log(this.id)
-      console.log(this.formSteps[this.activeStep].fields[this.id].price)
-      let intNewInput = parseInt(this.formSteps[this.activeStep].fields[this.id].price)
-      let newEstimate = intEstimate += intNewInput
-      localStorage.setItem('estimate', newEstimate)
-    },
+    // updateEstimate() {
+    //   let oldEstimate = parseInt(localStorage.getItem("estimate"))
+    //   let intNewInput = parseInt(this.formSteps[this.activeStep].fields[this.id].price)
+    //   let newEstimate = oldEstimate += intNewInput
+    //   localStorage.setItem('estimate', newEstimate)
+    // },
     rotateBack() {
       const btn = document.getElementById("action-btn")
       btn.classList.add("bg-back");
@@ -187,12 +122,12 @@ export default {
       const btn = document.getElementById("action-btn")
       btn.classList.remove("bg-back");
     },
-    checkLocalStorage() {
-      let oldData = localStorage.getItem('name')
-      if (!oldData) {
-        this.$router.push({ path: '/' })
-      }
-    }
+    // checkLocalStorage() {
+    //   let oldData = localStorage.getItem('name')
+    //   if (!oldData) {
+    //     this.$router.push({ path: '/' })
+    //   }
+    // }
   }
 }
 </script>
