@@ -11,14 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_09_23_094925) do
-  create_table "admins", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_admins_on_email", unique: true
-  end
-
   create_table "details", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "type_id", null: false
     t.string "name"
@@ -33,8 +25,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_23_094925) do
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "status"
-    t.string "img"
     t.index ["type_id"], name: "index_details_on_type_id"
   end
 
@@ -63,7 +53,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_23_094925) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "operator", limit: 5
   end
 
   create_table "purposes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
