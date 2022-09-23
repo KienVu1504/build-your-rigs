@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       resources :purposes
       resources :details
       resources :types
-      get '/search', to: 'search#search'
+      get '/search', to: 'search#search'   
     end
   end
 end

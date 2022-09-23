@@ -6,7 +6,6 @@ module Api
       # GET /types
       def index
         @types = Type.all
-    
         render json: @types
       end
     
@@ -24,10 +23,10 @@ module Api
     
       # POST /types
       def create
-        @type = Type.new(type_params)
+        @type = Type.create(type_params)
     
-        if @type.save
-          render json: @type, status: :created, location: @type
+        if @type.valid?
+          render json: @type, status: :created
         else
           render json: @type.errors, status: :unprocessable_entity
         end
@@ -55,7 +54,7 @@ module Api
     
         # Only allow a list of trusted parameters through.
         def type_params
-          params.require(:type).permit(:name)
+          params.permit(:name)
         end
     end
   end
