@@ -1,12 +1,13 @@
 module Api
   module V1
     class TypesController < ApplicationController
-      before_action :authorize
+      before_action :authorize, only: %i[create update destroy]
       before_action :set_type, only: %i[show update destroy]
 
       # GET /types
       def index
         @types = Type.all
+        @users = User.paginate(page: params[:page])
         render json: @types
       end
 
