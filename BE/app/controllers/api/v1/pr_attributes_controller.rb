@@ -1,24 +1,24 @@
 module Api
   module V1
-    class DetailsController < ApplicationController
+    class PrAttributesController < ApplicationController
       before_action :authorize, only: %i[create update destroy]
       before_action :set_detail, only: %i[show update destroy]
 
       # GET /details
       def index
-        @details = Detail.all
+        @details = PrAttribute.all
 
         render json: @details, each_serializer: nil
       end
 
       # GET /details/1
       def show
-        render json: @detail, each_serializer: nil
+        render json: @detail#, each_serializer: nil
       end
 
       # POST /details
       def create
-        @detail = Detail.new(detail_params)
+        @detail = PrAttribute.new(detail_params)
 
         if @detail.save
           render json: @detail, status: :created
@@ -45,12 +45,12 @@ module Api
 
       # Use callbacks to share common setup or constraints between actions.
       def set_detail
-        @detail = Detail.find(params[:id])
+        @detail = PrAttribute.find(params[:id])
       end
 
       # Only allow a list of trusted parameters through.
       def detail_params
-        params.require(:detail).permit(:type_id, :name, :socket, :dimm, :ssd, :hdd, :form, :size, :capacity,
+        params.permit(:product_id, :name, :socket, :dimm, :ssd, :hdd, :form, :size, :capacity,
                                        :wattage, :price, :img, :status)
       end
     end

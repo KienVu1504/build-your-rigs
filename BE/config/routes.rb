@@ -4,8 +4,8 @@ Rails.application.routes.draw do
       resources :pre_builds
       resources :price_ranges
       resources :purposes
-      resources :details
-      resources :types
+      resources :pr_attributes
+      resources :products
       get '/search', to: 'search#search'
       resources :users, only: %i[show create index]
       post '/login', to: 'sessions#login'
