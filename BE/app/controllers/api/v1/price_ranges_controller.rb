@@ -1,7 +1,8 @@
 module Api
   module V1
     class PriceRangesController < ApplicationController
-      before_action :authorize
+      before_action :authorize, only: %i[create update destroy]
+
       before_action :set_price_range, only: %i[show update destroy]
 
       # GET /price_ranges

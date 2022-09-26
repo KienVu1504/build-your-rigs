@@ -1,7 +1,7 @@
 module Api
   module V1
     class PreBuildsController < ApplicationController
-      before_action :authorize
+      before_action :authorize, only: %i[create update destroy]
       before_action :set_pre_build, only: %i[show update destroy]
 
       # GET /pre_builds

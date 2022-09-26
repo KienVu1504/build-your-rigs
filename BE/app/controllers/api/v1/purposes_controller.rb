@@ -1,7 +1,8 @@
 module Api
   module V1
     class PurposesController < ApplicationController
-      before_action :authorize
+      before_action :authorize, only: %i[create update destroy]
+
       before_action :set_purpose, only: %i[show update destroy]
 
       # GET /purposes
