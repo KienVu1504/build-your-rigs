@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_23_094925) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_26_071459) do
+  create_table "attributes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.string "name"
+    t.string "socket"
+    t.string "dimm"
+    t.string "ssd"
+    t.string "hdd"
+    t.string "form"
+    t.integer "size"
+    t.integer "capacity"
+    t.integer "price"
+    t.boolean "status"
+    t.string "img"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_attributes_on_product_id"
+  end
+
   create_table "details", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "type_id", null: false
     t.string "name"
@@ -25,6 +43,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_23_094925) do
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "img"
+    t.boolean "status"
     t.index ["type_id"], name: "index_details_on_type_id"
   end
 
@@ -55,6 +75,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_23_094925) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "products", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "purposes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.boolean "status"
@@ -75,6 +101,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_23_094925) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "attributes", "products"
   add_foreign_key "details", "types"
   add_foreign_key "pre_builds", "price_ranges"
   add_foreign_key "pre_builds", "purposes"

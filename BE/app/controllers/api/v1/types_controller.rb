@@ -8,7 +8,7 @@ module Api
       def index
         @types = Type.all
         @users = User.paginate(page: params[:page])
-        render json: @types
+        render json: @types, each_serializer: nil
       end
 
       # GET /types/1
@@ -19,7 +19,8 @@ module Api
         # render json: Type.find_by(id: params[:id]), serializer: TypeSerializer
 
         #  type = Type.find_by(id: params[:id])
-        render json: @type # serializer: TypeSerializer
+
+        render json: @type, each_serializer: nil
       end
 
       # POST /types
