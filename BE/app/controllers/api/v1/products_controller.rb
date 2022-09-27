@@ -6,8 +6,8 @@ module Api
 
       # GET /product
       def index
-        # @product = Product.all
-        @users = Product.paginate(page: params[:page])
+        @product = Product.all
+        # @users = Product.paginate(page: params[:page])
         render json: @product, each_serializer: ProductSerializer
       end
 
