@@ -5,5 +5,4 @@ class ProductSerializer < ActiveModel::Serializer
   # end
 
   has_many :pr_attributes
-
 end

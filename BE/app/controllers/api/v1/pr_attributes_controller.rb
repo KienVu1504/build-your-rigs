@@ -2,54 +2,54 @@ module Api
   module V1
     class PrAttributesController < ApplicationController
       before_action :authorize, only: %i[create update destroy]
-      before_action :set_detail, only: %i[show update destroy]
+      before_action :set_product_att, only: %i[show update destroy]
 
-      # GET /details
+      # GET /product_att
       def index
-        @details = PrAttribute.all
+        @product_att = PrAttribute.all
 
-        render json: @details, each_serializer: nil
+        render json: @product_att, each_serializer: nil
       end
 
-      # GET /details/1
+      # GET /product_att/1
       def show
-        render json: @detail#, each_serializer: nil
+        render json: @product_att, each_serializer: PrAttributeSerializer
       end
 
-      # POST /details
+      # POST /product_att
       def create
-        @detail = PrAttribute.new(detail_params)
+        @product_att = PrAttribute.new(product_att_params)
 
-        if @detail.save
-          render json: @detail, status: :created
+        if @product_att.save
+          render json: @product_att, status: :created
         else
-          render json: @detail.errors, status: :unprocessable_entity
+          render json: @product_att.errors, status: :unprocessable_entity
         end
       end
 
-      # PATCH/PUT /details/1
+      # PATCH/PUT /product_att/1
       def update
-        if @detail.update(detail_params)
-          render json: @detail
+        if @product_att.update(product_att_params)
+          render json: @product_att
         else
-          render json: @detail.errors, status: :unprocessable_entity
+          render json: @product_att.errors, status: :unprocessable_entity
         end
       end
 
-      # DELETE /details/1
+      # DELETE /product_att/1
       def destroy
-        @detail.destroy
+        @product_att.destroy
       end
 
       private
 
       # Use callbacks to share common setup or constraints between actions.
-      def set_detail
-        @detail = PrAttribute.find(params[:id])
+      def set_product_att
+        @product_att = PrAttribute.find(params[:id])
       end
 
       # Only allow a list of trusted parameters through.
-      def detail_params
+      def product_att_params
         params.permit(:product_id, :name, :socket, :dimm, :ssd, :hdd, :form, :size, :capacity,
                                        :wattage, :price, :img, :status)
       end
