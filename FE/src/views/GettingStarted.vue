@@ -77,7 +77,7 @@ export default {
       const name = document.getElementById('username').value;
       const cih = document.getElementById('cih').value;
       this.$store.commit("getName", name);
-      this.$store.commit("getCih", cih);
+      this.$store.commit("getCih", parseInt(cih));
     },
     checkForm: function (e) {
       const name = document.getElementById('username').value;

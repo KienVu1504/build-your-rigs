@@ -20,7 +20,7 @@
         <SectionHeader></SectionHeader>
         <div class="separator"></div>
         <div class="input-fields">
-          <input type="radio" name="userChoice" id="checkClone" style="display:none" checked>
+          <input type="radio" name="userChoice" id="checkClone" @click="checkValid(index)" style="display:none" checked>
 
           <!-- <div class="tile" v-for="(field, index) in formSteps[activeStep].pr_attributes" :key="'field'+index">
             <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice" class="tile-input">
@@ -79,7 +79,7 @@ export default {
     } catch (err) {
       console.log(err);
     }
-    this.checkLocalStorage()
+    // this.checkLocalStorage()
   },
   computed: {
     formSteps() {
