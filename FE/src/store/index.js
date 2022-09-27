@@ -117,7 +117,6 @@ export default new Vuex.Store({
   mutations: {
     getData(state, newData) {
       state.formSteps = newData
-      console.log(state.formSteps)
     }
   },
   actions: {

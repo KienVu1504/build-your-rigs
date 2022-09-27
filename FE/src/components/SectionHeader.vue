@@ -34,6 +34,6 @@ export default {
         //     const estimateP = document.getElementById('wattageP')
         //     estimateP.innerHTML = "Estimated Wattage: " + estimated + "W"
         // }
-    }
-}
+    },
+};
 </script>
