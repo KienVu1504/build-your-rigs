@@ -15,7 +15,7 @@
       </header>
       <section :class="animation">
         <div class="section-header">
-          <p class="section-title">{{ formSteps[activeStep].title }}</p>
+          <p class="section-title">{{ formSteps[activeStep].name }}</p>
         </div>
         <SectionHeader></SectionHeader>
         <div class="separator"></div>
@@ -48,7 +48,7 @@
 
 <script>
 import SectionHeader from '@/components/SectionHeader.vue'
-import { mapActions, mapGetters } from 'vuex';
+import axios from "axios";
 
 export default {
   components: {
@@ -56,14 +56,29 @@ export default {
   },
   data: () => {
     return {
+      dataFormSteps: null,
       activeStep: 0,
       animation: 'animate-in',
       valid: false,
     }
   },
-  mounted() {
-    // this.checkLocalStorage()
+  async mounted() {
+    const config = {
+      method: "GET",
+      url: "http://localhost:3000/api/v1/types",
+    };
+
+    try {
+      let res = await axios(config);
+      this.dataFormSteps = res.data;
+      this.$store.commit("getData", this.dataFormSteps);
+    } catch (err) {
+      console.log(err);
+    }
   },
+  // mounted() {
+  //   // this.checkLocalStorage()
+  // },
   computed: {
     formSteps() {
       return this.$store.state.formSteps
