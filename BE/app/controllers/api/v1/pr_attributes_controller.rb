@@ -6,7 +6,8 @@ module Api
 
       # GET /product_att
       def index
-        @product_att = PrAttribute.all
+        # @product_att = PrAttribute.all
+        @product_att = PrAttribute.paginate(page: params[:page], per_page: 50)
 
         render json: @product_att, each_serializer: nil
       end
