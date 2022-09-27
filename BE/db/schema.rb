@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_26_092729) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_26_080556) do
   create_table "pr_attributes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "product_id", null: false
+    t.bigint "type_id", null: false
     t.string "name"
     t.string "socket"
     t.string "dimm"
@@ -25,9 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_26_092729) do
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "img"
-    t.boolean "status", default: true
-    t.index ["product_id"], name: "index_pr_attributes_on_type_id"
+    t.index ["type_id"], name: "index_pr_attributes_on_type_id"
   end
 
   create_table "pre_builds", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -77,7 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_26_092729) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "pr_attributes", "products"
+  add_foreign_key "pr_attributes", "products", column: "type_id"
   add_foreign_key "pre_builds", "price_ranges"
   add_foreign_key "pre_builds", "purposes"
 end
