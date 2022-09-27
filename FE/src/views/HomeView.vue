@@ -20,20 +20,20 @@
         <SectionHeader></SectionHeader>
         <div class="separator"></div>
         <div class="input-fields">
-          <input type="radio" name="userChoice" id="checkClone" @click="checkValid(index)" style="display:none" checked>
+          <input type="radio" name="userChoice" id="checkClone" style="display:none" checked>
 
-          <div class="tile" v-for="(field, index) in formSteps[activeStep].fields" :key="'field'+index">
+          <!-- <div class="tile" v-for="(field, index) in formSteps[activeStep].pr_attributes" :key="'field'+index">
             <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice" class="tile-input">
             <label for="userChoice" class="tile-label">
               <div class="tile-wrapper">
                 <div class="item-img-wrapper">
                   <img :src="field.url" alt="" class="item-img">
                 </div>
-                <h5 class="tile-name">{{ field.label }}</h5>
+                <h5 class="tile-name">{{ pr_attributes.label }}</h5>
                 <h6 class="tile-price" id="tile-priceH">${{ field.price }}</h6>
               </div>
             </label>
-          </div>
+          </div> -->
         </div>
         <div class="actions">
           <router-link :to="{name: 'build-guide'}" tag="button" @mouseleave.native="rotateBackGuide"
@@ -71,18 +71,16 @@ export default {
       method: "GET",
       url: "http://localhost:3000/api/v1/products",
     };
-
     try {
       let res = await axios(config);
       this.dataFormSteps = res.data;
+      console.log(this.dataFormSteps);
       this.$store.commit("getData", this.dataFormSteps);
     } catch (err) {
       console.log(err);
     }
+    this.checkLocalStorage()
   },
-  // mounted() {
-  //   // this.checkLocalStorage()
-  // },
   computed: {
     formSteps() {
       return this.$store.state.formSteps
@@ -108,8 +106,6 @@ export default {
     checkFields() {
       if (this.valid) {
         this.nextStep();
-        // this.updateEstimate()
-        // this.formatEstimate()
       }
       else {
         this.animation = 'animate-wrong';
@@ -118,21 +114,9 @@ export default {
         }, 400);
       }
     },
-    // formatEstimate() {
-    //   const estimated = localStorage.getItem('estimate').replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
-    //   const estimateP = document.getElementById('estimateP')
-    //   estimateP.innerHTML = "Estimated: $" + estimated
-    // },
     checkValid(index) {
       this.valid = true;
-      // this.id = index;
     },
-    // updateEstimate() {
-    //   let oldEstimate = parseInt(localStorage.getItem("estimate"))
-    //   let intNewInput = parseInt(this.formSteps[this.activeStep].fields[this.id].price)
-    //   let newEstimate = oldEstimate += intNewInput
-    //   localStorage.setItem('estimate', newEstimate)
-    // },
     rotateBack() {
       const btn = document.getElementById("action-btn")
       btn.classList.add("bg-back");
@@ -157,12 +141,12 @@ export default {
       const btn = document.getElementById("action-guide")
       btn.classList.remove("bg-back");
     },
-    // checkLocalStorage() {
-    //   let oldData = localStorage.getItem('name')
-    //   if (!oldData) {
-    //     this.$router.push({ path: '/' })
-    //   }
-    // }
+    checkLocalStorage() {
+      let oldData = this.$store.state.cih
+      if (oldData == 0 || oldData == null || oldData.length == 0) {
+        this.$router.push({ path: '/' })
+      }
+    }
   }
 }
 </script>

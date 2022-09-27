@@ -44,7 +44,6 @@ export default {
     }
   },
   mounted() {
-    // this.clearLS()
   },
   methods: {
     mousemove(event) {
@@ -71,20 +70,15 @@ export default {
       box.style.transform = `rotateX(0deg) rotateY(0deg)`
     },
     redirect() {
-      // this.saveToLS()
+      this.saveToLS()
       this.$router.push({ path: '/home' })
     },
-    // clearLS() {
-    //   localStorage.setItem('estimate', 0)
-    // },
-    // saveToLS() {
-    //   const name = document.getElementById('username').value;
-    //   const cih = document.getElementById('cih').value;
-    //   localStorage.setItem('name', name)
-    //   localStorage.setItem('cih', cih)
-    //   localStorage.setItem('estimate', 0)
-    //   localStorage.setItem('wattage', 0)
-    // },
+    saveToLS() {
+      const name = document.getElementById('username').value;
+      const cih = document.getElementById('cih').value;
+      this.$store.commit("getName", name);
+      this.$store.commit("getCih", cih);
+    },
     checkForm: function (e) {
       const name = document.getElementById('username').value;
       const cih = document.getElementById('cih').value;
