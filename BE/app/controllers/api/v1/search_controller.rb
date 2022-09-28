@@ -4,7 +4,7 @@ module Api
       # Custom search serializer
 
       def search
-        @q = Detail.ransack(params[:q])
+        @q = PrAttribute.ransack(params[:q])
         # @p = Detail.ransach(params[:p])
         @s_name = @q.result # && @p.result
         render json: @s_name, each_serializer: nil
