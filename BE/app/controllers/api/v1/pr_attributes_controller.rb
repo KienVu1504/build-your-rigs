@@ -20,7 +20,7 @@ module Api
       # POST /product_att
       def create
         @product_att = PrAttribute.new(product_att_params)
-
+        @product_att.image.attach(params[:pr_attribute][:image])
         if @product_att.save
           render json: @product_att, status: :created
         else
@@ -52,7 +52,7 @@ module Api
       # Only allow a list of trusted parameters through.
       def product_att_params
         params.permit(:product_id, :name, :socket, :dimm, :ssd, :hdd, :form, :size, :capacity,
-                                       :wattage, :price, :img, :status)
+                      :wattage, :price, :image, :status)
       end
     end
   end
