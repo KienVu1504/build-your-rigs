@@ -15,26 +15,29 @@
       </header>
       <section :class="animation">
         <div class="section-header">
-          <p class="section-title">{{ formSteps[activeStep].name }}</p>
+          <p class="section-title">{{ formSteps[activeStep]?.name }}</p>
         </div>
         <SectionHeader></SectionHeader>
         <div class="separator"></div>
         <div class="input-fields">
           <input type="radio" name="userChoice" id="checkClone" @click="checkValid(index)" style="display:none" checked>
 
-          <!-- <div class="tile" v-for="(field, index) in formSteps[activeStep].pr_attributes" :key="'field'+index">
-            <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice" class="tile-input">
-            <label for="userChoice" class="tile-label">
-              <div class="tile-wrapper">
-                <div class="item-img-wrapper">
-                  <img :src="field.url" alt="" class="item-img">
+          <div class="input-fields-wrapper" v-if="activeStep == 0">
+            <div class="tile" v-for="(pr_attribute, index) in cpu" :key="'pr_attribute'+index">
+              <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice" class="tile-input">
+              <label for="userChoice" class="tile-label">
+                <div class="tile-wrapper">
+                  <div class="item-img-wrapper">
+                    <img :src="`/assets/images/products/` + pr_attribute.img" alt="" class="item-img">
+                  </div>
+                  <h5 class="tile-name">{{ pr_attribute.name }}</h5>
+                  <h6 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h6>
                 </div>
-                <h5 class="tile-name">{{ pr_attributes.label }}</h5>
-                <h6 class="tile-price" id="tile-priceH">${{ field.price }}</h6>
-              </div>
-            </label>
-          </div> -->
+              </label>
+            </div>
+          </div>
         </div>
+
         <div class="actions">
           <router-link :to="{name: 'build-guide'}" tag="button" @mouseleave.native="rotateBackGuide"
             @mouseenter.native="resetBgGuide" id="action-guide">Build Guides</router-link>
@@ -52,7 +55,7 @@
 
 <script>
 import SectionHeader from '@/components/SectionHeader.vue'
-import axios from "axios";
+import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -66,27 +69,29 @@ export default {
       valid: false,
     }
   },
-  async mounted() {
-    const config = {
-      method: "GET",
-      url: "http://localhost:3000/api/v1/products",
-    };
-    try {
-      let res = await axios(config);
-      this.dataFormSteps = res.data;
-      console.log(this.dataFormSteps);
-      this.$store.commit("getData", this.dataFormSteps);
-    } catch (err) {
-      console.log(err);
-    }
-    // this.checkLocalStorage()
-  },
   computed: {
     formSteps() {
       return this.$store.state.formSteps
     },
+    cpu() {
+      return this.$store.state.cpu
+    },
+    main() {
+      return this.$store.state.main
+    }
   },
+  async mounted() {
+    await this.fetchSteps();
+    if (this.activeStep == 0) {
+      this.fetchCpus();
+    }
+  },
+
   methods: {
+    ...mapActions([
+      'fetchSteps',
+      'fetchCpus'
+    ]),
     nextStep() {
       this.clearForm()
       this.animation = 'animate-out';
