@@ -78,6 +78,7 @@ export default {
       const cih = document.getElementById('cih').value;
       this.$store.commit("setName", name);
       this.$store.commit("setCih", parseInt(cih));
+      this.$store.commit("resetStep")
     },
     checkForm: function (e) {
       const name = document.getElementById('username').value;

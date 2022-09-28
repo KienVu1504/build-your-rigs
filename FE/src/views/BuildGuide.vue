@@ -463,15 +463,11 @@
 <script>
 export default {
     name: "BuildGuide",
-
     data() {
         return {
             animation: "animate-in",
         };
     },
-
-    mounted() { },
-
     methods: {
         rotateBackRouter() {
             const btn = document.getElementById("action-router");

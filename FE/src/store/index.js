@@ -15,7 +15,10 @@ export default new Vuex.Store({
     cih: 0,
     activeStep: 0,
     cpu: [],
-    main: []
+    main: [],
+    valid: false,
+    animation: 'animate-in',
+    token: "45874945894gjfsjgkndjk"
   },
   getters: {
   },
@@ -32,11 +35,23 @@ export default new Vuex.Store({
     setCPUData(state, newData) {
       state.cpu = newData
     },
+    setAnimate(state, newAnimate){
+      state.animation = newAnimate
+    },
     setName(state, newName) {
       state.name = newName
     },
     setCih(state, newCih) {
       state.cih = newCih
+    },
+    setStep(state) {
+      state.activeStep += 1
+    },
+    resetStep(state) {
+      state.activeStep = 0
+    },
+    setValid(state) {
+      state.valid = !state.valid
     }
   },
   actions: {
