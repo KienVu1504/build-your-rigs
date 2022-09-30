@@ -32,6 +32,8 @@
 <script>
 import SectionHeader from '@/components/SectionHeader.vue'
 import ActionButton from '@/components/ActionButton.vue'
+// import { createNamespacedHelpers } from "vuex";
+// const { mapActions } = createNamespacedHelpers("formSteps");
 import { mapActions } from 'vuex'
 
 export default {
@@ -77,12 +79,12 @@ export default {
         checkValid(index) {
             this.$store.commit("setValid")
         },
-        checkLocalStorage() {
-            let oldData = this.$store.state.cih
-            if (oldData == 0 || oldData == null || oldData.length == 0) {
-                this.$router.push({ path: '/' })
-            }
-        }
+        // checkLocalStorage() {
+        //     let oldData = this.$store.state.cih
+        //     if (oldData == 0 || oldData == null || oldData.length == 0) {
+        //         this.$router.push({ path: '/' })
+        //     }
+        // }
     }
 }
 </script>

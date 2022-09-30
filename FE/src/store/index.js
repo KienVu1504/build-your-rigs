@@ -2,40 +2,39 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from "../plugins/axios";
 import qs from "qs"
+import formSteps from "./formSteps"
+import products from "./products"
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex)
 
+const dataState = createPersistedState({
+  paths: ['token']
+})
+
 export default new Vuex.Store({
+  namespace: true,
   strict: true,
   state: {
-    formSteps: [],
     estimated: 0,
     name: '',
     wattage: 0,
-    cih: 0,
-    activeStep: 0,
     cpu: [],
-    main: [],
+    cih: 0,
+    formSteps: [],
     valid: false,
+    activeStep: 0,
+    main: [],
     animation: 'animate-in',
-    token: "45874945894gjfsjgkndjk"
+    token: ""
   },
   getters: {
   },
   mutations: {
-    setFormSteps(state, newData) {
-      state.formSteps = newData.map(item => {
-        return {
-          id: item.id,
-          name: item.name,
-        }
-      })
-      // state.formSteps = newData
-    },
     setCPUData(state, newData) {
       state.cpu = newData
     },
-    setAnimate(state, newAnimate){
+    setAnimate(state, newAnimate) {
       state.animation = newAnimate
     },
     setName(state, newName) {
@@ -44,14 +43,28 @@ export default new Vuex.Store({
     setCih(state, newCih) {
       state.cih = newCih
     },
-    setStep(state) {
-      state.activeStep += 1
+    setFormSteps(state, newData) {
+      state.formSteps = newData.map(item => {
+        return {
+          id: item.id,
+          name: item.name,
+        }
+      })
     },
     resetStep(state) {
       state.activeStep = 0
     },
     setValid(state) {
       state.valid = !state.valid
+    },
+    setStep(state) {
+      state.activeStep += 1
+    },
+    setToken(state, newToken) {
+      state.token = newToken
+    },
+    clearToken(state) {
+      state.token = ''
     }
   },
   actions: {
@@ -68,7 +81,7 @@ export default new Vuex.Store({
       })
     },
     async fetchCpus({ commit }) {
-      const cpusQuerry = {
+      const cpusQuery = {
         method: "GET",
         url: "search",
         params: {
@@ -81,7 +94,7 @@ export default new Vuex.Store({
           return qs.stringify(params)
         }
       }
-      await axios(cpusQuerry).then(res => {
+      await axios(cpusQuery).then(res => {
         this.dataCPU = res.data;
         commit("setCPUData", this.dataCPU);
       }).catch(err => {
@@ -90,5 +103,8 @@ export default new Vuex.Store({
     },
   },
   modules: {
-  }
+    // products,
+    // formSteps
+  },
+  plugins: [dataState]
 })

@@ -24,6 +24,30 @@ const routes = [
     path: '/guide',
     name: 'build-guide',
     component: () => import('../views/BuildGuide.vue')
+  },
+  {
+    path: '/admin/',
+    name: 'admin-panel',
+    component: () => import('../views/Admin.vue'),
+    children: [
+      {
+        path: 'login',
+        name: 'login',
+        component: () => import('../components/admin/login.vue')
+      },
+      {
+        path: '',
+        name: 'control-panel',
+        component: () => import('../components/admin/controlPanel.vue'),
+        children: [
+          {
+            path: '',
+            name: '',
+            // component: () => import('../components/admin/')
+          },
+        ]
+      }
+    ]
   }
 ]
 
