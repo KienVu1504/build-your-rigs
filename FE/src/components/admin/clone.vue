@@ -1,25 +1,25 @@
 <template>
     <div>
-
+        
     </div>
 </template>
 
 <script>
 export default {
+    name: 'BuildYourRigsClone',
+
     data() {
         return {
-
+            
         };
     },
 
     mounted() {
-
+        
     },
 
     methods: {
-        logout() {
-            this.$store.commit("clearToken");
-        }
+        
     },
 };
 </script>

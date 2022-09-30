@@ -21,4 +21,5 @@ export default {
 
 <style scoped>
 @import url('https://use.fontawesome.com/releases/v5.8.2/css/all.css');
+@import "@/assets/styles/rs.css";
 </style>

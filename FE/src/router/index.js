@@ -42,8 +42,8 @@ const routes = [
         children: [
           {
             path: '',
-            name: '',
-            // component: () => import('../components/admin/')
+            // name: 'clone-home',
+            // component: () => import('../components/admin/clone.vue')
           },
         ]
       }

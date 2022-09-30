@@ -8,7 +8,7 @@ export default {
         checkToken: {
             const token = this.$store.state.token
             if (token.length == 0 || token == null || token == '') {
-                this.$router.push({ path: "/admin/login" }).catch(()=>{});
+                this.$router.push({ path: "/admin/login" }).catch(() => { });
             }
         }
     }

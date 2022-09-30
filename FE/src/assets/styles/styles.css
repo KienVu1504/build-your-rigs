@@ -34,7 +34,6 @@ body {
   perspective: 1000px;
   background-repeat: no-repeat;
   background-image: linear-gradient(90deg, #00efe4 0, #ff008b 100%);
-  overflow: hidden;
 }
 
 .input-container {
@@ -525,6 +524,10 @@ article section .actions button:hover {
   margin-top: 5px;
   font-weight: bold;
   /* word-break: break-all; */
+}
+
+.page-top{
+  display: flex !important;
 }
 
 @keyframes in {

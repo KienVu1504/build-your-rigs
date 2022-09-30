@@ -1,12 +1,13 @@
 <template>
-    <div>
+    <div id="gist" class="page-top">
         <Sidenav></Sidenav>
         <router-view></router-view>
     </div>
 </template>
 
 <script>
-import Sidenav from './sidenav.vue';
+import HeaderComp from './header.vue';
+
 export default {
     data() {
         return {};
@@ -14,10 +15,13 @@ export default {
     mounted() {
     },
     methods: {},
-    components: { Sidenav }
+    components: { 
+        HeaderComp,
+        
+    }
 };
 </script>
-
-<style lang="scss" scoped>
+"
+<style scoped>
 
 </style>
