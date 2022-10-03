@@ -17,7 +17,6 @@ module Api
         # render json: { type: @type, details: @type.details.select(:name)}
         # render json: { type: @type, details: @type.details }
         # render json: Type.find_by(id: params[:id]), serializer: TypeSerializer
-
         #  type = Type.find_by(id: params[:id])
         @product = Product.find(params[:id])
         render json: @product, each_serializer: nil
