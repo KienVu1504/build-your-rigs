@@ -1,12 +1,14 @@
 <template>
-    <div id="gist" class="page-top">
-        <Sidenav></Sidenav>
-        <router-view></router-view>
+    <div id="gist" class="page-top view-container">
+        <article>
+            <Sidenav></Sidenav>
+            <router-view></router-view>
+        </article>
     </div>
 </template>
 
 <script>
-import HeaderComp from './header.vue';
+import Sidenav from './sideNav.vue';
 
 export default {
     data() {
@@ -15,13 +17,14 @@ export default {
     mounted() {
     },
     methods: {},
-    components: { 
-        HeaderComp,
-        
+    components: {
+        Sidenav
     }
 };
 </script>
 "
 <style scoped>
-
+article section {
+    width: 86%;
+}
 </style>

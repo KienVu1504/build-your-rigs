@@ -26,12 +26,17 @@
             </div>
         </div>
         <ActionButton></ActionButton>
+        <!-- <paginate :page-count="20" :page-range="3" :margin-pages="2" :click-handler="clickCallback" :prev-text="'Prev'"
+            :next-text="'Next'" :container-class="'pagination'" :page-class="'page-item'">
+        </paginate> -->
     </section>
 </template>
 
 <script>
 import SectionHeader from '@/components/SectionHeader.vue'
 import ActionButton from '@/components/ActionButton.vue'
+// var Paginate = require('vuejs-paginate')
+// Vue.component('paginate', Paginate)
 // import { createNamespacedHelpers } from "vuex";
 // const { mapActions } = createNamespacedHelpers("formSteps");
 import { mapActions } from 'vuex'

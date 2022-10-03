@@ -436,15 +436,18 @@ article section .actions button:hover {
   animation: wrong 0.4s ease-in-out;
 }
 
-.header-action a {
+.header-action a,
+.header-action div {
   display: block;
   text-decoration: none;
   color: #ff008b;
   transition: 0.2s all ease-in-out;
 }
 
-.header-action a:hover {
+.header-action a:hover,
+.header-action div:hover {
   transform: scale(1.2);
+  cursor: pointer;
 }
 
 .item-img {
@@ -526,8 +529,9 @@ article section .actions button:hover {
   /* word-break: break-all; */
 }
 
-.page-top{
-  display: flex !important;
+.page-top {
+  /* display: flex !important; */
+  width: -webkit-fill-available;
 }
 
 @keyframes in {

@@ -64,6 +64,7 @@ export default new Vuex.Store({
       state.token = newToken
     },
     clearToken(state) {
+      console.log('1111111')
       state.token = ''
     }
   },
