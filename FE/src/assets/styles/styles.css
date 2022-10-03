@@ -34,7 +34,6 @@ body {
   perspective: 1000px;
   background-repeat: no-repeat;
   background-image: linear-gradient(90deg, #00efe4 0, #ff008b 100%);
-  overflow: hidden;
 }
 
 .input-container {
@@ -324,13 +323,19 @@ article section p {
 }
 
 article section .input-fields {
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex;
+  flex-wrap: wrap; */
   position: absolute;
   top: 5rem;
   overflow-y: auto;
   height: -webkit-fill-available;
+  width: -webkit-fill-available;
   padding-right: 5px;
+}
+
+.input-fields-wrapper {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 article section .input-container {
@@ -443,13 +448,13 @@ article section .actions button:hover {
 }
 
 .item-img {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
 }
 
 .tile {
-  width: 170px;
-  height: 200px;
+  width: 260px;
+  height: 300px;
   margin: 10px;
   border-radius: 20px;
   position: relative;
@@ -507,8 +512,8 @@ article section .actions button:hover {
 }
 
 .item-img-wrapper {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -518,7 +523,11 @@ article section .actions button:hover {
 .tile-name {
   margin-top: 5px;
   font-weight: bold;
-  word-break: break-all;
+  /* word-break: break-all; */
+}
+
+.page-top{
+  display: flex !important;
 }
 
 @keyframes in {

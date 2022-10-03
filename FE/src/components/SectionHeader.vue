@@ -15,12 +15,13 @@ export default {
     },
     methods: {
         getLSUserCIH() {
-            const cih = this.$store.state.cih.replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
+            const cihInt = this.$store.state.cih
+            const cih = cihInt.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
             const cihP = document.getElementById('cihP')
             cihP.innerHTML = "Your CIH: $" + cih
         },
         formatEstimate() {
-            const estimated = this.$store.state.estimated.replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
+            const estimated = this.$store.state.estimated.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
             const estimateP = document.getElementById('estimateP')
             estimateP.innerHTML = "Estimated: $" + estimated
         },

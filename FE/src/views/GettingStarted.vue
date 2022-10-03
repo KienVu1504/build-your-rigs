@@ -76,8 +76,9 @@ export default {
     saveToLS() {
       const name = document.getElementById('username').value;
       const cih = document.getElementById('cih').value;
-      this.$store.commit("getName", name);
-      this.$store.commit("getCih", parseInt(cih));
+      this.$store.commit("setName", name);
+      this.$store.commit("setCih", parseInt(cih));
+      this.$store.commit("resetStep")
     },
     checkForm: function (e) {
       const name = document.getElementById('username').value;
