@@ -42,9 +42,14 @@ const routes = [
         children: [
           {
             path: '',
-            // name: 'clone-home',
-            // component: () => import('../components/admin/clone.vue')
+            name: 'dashboard',
+            component: () => import('../components/admin/dashboard.vue')
           },
+          {
+            path: 'profile',
+            name: 'profile',
+            component: () => import('../components/admin/profile.vue')
+          }
         ]
       }
     ]
