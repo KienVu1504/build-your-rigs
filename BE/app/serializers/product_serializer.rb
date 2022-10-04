@@ -6,5 +6,5 @@ class ProductSerializer < ActiveModel::Serializer
   def count
     object.pr_attributes.count
   end
-  has_many :pr_attributes
+  # has_many :pr_attributes
 end

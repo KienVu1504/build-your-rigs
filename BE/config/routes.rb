@@ -6,7 +6,9 @@ Rails.application.routes.draw do
       resources :purposes
       resources :pr_attributes
       resources :products
-      get '/search', to: 'search#search'
+      get '/search_pr', to: 'search#search_pr'
+      get '/search_pre', to: 'search#search_pre'
+
       resources :users, only: %i[show create index]
       post '/login', to: 'sessions#login'
     end

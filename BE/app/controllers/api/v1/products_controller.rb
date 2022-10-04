@@ -25,6 +25,7 @@ module Api
       # POST /types
       def create
         @product = Product.create(product_params)
+        @product_att.image.attach(params[:product][:image])
 
         if @product.valid?
           render json: @product, status: :created
@@ -56,7 +57,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def product_params
-        params.permit(:name)
+        params.permit(:name, :image)
       end
     end
   end

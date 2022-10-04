@@ -7,8 +7,7 @@ module Api
       # GET /pre_builds
       def index
         @pre_builds = PreBuild.all
-
-        render json: {count: @pre_builds.count, pre_builds: @pre_builds }
+        render json: {count: @pre_builds.count }
       end
 
       # GET /pre_builds/1
