@@ -28,7 +28,8 @@ module Api
         if @user.update(user_params)
           render json: { user: @user }, status: :ok
         else
-          render json: { message: ' Update false' }, status: 422
+          render json: { message: '
+            password is not in the correct format', errors: @user.errors.full_messages }, status: 422
         end
       end
 

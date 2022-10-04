@@ -1,35 +1,16 @@
 class User < ApplicationRecord
   has_secure_password
+  PASSWORD_FORMAT = /\A
+  (?=.{8,})          # Must contain 8 or more characters
+  (?=.*\d)           # Must contain a digit
+  (?=.*[a-z])        # Must contain a lower case character
+  (?=.*[A-Z])        # Must contain an upper case character
+  (?=.*[[:^alnum:]]) # Must contain a symbol
+/x
+
   validates :email, presence: true, uniqueness: true
-  validate :password_lower_case
-  validate :password_uppercase
-  validate :password_special_char
-  validate :password_contains_number
-  validates :password, length: { minimum: 7 }
+  validates :password, length: { minimum: 7 },
+                       format: { with: PASSWORD_FORMAT }
+  # validate :password_validate, if: -> { password.present? }
 
-  #custom validate
-  def password_uppercase
-    return if !!password.match(/\p{Upper}/)
-
-    errors.add :password, ' must contain at least 1 uppercase '
-  end
-
-  def password_lower_case
-    return if !!password.match(/\p{Lower}/)
-
-    errors.add :password, ' must contain at least 1 lowercase '
-  end
-
-  def password_special_char
-    special = "?<>',?[]}{=-)(*&^%$#`~{}!"
-    regex = /[#{special.gsub(/./) { |char| "\\#{char}" }}]/
-    return if password =~ regex
-
-    errors.add :password, ' must contain special character'
-  end
-
-  def password_contains_number
-    return if password.count('0-9') > 0
-    errors.add :password, ' must contain at least one number'
-  end
 end
