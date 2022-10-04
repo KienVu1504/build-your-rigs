@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       get '/search_pr', to: 'search#search_pr'
       get '/search_pre', to: 'search#search_pre'
 
-      resources :users, only: %i[show create index]
+      resources :users
       post '/login', to: 'sessions#login'
     end
   end
