@@ -37,7 +37,7 @@ module Api
 
       def selected
         @cpu = '', @main = '', @psu = '', @cooler = '', @ssd = '', @ram = '', @gpu = '', @hdd = '', @case = ''
-        @selected = PrAttribute.where('pr_attributes.id' => @case)
+        @selected = PrAttribute.where('pr_attributes.id' => params[:case])
                                .or(PrAttribute.where('pr_attributes.id' => params[:cpu]))
                                .or(PrAttribute.where('pr_attributes.id' => params[:main]))
                                .or(PrAttribute.where('pr_attributes.id' => params[:psu]))
