@@ -44,7 +44,7 @@ module Api
       end
 
       def product_params
-        params.permit(:name, :image)
+        params.permit(:name, :img)
       end
     end
   end

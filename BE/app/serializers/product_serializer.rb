@@ -1,5 +1,5 @@
 class ProductSerializer < ActiveModel::Serializer
-  attributes :id, :name, :count
+  attributes :id, :name, :img, :count
   # def detail_name
   #     object.details.first.name
   # end

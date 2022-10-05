@@ -1,5 +1,5 @@
 class PrAttributeSerializer < ActiveModel::Serializer
-  attributes :id, :name, :socket, :dimm, :ssd, :hdd, :form, :size, :capacity, :wattage, :price,
+  attributes :id, :name, :socket, :dimm, :ssd, :hdd, :form, :size, :capacity, :wattage, :price, :img
              :status
 
   # def product_name

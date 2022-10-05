@@ -6,7 +6,7 @@ module Api
 
       def index
         @pre_builds = PreBuild.all
-        render json: { count: @pre_builds.count }
+        render json: { count: @pre_builds.count, pre_builds: @pre_builds }
       end
 
       def show
@@ -43,7 +43,7 @@ module Api
 
       def pre_build_params
         params.require(:pre_build).permit(:purpose_id, :price_range_id, :cpu, :cooler, :main, :ram, :ssd, :hdd, :gpu,
-                                          :psw, :case, :price, :status)
+                                          :psw, :case, :price, :img, :status)
       end
     end
   end
