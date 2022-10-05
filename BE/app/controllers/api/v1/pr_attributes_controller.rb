@@ -35,6 +35,21 @@ module Api
         @product_att.destroy
       end
 
+      def selected
+        @cpu = '', @main = '', @psu = '', @cooler = '', @ssd = '', @ram = '', @gpu = '', @hdd = '', @case = ''
+        @selected = PrAttribute.where('pr_attributes.id' => @case)
+                               .or(PrAttribute.where('pr_attributes.id' => @cpu))
+                               .or(PrAttribute.where('pr_attributes.id' => @main))
+                               .or(PrAttribute.where('pr_attributes.id' => @psu))
+                               .or(PrAttribute.where('pr_attributes.id' => @cooler))
+                               .or(PrAttribute.where('pr_attributes.id' => @ssd))
+                               .or(PrAttribute.where('pr_attributes.id' => @ram))
+                               .or(PrAttribute.where('pr_attributes.id' => @gpu))
+                               .or(PrAttribute.where('pr_attributes.id' => @hdd))
+
+        render json: @selected
+      end
+
       private
 
       def set_product_att

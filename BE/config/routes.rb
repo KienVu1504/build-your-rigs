@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get '/search_pr', to: 'search#search_pr'
       get '/search_pre', to: 'search#search_pre'
 
+      post '/selected', to: 'pr_attributes#selected'
       resources :users
       post '/login', to: 'sessions#login'
     end
