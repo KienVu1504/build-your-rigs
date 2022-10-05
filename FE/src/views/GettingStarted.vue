@@ -5,7 +5,7 @@
     <div class="input-box">
       <div class="path" id="path"></div>
 
-      <form class="input-form" id="form" @submit="checkForm">
+      <form class="input-form" autocomplete="off" id="form" @submit="checkForm">
         <h1 class="input-title">Getting Started</h1>
         <br>
         <label class="input-label">Name: </label>

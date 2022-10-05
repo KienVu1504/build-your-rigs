@@ -16,29 +16,22 @@
                     <label for="userChoice" class="tile-label">
                         <div class="tile-wrapper">
                             <div class="item-img-wrapper">
-                                <img src="" alt="" class="item-img">
+                                <img :src="pr_attribute.img" alt="" class="item-img">
                             </div>
-                            <h5 class="tile-name">{{ pr_attribute.name }}</h5>
-                            <h6 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h6>
+                            <h4 class="tile-name">{{ pr_attribute.name }}</h4>
+                            <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
                         </div>
                     </label>
                 </div>
             </div>
         </div>
         <ActionButton></ActionButton>
-        <!-- <paginate :page-count="20" :page-range="3" :margin-pages="2" :click-handler="clickCallback" :prev-text="'Prev'"
-            :next-text="'Next'" :container-class="'pagination'" :page-class="'page-item'">
-        </paginate> -->
     </section>
 </template>
 
 <script>
 import SectionHeader from '@/components/SectionHeader.vue'
 import ActionButton from '@/components/ActionButton.vue'
-// var Paginate = require('vuejs-paginate')
-// Vue.component('paginate', Paginate)
-// import { createNamespacedHelpers } from "vuex";
-// const { mapActions } = createNamespacedHelpers("formSteps");
 import { mapActions } from 'vuex'
 
 export default {
@@ -67,6 +60,7 @@ export default {
         }
     },
     async mounted() {
+        this.checkLocalStorage()
         await this.fetchSteps();
         if (this.activeStep == 0) {
             this.fetchCpus();
@@ -84,12 +78,12 @@ export default {
         checkValid(index) {
             this.$store.commit("setValid")
         },
-        // checkLocalStorage() {
-        //     let oldData = this.$store.state.cih
-        //     if (oldData == 0 || oldData == null || oldData.length == 0) {
-        //         this.$router.push({ path: '/' })
-        //     }
-        // }
+        checkLocalStorage() {
+            let oldData = this.$store.state.cih
+            if (oldData == 0 || oldData == null || oldData.length == 0) {
+                this.$router.push({ path: '/' })
+            }
+        }
     }
 }
 </script>

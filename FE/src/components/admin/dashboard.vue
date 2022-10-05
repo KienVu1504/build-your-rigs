@@ -6,36 +6,59 @@
         <div class="separator"></div>
         <div class="input-fields">
             <div class="input-fields-wrapper">
-
+                <router-link tag="div" :to="{path: '/'}" class="counter-wrapper" v-for="(category, index) in formSteps"
+                    :key="'category'+index" v-if="index <= 8">
+                    <div class="counter-right">
+                        <img :src="category.img" alt="">
+                    </div>
+                    <div class="counter-left">
+                        <p class="counter-name">{{category.name}}</p>
+                        <p class="counter">{{category.count}} products</p>
+                    </div>
+                </router-link>
+                <router-link tag="div" :to="{path: '/'}" class="counter-wrapper counter-wrapper-big">
+                    <div class="counter-right">
+                        <img src="@/assets/images/gsImage.png" alt="">
+                    </div>
+                    <div class="counter-left">
+                        <p class="counter-name">Pre-build set ready</p>
+                        <p class="counter">{{preBuildCountData.count}} sets</p>
+                    </div>
+                </router-link>
             </div>
         </div>
     </section>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
     data() {
         return {
 
         };
     },
+    async mounted() {
+        await this.fetchSteps()
+        await this.preBuildCount()
+    },
     computed: {
         animation() {
             return this.$store.state.animation
+        },
+        formSteps() {
+            return this.$store.state.formSteps
+        },
+        preBuildCountData() {
+            return this.$store.state.preBuildCount
         }
     },
-
-    mounted() {
-        checkToken: {
-            const token = this.$store.state.token
-            if (token.length == 0 || token == null || token == '') {
-                this.$router.push({ path: "/admin/login" }).catch(() => { });
-            }
-        }
-    },
-
     methods: {
-
+        ...mapActions([
+            'fetchSteps',
+            'preBuildCount'
+        ])
     },
 };
 </script>
