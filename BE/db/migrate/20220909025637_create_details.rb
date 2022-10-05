@@ -12,6 +12,8 @@ class CreateDetails < ActiveRecord::Migration[7.0]
       t.integer :capacity
       t.integer :wattage
       t.integer :price
+      t.text :img
+      t.boolean :status, default: true
 
       t.timestamps
     end

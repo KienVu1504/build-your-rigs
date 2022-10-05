@@ -13,6 +13,7 @@ class CreatePreBuilds < ActiveRecord::Migration[7.0]
       t.string :psw
       t.string :case
       t.integer :price
+      t.text :img
       t.boolean :status
 
       t.timestamps
