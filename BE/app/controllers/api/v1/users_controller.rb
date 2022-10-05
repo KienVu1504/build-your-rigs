@@ -1,6 +1,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
+      before_action :authorize, only: %i[show update destroy index show] 
       def index
         @user = User.all
         render json: @user
@@ -28,8 +29,7 @@ module Api
         if @user.update(user_params)
           render json: { user: @user }, status: :ok
         else
-          render json: { message: '
-            password is not in the correct format', errors: @user.errors.full_messages }, status: 422
+          render json: { message: 'Password is not in the correct format'}, status: 422
         end
       end
 
