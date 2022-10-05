@@ -38,14 +38,14 @@ module Api
       def selected
         @cpu = '', @main = '', @psu = '', @cooler = '', @ssd = '', @ram = '', @gpu = '', @hdd = '', @case = ''
         @selected = PrAttribute.where('pr_attributes.id' => @case)
-                               .or(PrAttribute.where('pr_attributes.id' => @cpu))
-                               .or(PrAttribute.where('pr_attributes.id' => @main))
-                               .or(PrAttribute.where('pr_attributes.id' => @psu))
-                               .or(PrAttribute.where('pr_attributes.id' => @cooler))
-                               .or(PrAttribute.where('pr_attributes.id' => @ssd))
-                               .or(PrAttribute.where('pr_attributes.id' => @ram))
-                               .or(PrAttribute.where('pr_attributes.id' => @gpu))
-                               .or(PrAttribute.where('pr_attributes.id' => @hdd))
+                               .or(PrAttribute.where('pr_attributes.id' => params[:cpu]))
+                               .or(PrAttribute.where('pr_attributes.id' => params[:main]))
+                               .or(PrAttribute.where('pr_attributes.id' => params[:psu]))
+                               .or(PrAttribute.where('pr_attributes.id' => params[:cooler]))
+                               .or(PrAttribute.where('pr_attributes.id' => params[:ssd]))
+                               .or(PrAttribute.where('pr_attributes.id' => params[:ram]))
+                               .or(PrAttribute.where('pr_attributes.id' => params[:gpu]))
+                               .or(PrAttribute.where('pr_attributes.id' => params[:hdd]))
 
         render json: @selected
       end
