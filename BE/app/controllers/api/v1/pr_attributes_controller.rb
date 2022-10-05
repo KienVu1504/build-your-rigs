@@ -16,7 +16,6 @@ module Api
 
       def create
         @product_att = PrAttribute.new(product_att_params)
-        @product_att.image.attach(params[:pr_attribute][:image])
         if @product_att.save
           render json: @product_att, status: :created
         else

@@ -54,6 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_05_041540) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "status", default: true
+    t.string "image"
     t.index ["product_id"], name: "index_pr_attributes_on_type_id"
   end
 
