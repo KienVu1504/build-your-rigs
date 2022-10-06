@@ -20,11 +20,12 @@ export default new Vuex.Store({
     name: '',
     wattage: 0,
     cpu: [],
+    cooler: [],
+    main: [],
     cih: 0,
     formSteps: [],
     valid: false,
     activeStep: 0,
-    main: [],
     animation: 'animate-in',
     token: "",
     preBuildCount: ""
@@ -34,6 +35,12 @@ export default new Vuex.Store({
   mutations: {
     setCPUData(state, newData) {
       state.cpu = newData
+    },
+    setCOOLERData(state, newData) {
+      state.cooler = newData
+    },
+    setMAINData(state, newData) {
+      state.main = newData
     },
     setAnimate(state, newAnimate) {
       state.animation = newAnimate
@@ -106,12 +113,54 @@ export default new Vuex.Store({
         console.log(err)
       })
     },
+    async fetchCoolers({ commit }) {
+      const coolersQuery = {
+        method: "GET",
+        url: "search_pr",
+        params: {
+          q: {
+            product_name_cont: 'COOLER',
+            price_lt: this.state.cih
+          }
+        },
+        paramsSerializer: params => {
+          return qs.stringify(params)
+        }
+      }
+      await axios(coolersQuery).then(res => {
+        this.dataCOOLER = res.data;
+        commit("setCOOLERData", this.dataCOOLER);
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    async fetchMains({ commit }) {
+      const mainsQuery = {
+        method: "GET",
+        url: "search_pr",
+        params: {
+          q: {
+            product_name_cont: 'MAIN',
+            price_lt: this.state.cih
+          }
+        },
+        paramsSerializer: params => {
+          return qs.stringify(params)
+        }
+      }
+      await axios(mainsQuery).then(res => {
+        this.dataCOOLER = res.data;
+        commit("setMAINData", this.dataCOOLER);
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     async preBuildCount({ commit }) {
-      const cpusQuery = {
+      const preBuildQuery = {
         method: "GET",
         url: "pre_builds"
       }
-      await axios(cpusQuery).then(res => {
+      await axios(preBuildQuery).then(res => {
         this.setCount = res.data;
         commit("setPreBuildCount", this.setCount);
       }).catch(err => {

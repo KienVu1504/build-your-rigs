@@ -379,17 +379,19 @@ input.form-control {
 
 .btn-primary {
   color: #fff;
-  background-color: #f5a623;
-  border: 2px solid #f5a623;
+  background-color: #ff008b;
+  border: 2px solid #ff008b;
   font-size: 90%;
   font-weight: 600;
+  border-radius: 10px;
+  width: 100%;
 }
 
 .btn-primary:active,
 .btn-primary:hover {
-  color: #f5a623;
-  background-color: transparent;
-  border: 2px solid #f5a623;
+  color: #ff008b !important;
+  background-color: white !important;
+  border: 2px solid #ff008b !important;
 }
 
 .custom-file-input {

@@ -3,23 +3,16 @@
         <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
             <div class="row">
                 <div class="col-12">
-                    <h2 class="tm-block-title d-inline-block">Add COOLER</h2>
+                    <h2 class="tm-block-title d-inline-block">Add GPU</h2>
                 </div>
             </div>
             <div class="row tm-edit-product-row">
                 <div class="col-xl-12 col-lg-12 col-md-12">
-                    <form class="tm-edit-product-form" autocomplete="off" @submit.prevent="addCOOLER">
-                        <div class="row">
-                            <div class="form-group mb-3">
-                                <label for="name">Name</label>
-                                <input id="name" name="name" v-model="name" type="text" placeholder="Enter COOLER name"
-                                    class="form-control validate" required="">
-                            </div>
-                        </div>
+                    <form action="" class="tm-edit-product-form" autocomplete="off" @submit.prevent="addGPU">
                         <div class="form-group mb-3">
-                            <label for="description">Socket</label>
-                            <input class="form-control validate" v-model="socket" type="text" required=""
-                                wt-ignore-input="true" placeholder="Enter COOLER socket">
+                            <label for="name">Name</label>
+                            <input id="name" name="name" v-model="name" type="text" placeholder="Enter GPU name"
+                                class="form-control validate" required="">
                         </div>
                         <div class="form-group mb-3">
                             <label for="description">Image Link</label>
@@ -28,9 +21,10 @@
                         </div>
                         <div class="row">
                             <div class="form-group mb-3 col-xs-12 col-sm-6">
-                                <label for="expire_date">Size (mm)</label>
-                                <input id="size" placeholder="Enter COOLER size" name="size" type="number"
-                                    class="form-control validate hasDatepicker" data-large-mode="true" min="0" v-model="size">
+                                <label for="expire_date">Wattage (W)</label>
+                                <input id="wattage" placeholder="Enter GPU TDP" required name="wattage" type="number"
+                                    v-model="wattage" class="form-control validate hasDatepicker" data-large-mode="true"
+                                    min="0">
                             </div>
                             <div class="form-group mb-3 col-xs-12 col-sm-6">
                                 <label for="stock">Price ($)</label>
@@ -39,8 +33,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-block text-uppercase">Add
-                                COOLER</button>
+                            <button type="submit" class="btn btn-primary btn-block text-uppercase">Add GPU</button>
                         </div>
                     </form>
                 </div>
@@ -56,8 +49,7 @@ export default {
     data() {
         return {
             name: '',
-            socket: '',
-            size: '',
+            wattage: '',
             image: '',
             price: null,
         };
@@ -68,27 +60,26 @@ export default {
     },
 
     methods: {
-        async addCOOLER(e) {
-            const coolerData = {
+        async addGPU(e) {
+            const gpuData = {
                 method: "POST",
                 url: "pr_attributes",
                 params: {
-                    product_id: 2,
+                    product_id: 7,
                     name: this.name,
-                    socket: this.socket,
-                    size: this.size,
                     img: this.image,
+                    wattage: this.wattage,
                     price: this.price
                 },
                 paramsSerializer: params => {
                     return qs.stringify(params)
                 }
             }
-            await axios(coolerData).then(res => {
+            await axios(gpuData).then(res => {
                 console.log(res)
                 e.preventDefault();
                 if (res.request.status >= 200 && res.request.status < 300) {
-                    alert("Add COOLER successful!")
+                    alert("Add GPU successful!")
                     this.$router.push({ path: "/admin/add-product" })
                 } else {
                     alert("Something went wrong, please try again!")
@@ -105,11 +96,4 @@ export default {
 
 <style scoped>
 @import url(@/assets/styles/admin.css);
-
-.display-none {
-    margin: 0 !important;
-    height: 0px;
-    padding: 0;
-    overflow: hidden;
-}
 </style>

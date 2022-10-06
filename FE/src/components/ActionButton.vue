@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
     computed: {
         activeStep() {
@@ -28,9 +30,19 @@ export default {
         }
     },
     methods: {
+        ...mapActions([
+            'fetchCoolers',
+            'fetchMains'
+        ]),
         nextStep() {
             this.clearForm()
             this.$store.commit("setAnimate", "animate-out")
+            console.log(this.activeStep)
+            if (this.activeStep == 0) {
+                this.fetchCoolers();
+            } else if (this.activeStep == 1) {
+                this.fetchMains();
+            }
             setTimeout(() => {
                 this.$store.commit("setAnimate", "animate-in")
                 this.$store.commit("setStep")
@@ -38,7 +50,7 @@ export default {
         },
         checkFields() {
             if (this.valid) {
-                this.nextStep();
+                this.nextStep()
             }
             else {
                 this.$store.commit("setAnimate", "animate-wrong")

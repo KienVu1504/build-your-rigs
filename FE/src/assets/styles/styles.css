@@ -227,6 +227,13 @@ article .progress-step {
   color: #fff;
   background-color: #ff008b;
   font-weight: bold;
+  transition: .2s ease-in-out all !important;
+}
+.header-greeting{
+  position: absolute;
+  top: 1rem;
+  color: #ff008b;
+  word-break: break-all;
 }
 
 .header-action {
@@ -234,8 +241,12 @@ article .progress-step {
   bottom: 10px;
 }
 
-article .progress-step.active {
-  background-color: #ff008b;
+article .progress-step.active,
+.progress-step:hover {
+  background-color: #ff008b !important;
+  cursor: pointer;
+  color: white !important;
+  transition: .2s all ease-in-out !important;
 }
 
 article .progress-step.active ~ .progress-step {
@@ -443,7 +454,7 @@ article section .actions button:hover {
   color: #ff008b;
   transition: 0.2s all ease-in-out;
 }
-.flex{
+.flex {
   display: flex;
   flex-wrap: wrap;
 }
@@ -548,10 +559,10 @@ article section .actions button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: .2s all ease-in-out;
+  transition: 0.2s all ease-in-out;
 }
 
-.counter-wrapper:hover{
+.counter-wrapper:hover {
   cursor: pointer;
   border: 4px solid #ff008b;
 }

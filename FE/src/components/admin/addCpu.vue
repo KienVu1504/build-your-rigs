@@ -86,13 +86,16 @@ export default {
             await axios(cpuData).then(res => {
                 console.log(res)
                 e.preventDefault();
-                if (res.request.status == 201){
+                if (res.request.status >= 200 && res.request.status < 300) {
                     alert("Add CPU successful!")
-                    this.$router.push({path: "/admin/add-product"})
+                    this.$router.push({ path: "/admin/add-product" })
+                } else {
+                    alert("Something went wrong, please try again!")
                 }
             }).catch(err => {
                 console.log(err)
                 e.preventDefault();
+                alert("Something went wrong, please try again!")
             })
         },
     },

@@ -24,6 +24,38 @@
                     </label>
                 </div>
             </div>
+
+            <div class="input-fields-wrapper" v-if="activeStep == 1">
+                <div class="tile" v-for="(pr_attribute, index) in cooler" :key="'pr_attribute'+index">
+                    <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice"
+                        class="tile-input">
+                    <label for="userChoice" class="tile-label">
+                        <div class="tile-wrapper">
+                            <div class="item-img-wrapper">
+                                <img :src="pr_attribute.img" alt="" class="item-img">
+                            </div>
+                            <h4 class="tile-name">{{ pr_attribute.name }}</h4>
+                            <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="input-fields-wrapper" v-if="activeStep == 2">
+                <div class="tile" v-for="(pr_attribute, index) in main" :key="'pr_attribute'+index">
+                    <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice"
+                        class="tile-input">
+                    <label for="userChoice" class="tile-label">
+                        <div class="tile-wrapper">
+                            <div class="item-img-wrapper">
+                                <img :src="pr_attribute.img" alt="" class="item-img">
+                            </div>
+                            <h4 class="tile-name">{{ pr_attribute.name }}</h4>
+                            <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
+                        </div>
+                    </label>
+                </div>
+            </div>
         </div>
         <ActionButton></ActionButton>
     </section>
@@ -45,6 +77,9 @@ export default {
         },
         cpu() {
             return this.$store.state.cpu
+        },
+        cooler() {
+            return this.$store.state.cooler
         },
         main() {
             return this.$store.state.main

@@ -12,6 +12,10 @@ const routes = [
     component: GettingStarted
   },
   {
+    path: '/admin/test',
+    component: () => import('../components/admin/hjhgj.vue')
+  },
+  {
     path: '/home',
     name: 'home',
     component: () => import('../views/HomeView.vue')
@@ -70,6 +74,41 @@ const routes = [
                 path: 'add-COOLER',
                 name: 'add-cooler',
                 component: () => import('../components/admin/addCooler.vue')
+              },
+              {
+                path: 'add-MAIN',
+                name: 'add-main',
+                component: () => import('../components/admin/addMain.vue')
+              },
+              {
+                path: 'add-RAM',
+                name: 'add-ram',
+                component: () => import('../components/admin/addRAM.vue')
+              },
+              {
+                path: 'add-SSD',
+                name: 'add-ssd',
+                component: () => import('../components/admin/addSSD.vue')
+              },
+              {
+                path: 'add-HDD',
+                name: 'add-hdd',
+                component: () => import('../components/admin/addHDD.vue')
+              },
+              {
+                path: 'add-GPU',
+                name: 'add-gpu',
+                component: () => import('../components/admin/addGPU.vue')
+              },
+              {
+                path: 'add-CASE',
+                name: 'add-case',
+                component: () => import('../components/admin/addCASE.vue')
+              },
+              {
+                path: 'add-PSU',
+                name: 'add-psu',
+                component: () => import('../components/admin/addPSU.vue')
               },
             ]
           }

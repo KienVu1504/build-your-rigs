@@ -3,23 +3,40 @@
         <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
             <div class="row">
                 <div class="col-12">
-                    <h2 class="tm-block-title d-inline-block">Add COOLER</h2>
+                    <h2 class="tm-block-title d-inline-block">Add MAIN</h2>
                 </div>
             </div>
             <div class="row tm-edit-product-row">
                 <div class="col-xl-12 col-lg-12 col-md-12">
                     <form class="tm-edit-product-form" autocomplete="off" @submit.prevent="addCOOLER">
                         <div class="row">
-                            <div class="form-group mb-3">
+                            <div class="form-group mb-3 col-xs-12 col-sm-6">
                                 <label for="name">Name</label>
                                 <input id="name" name="name" v-model="name" type="text" placeholder="Enter COOLER name"
                                     class="form-control validate" required="">
                             </div>
+                            <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                <label for="description">Socket</label>
+                                <input class="form-control validate" v-model="socket" type="text" required=""
+                                    wt-ignore-input="true" placeholder="Enter MAIN socket">
+                            </div>
                         </div>
-                        <div class="form-group mb-3">
-                            <label for="description">Socket</label>
-                            <input class="form-control validate" v-model="socket" type="text" required=""
-                                wt-ignore-input="true" placeholder="Enter COOLER socket">
+                        <div class="row">
+                            <div class="form-group mb-3 col-xs-12 col-sm-4">
+                                <label for="description">DIMM</label>
+                                <input class="form-control validate" v-model="dimm" type="text" required=""
+                                    wt-ignore-input="true" placeholder="Enter DIMM type">
+                            </div>
+                            <div class="form-group mb-3 col-xs-12 col-sm-4">
+                                <label for="description">SSD</label>
+                                <input class="form-control validate" v-model="ssd" type="text" required=""
+                                    wt-ignore-input="true" placeholder="Enter SSD type">
+                            </div>
+                            <div class="form-group mb-3 col-xs-12 col-sm-4">
+                                <label for="description">HDD</label>
+                                <input class="form-control validate" v-model="hdd" type="text" required=""
+                                    wt-ignore-input="true" placeholder="Enter HDD type">
+                            </div>
                         </div>
                         <div class="form-group mb-3">
                             <label for="description">Image Link</label>
@@ -27,12 +44,17 @@
                                 placeholder="Enter image's embed link"></textarea>
                         </div>
                         <div class="row">
-                            <div class="form-group mb-3 col-xs-12 col-sm-6">
-                                <label for="expire_date">Size (mm)</label>
-                                <input id="size" placeholder="Enter COOLER size" name="size" type="number"
-                                    class="form-control validate hasDatepicker" data-large-mode="true" min="0" v-model="size">
+                            <div class="form-group mb-3 col-xs-12 col-sm-4">
+                                <label for="description">RAM Capacity</label>
+                                <input class="form-control validate" v-model="capacity" type="text" required=""
+                                    wt-ignore-input="true" placeholder="Enter RAM Capacity">
                             </div>
-                            <div class="form-group mb-3 col-xs-12 col-sm-6">
+                            <div class="form-group mb-3 col-xs-12 col-sm-4">
+                                <label for="description">Form</label>
+                                <input class="form-control validate" v-model="form" type="text" required=""
+                                    wt-ignore-input="true" placeholder="Enter Form type">
+                            </div>
+                            <div class="form-group mb-3 col-xs-12 col-sm-4">
                                 <label for="stock">Price ($)</label>
                                 <input placeholder="Price in $USD" id="price" name="price" type="number" v-model="price"
                                     class="form-control validate" min="0" required="">
@@ -40,7 +62,7 @@
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary btn-block text-uppercase">Add
-                                COOLER</button>
+                                MAIN</button>
                         </div>
                     </form>
                 </div>
@@ -57,8 +79,12 @@ export default {
         return {
             name: '',
             socket: '',
-            size: '',
+            dimm: '',
+            ssd: '',
+            hdd: '',
+            form: '',
             image: '',
+            capacity: '',
             price: null,
         };
     },
@@ -73,10 +99,14 @@ export default {
                 method: "POST",
                 url: "pr_attributes",
                 params: {
-                    product_id: 2,
+                    product_id: 3,
                     name: this.name,
                     socket: this.socket,
-                    size: this.size,
+                    dimm: this.dimm,
+                    ssd: this.ssd,
+                    hdd: this.hdd,
+                    form: this.form,
+                    capacity: this.capacity,
                     img: this.image,
                     price: this.price
                 },
@@ -88,7 +118,7 @@ export default {
                 console.log(res)
                 e.preventDefault();
                 if (res.request.status >= 200 && res.request.status < 300) {
-                    alert("Add COOLER successful!")
+                    alert("Add MAIN successful!")
                     this.$router.push({ path: "/admin/add-product" })
                 } else {
                     alert("Something went wrong, please try again!")
@@ -106,10 +136,7 @@ export default {
 <style scoped>
 @import url(@/assets/styles/admin.css);
 
-.display-none {
-    margin: 0 !important;
-    height: 0px;
-    padding: 0;
-    overflow: hidden;
+.wrapper {
+    width: 95%;
 }
 </style>
