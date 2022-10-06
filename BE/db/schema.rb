@@ -62,7 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_06_044636) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "status", default: true
-    t.string "img"
+    t.text "img"
     t.integer "brand_id"
     t.index ["product_id"], name: "index_pr_attributes_on_type_id"
   end
@@ -83,7 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_06_044636) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "img"
+    t.text "img"
     t.index ["price_range_id"], name: "index_pre_builds_on_price_range_id"
     t.index ["purpose_id"], name: "index_pre_builds_on_purpose_id"
   end
@@ -99,7 +99,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_06_044636) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "img"
+    t.text "img"
   end
 
   create_table "purposes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

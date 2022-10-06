@@ -56,6 +56,54 @@
                     </label>
                 </div>
             </div>
+
+            <div class="input-fields-wrapper" v-if="activeStep == 3">
+                <div class="tile" v-for="(pr_attribute, index) in ram" :key="'pr_attribute'+index">
+                    <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice"
+                        class="tile-input">
+                    <label for="userChoice" class="tile-label">
+                        <div class="tile-wrapper">
+                            <div class="item-img-wrapper">
+                                <img :src="pr_attribute.img" alt="" class="item-img">
+                            </div>
+                            <h4 class="tile-name">{{ pr_attribute.name }}</h4>
+                            <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="input-fields-wrapper" v-if="activeStep == 4">
+                <div class="tile" v-for="(pr_attribute, index) in ssd" :key="'pr_attribute'+index">
+                    <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice"
+                        class="tile-input">
+                    <label for="userChoice" class="tile-label">
+                        <div class="tile-wrapper">
+                            <div class="item-img-wrapper">
+                                <img :src="pr_attribute.img" alt="" class="item-img">
+                            </div>
+                            <h4 class="tile-name">{{ pr_attribute.name }}</h4>
+                            <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="input-fields-wrapper" v-if="activeStep == 5">
+                <div class="tile" v-for="(pr_attribute, index) in hdd" :key="'pr_attribute'+index">
+                    <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice"
+                        class="tile-input">
+                    <label for="userChoice" class="tile-label">
+                        <div class="tile-wrapper">
+                            <div class="item-img-wrapper">
+                                <img :src="pr_attribute.img" alt="" class="item-img">
+                            </div>
+                            <h4 class="tile-name">{{ pr_attribute.name }}</h4>
+                            <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
+                        </div>
+                    </label>
+                </div>
+            </div>
         </div>
         <ActionButton></ActionButton>
     </section>
@@ -84,6 +132,15 @@ export default {
         main() {
             return this.$store.state.main
         },
+        ram() {
+            return this.$store.state.ram
+        },
+        ssd() {
+            return this.$store.state.ssd
+        },
+        hdd() {
+            return this.$store.state.hdd
+        },
         activeStep() {
             return this.$store.state.activeStep
         },
@@ -110,7 +167,7 @@ export default {
         redirect() {
             this.$router.push({ path: '/' })
         },
-        checkValid(index) {
+        checkValid() {
             this.$store.commit("setValid")
         },
         checkLocalStorage() {

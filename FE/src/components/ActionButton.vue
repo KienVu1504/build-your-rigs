@@ -32,7 +32,10 @@ export default {
     methods: {
         ...mapActions([
             'fetchCoolers',
-            'fetchMains'
+            'fetchMains',
+            'fetchRams',
+            'fetchSsds',
+            'fetchHdds'
         ]),
         nextStep() {
             this.clearForm()
@@ -42,6 +45,12 @@ export default {
                 this.fetchCoolers();
             } else if (this.activeStep == 1) {
                 this.fetchMains();
+            } else if (this.activeStep == 2) {
+                this.fetchRams();
+            } else if (this.activeStep == 3) {
+                this.fetchSsds();
+            } else if (this.activeStep == 4) {
+                this.fetchHdds();
             }
             setTimeout(() => {
                 this.$store.commit("setAnimate", "animate-in")

@@ -4,6 +4,7 @@ import axios from "../plugins/axios";
 import qs from "qs"
 import formSteps from "./formSteps"
 import products from "./products"
+import gettingStarted from './gettingStarted';
 import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex)
@@ -22,6 +23,9 @@ export default new Vuex.Store({
     cpu: [],
     cooler: [],
     main: [],
+    ram: [],
+    ssd: [],
+    hdd: [],
     cih: 0,
     formSteps: [],
     valid: false,
@@ -42,6 +46,15 @@ export default new Vuex.Store({
     setMAINData(state, newData) {
       state.main = newData
     },
+    setRAMData(state, newData) {
+      state.ram = newData
+    },
+    setSSDData(state, newData) {
+      state.ssd = newData
+    },
+    setHDDData(state, newData) {
+      state.hdd = newData
+    },
     setAnimate(state, newAnimate) {
       state.animation = newAnimate
     },
@@ -52,12 +65,6 @@ export default new Vuex.Store({
       state.cih = newCih
     },
     setFormSteps(state, newData) {
-      // state.formSteps = newData.map(item => {
-      //   return {
-      //     id: item.id,
-      //     name: item.name,
-      //   }
-      // })
       state.formSteps = newData
     },
     resetStep(state) {
@@ -155,6 +162,69 @@ export default new Vuex.Store({
         console.log(err)
       })
     },
+    async fetchRams({ commit }) {
+      const ramsQuery = {
+        method: "GET",
+        url: "search_pr",
+        params: {
+          q: {
+            product_name_cont: 'RAM',
+            price_lt: this.state.cih
+          }
+        },
+        paramsSerializer: params => {
+          return qs.stringify(params)
+        }
+      }
+      await axios(ramsQuery).then(res => {
+        this.dataRAM = res.data;
+        commit("setRAMData", this.dataRAM);
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    async fetchSsds({ commit }) {
+      const ssdsQuery = {
+        method: "GET",
+        url: "search_pr",
+        params: {
+          q: {
+            product_name_cont: 'SSD',
+            price_lt: this.state.cih
+          }
+        },
+        paramsSerializer: params => {
+          return qs.stringify(params)
+        }
+      }
+      await axios(ssdsQuery).then(res => {
+        this.dataSSD = res.data;
+        commit("setSSDData", this.dataSSD);
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    async fetchHdds({ commit }) {
+      const hddsQuery = {
+        method: "GET",
+        url: "search_pr",
+        params: {
+          q: {
+            product_name_cont: 'HDD',
+            price_lt: this.state.cih
+          }
+        },
+        paramsSerializer: params => {
+          return qs.stringify(params)
+        }
+      }
+      await axios(hddsQuery).then(res => {
+        this.dataHDD = res.data;
+        commit("setHDDData", this.dataHDD);
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     async preBuildCount({ commit }) {
       const preBuildQuery = {
         method: "GET",
@@ -171,6 +241,7 @@ export default new Vuex.Store({
   modules: {
     // products,
     // formSteps
+    // gettingStarted
   },
   plugins: [dataState]
 })
