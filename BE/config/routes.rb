@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :purposes
       resources :pr_attributes
       resources :products
+      resources :brands
       get '/search_pr', to: 'search#search_pr'
       get '/search_pre', to: 'search#search_pre'
 
