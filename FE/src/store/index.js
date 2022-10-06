@@ -26,7 +26,8 @@ export default new Vuex.Store({
     activeStep: 0,
     main: [],
     animation: 'animate-in',
-    token: ""
+    token: "",
+    preBuildCount: ""
   },
   getters: {
   },
@@ -44,12 +45,13 @@ export default new Vuex.Store({
       state.cih = newCih
     },
     setFormSteps(state, newData) {
-      state.formSteps = newData.map(item => {
-        return {
-          id: item.id,
-          name: item.name,
-        }
-      })
+      // state.formSteps = newData.map(item => {
+      //   return {
+      //     id: item.id,
+      //     name: item.name,
+      //   }
+      // })
+      state.formSteps = newData
     },
     resetStep(state) {
       state.activeStep = 0
@@ -63,8 +65,10 @@ export default new Vuex.Store({
     setToken(state, newToken) {
       state.token = newToken
     },
+    setPreBuildCount(state, newToken) {
+      state.preBuildCount = newToken
+    },
     clearToken(state) {
-      console.log('1111111')
       state.token = ''
     }
   },
@@ -84,7 +88,7 @@ export default new Vuex.Store({
     async fetchCpus({ commit }) {
       const cpusQuery = {
         method: "GET",
-        url: "search",
+        url: "search_pr",
         params: {
           q: {
             product_name_cont: 'CPU',
@@ -98,6 +102,18 @@ export default new Vuex.Store({
       await axios(cpusQuery).then(res => {
         this.dataCPU = res.data;
         commit("setCPUData", this.dataCPU);
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    async preBuildCount({ commit }) {
+      const cpusQuery = {
+        method: "GET",
+        url: "pre_builds"
+      }
+      await axios(cpusQuery).then(res => {
+        this.setCount = res.data;
+        commit("setPreBuildCount", this.setCount);
       }).catch(err => {
         console.log(err)
       })

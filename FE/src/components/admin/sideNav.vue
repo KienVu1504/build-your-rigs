@@ -1,8 +1,9 @@
 <template>
     <header>
         <div class="view-progress">
-            <router-link :to="{path: '/admin'}" class="progress-step" tag="div" @click="animationOut">Dashboard</router-link>
-            <router-link :to="{path: '/admin/profile'}" class="progress-step" @click="animationOut" tag="div">Profile</router-link>
+            <router-link :to="{path: '/admin'}" class="progress-step" tag="div">Dashboard</router-link>
+            <router-link :to="{path: '/admin/profile'}" class="progress-step" tag="div">Profile</router-link>
+            <router-link :to="{path: '/admin/add-product'}" class="progress-step" tag="div">Add Product</router-link>
         </div>
 
         <div class="header-action">
@@ -19,16 +20,15 @@ export default {
         };
     },
     mounted() {
-        checkToken: {
-            const token = this.$store.state.token
-            if (token.length == 0 || token == null || token == '') {
-                this.$router.push({ path: "/admin/login" }).catch(() => { });
-            }
-        }
+        // checkToken: {
+        //     const token = this.$store.state.token
+        //     if (token.length == 0 || token == null || token == '') {
+        //         this.$router.push({ path: "/admin/login" }).catch(() => { });
+        //     }
+        // }
     },
     methods: {
         logout() {
-            console.log('222222')
             this.$store.commit("clearToken");
             this.$router.push({ path: '/admin/login' })
         }

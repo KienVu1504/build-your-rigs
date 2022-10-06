@@ -5,7 +5,7 @@
         <div class="input-box">
             <div class="path" id="path"></div>
 
-            <form class="input-form" id="form" @submit.prevent="checkForm">
+            <form class="input-form" autocomplete="off" id="form" @submit.prevent="checkForm">
                 <h1 class="input-title">Admin Login</h1>
                 <br>
                 <label class="input-label">Email: </label>
@@ -21,6 +21,7 @@
                 <br>
                 <button class="input-btn" type="submit" id="button">Login</button>
                 <br>
+                <span v-if="err" class="errorShow" id="errorShow">{{err}}</span>
             </form>
 
             <img src="@/assets/images/gsImage.png" id="gsImage">
@@ -38,6 +39,7 @@ export default {
         return {
             email: "",
             password: "",
+            err: ""
         };
     },
     methods: {
@@ -70,14 +72,15 @@ export default {
                 email: this.email,
                 password: this.password
             }).then(function (response) {
-                console.log(response);
+                // console.log(response);
                 if (response.status == 200) {
                     self.setToken(response.data.token)
                     self.redirect()
                 }
             }).catch(function (error) {
                 console.log(error);
-                alert("Something went wrong. Please try again later!" + error);
+                self.err = "Email or password is incorrect"
+                // alert("Something went wrong. Please try again later!" + error);
             });
         },
         checkForm: function (e) {
