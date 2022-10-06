@@ -58,7 +58,7 @@ module Api
 
       def product_att_params
         params.permit(:product_id, :name, :socket, :dimm, :ssd, :hdd, :form, :size, :capacity,
-                      :wattage, :price, :img, :status)
+                      :wattage, :price, :img,:brand_id, :status)
       end
     end
   end
