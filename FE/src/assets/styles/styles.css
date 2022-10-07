@@ -227,9 +227,9 @@ article .progress-step {
   color: #fff;
   background-color: #ff008b;
   font-weight: bold;
-  transition: .2s ease-in-out all !important;
+  transition: 0.2s ease-in-out all !important;
 }
-.header-greeting{
+.header-greeting {
   position: absolute;
   top: 1rem;
   color: #ff008b;
@@ -246,7 +246,7 @@ article .progress-step.active,
   background-color: #ff008b !important;
   cursor: pointer;
   color: white !important;
-  transition: .2s all ease-in-out !important;
+  transition: 0.2s all ease-in-out !important;
 }
 
 article .progress-step.active ~ .progress-step {
@@ -347,6 +347,7 @@ article section .input-fields {
 .input-fields-wrapper {
   display: flex;
   flex-wrap: wrap;
+  padding: 5px;
 }
 
 article section .input-container {
@@ -469,8 +470,18 @@ article section .actions button:hover {
   height: 150px;
 }
 
+.tile-wrapper-outer {
+  /* width: 290px; */
+  /* height: 300px; */
+  /* margin: 15px 10px; */
+  /* border-radius: 20px; */
+  position: relative;
+  transition: 0.2s all ease-in-out;
+  z-index: 1;
+}
+
 .tile {
-  width: 260px;
+  /* width: 290px; */
   height: 300px;
   margin: 15px 10px;
   border-radius: 20px;
@@ -550,11 +561,19 @@ article section .actions button:hover {
   width: -webkit-fill-available;
 }
 
+.counter-wrapper-outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0px;
+  transition: 0.2s all ease-in-out;
+}
+
 .counter-wrapper {
   width: 495px;
   border: 1px pink solid;
   border-radius: 20px;
-  margin: 10px;
+  margin: 0px 10px;
   height: 200px;
   display: flex;
   justify-content: center;
@@ -568,7 +587,7 @@ article section .actions button:hover {
 }
 
 .counter-wrapper-big {
-  width: 98%;
+  width: 100%;
 }
 
 .counter-right {

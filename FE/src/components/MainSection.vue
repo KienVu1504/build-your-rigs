@@ -10,98 +10,116 @@
                 checked>
 
             <div class="input-fields-wrapper" v-if="activeStep == 0">
-                <div class="tile" v-for="(pr_attribute, index) in cpu" :key="'pr_attribute'+index">
-                    <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice"
-                        class="tile-input">
-                    <label for="userChoice" class="tile-label">
-                        <div class="tile-wrapper">
-                            <div class="item-img-wrapper">
-                                <img :src="pr_attribute.img" alt="" class="item-img">
+                <div class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12" v-for="(pr_attribute, index) in cpu"
+                    :key="'pr_attribute'+index">
+                    <div class="tile">
+                        <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice"
+                            class="tile-input">
+                        <label for="userChoice" class="tile-label">
+                            <div class="tile-wrapper">
+                                <div class="item-img-wrapper">
+                                    <img :src="pr_attribute.img" alt="" class="item-img">
+                                </div>
+                                <h4 class="tile-name">{{ pr_attribute.name }}</h4>
+                                <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
                             </div>
-                            <h4 class="tile-name">{{ pr_attribute.name }}</h4>
-                            <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
-                        </div>
-                    </label>
+                        </label>
+                    </div>
                 </div>
             </div>
 
             <div class="input-fields-wrapper" v-if="activeStep == 1">
-                <div class="tile" v-for="(pr_attribute, index) in cooler" :key="'pr_attribute'+index">
-                    <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice"
-                        class="tile-input">
-                    <label for="userChoice" class="tile-label">
-                        <div class="tile-wrapper">
-                            <div class="item-img-wrapper">
-                                <img :src="pr_attribute.img" alt="" class="item-img">
+                <div class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12"
+                    v-for="(pr_attribute, index) in cooler" :key="'pr_attribute'+index">
+                    <div class="tile">
+                        <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice"
+                            class="tile-input">
+                        <label for="userChoice" class="tile-label">
+                            <div class="tile-wrapper">
+                                <div class="item-img-wrapper">
+                                    <img :src="pr_attribute.img" alt="" class="item-img">
+                                </div>
+                                <h4 class="tile-name">{{ pr_attribute.name }}</h4>
+                                <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
                             </div>
-                            <h4 class="tile-name">{{ pr_attribute.name }}</h4>
-                            <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
-                        </div>
-                    </label>
+                        </label>
+                    </div>
                 </div>
             </div>
 
             <div class="input-fields-wrapper" v-if="activeStep == 2">
-                <div class="tile" v-for="(pr_attribute, index) in main" :key="'pr_attribute'+index">
-                    <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice"
-                        class="tile-input">
-                    <label for="userChoice" class="tile-label">
-                        <div class="tile-wrapper">
-                            <div class="item-img-wrapper">
-                                <img :src="pr_attribute.img" alt="" class="item-img">
+                <div class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12" v-for="(pr_attribute, index) in main"
+                    :key="'pr_attribute'+index">
+                    <div class="tile">
+                        <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice"
+                            class="tile-input">
+                        <label for="userChoice" class="tile-label">
+                            <div class="tile-wrapper">
+                                <div class="item-img-wrapper">
+                                    <img :src="pr_attribute.img" alt="" class="item-img">
+                                </div>
+                                <h4 class="tile-name">{{ pr_attribute.name }}</h4>
+                                <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
                             </div>
-                            <h4 class="tile-name">{{ pr_attribute.name }}</h4>
-                            <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
-                        </div>
-                    </label>
+                        </label>
+                    </div>
                 </div>
             </div>
 
             <div class="input-fields-wrapper" v-if="activeStep == 3">
-                <div class="tile" v-for="(pr_attribute, index) in ram" :key="'pr_attribute'+index">
-                    <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice"
-                        class="tile-input">
-                    <label for="userChoice" class="tile-label">
-                        <div class="tile-wrapper">
-                            <div class="item-img-wrapper">
-                                <img :src="pr_attribute.img" alt="" class="item-img">
+                <div class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12" v-for="(pr_attribute, index) in ram"
+                    :key="'pr_attribute'+index">
+                    <div class="tile">
+                        <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice"
+                            class="tile-input">
+                        <label for="userChoice" class="tile-label">
+                            <div class="tile-wrapper">
+                                <div class="item-img-wrapper">
+                                    <img :src="pr_attribute.img" alt="" class="item-img">
+                                </div>
+                                <h4 class="tile-name">{{ pr_attribute.name }}</h4>
+                                <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
                             </div>
-                            <h4 class="tile-name">{{ pr_attribute.name }}</h4>
-                            <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
-                        </div>
-                    </label>
+                        </label>
+                    </div>
                 </div>
             </div>
 
             <div class="input-fields-wrapper" v-if="activeStep == 4">
-                <div class="tile" v-for="(pr_attribute, index) in ssd" :key="'pr_attribute'+index">
-                    <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice"
-                        class="tile-input">
-                    <label for="userChoice" class="tile-label">
-                        <div class="tile-wrapper">
-                            <div class="item-img-wrapper">
-                                <img :src="pr_attribute.img" alt="" class="item-img">
+                <div class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12" v-for="(pr_attribute, index) in ssd"
+                    :key="'pr_attribute'+index">
+                    <div class="tile">
+                        <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice"
+                            class="tile-input">
+                        <label for="userChoice" class="tile-label">
+                            <div class="tile-wrapper">
+                                <div class="item-img-wrapper">
+                                    <img :src="pr_attribute.img" alt="" class="item-img">
+                                </div>
+                                <h4 class="tile-name">{{ pr_attribute.name }}</h4>
+                                <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
                             </div>
-                            <h4 class="tile-name">{{ pr_attribute.name }}</h4>
-                            <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
-                        </div>
-                    </label>
+                        </label>
+                    </div>
                 </div>
             </div>
 
             <div class="input-fields-wrapper" v-if="activeStep == 5">
-                <div class="tile" v-for="(pr_attribute, index) in hdd" :key="'pr_attribute'+index">
-                    <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice"
-                        class="tile-input">
-                    <label for="userChoice" class="tile-label">
-                        <div class="tile-wrapper">
-                            <div class="item-img-wrapper">
-                                <img :src="pr_attribute.img" alt="" class="item-img">
+                <div class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12" v-for="(pr_attribute, index) in hdd"
+                    :key="'pr_attribute'+index">
+                    <div class="tile">
+                        <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice"
+                            class="tile-input">
+                        <label for="userChoice" class="tile-label">
+                            <div class="tile-wrapper">
+                                <div class="item-img-wrapper">
+                                    <img :src="pr_attribute.img" alt="" class="item-img">
+                                </div>
+                                <h4 class="tile-name">{{ pr_attribute.name }}</h4>
+                                <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
                             </div>
-                            <h4 class="tile-name">{{ pr_attribute.name }}</h4>
-                            <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
-                        </div>
-                    </label>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>

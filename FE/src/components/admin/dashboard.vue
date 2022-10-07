@@ -6,14 +6,16 @@
         <div class="separator"></div>
         <div class="input-fields">
             <div class="input-fields-wrapper">
-                <router-link tag="div" :to="{path: '/'}" class="counter-wrapper" v-for="(category, index) in formSteps"
-                    :key="'category'+index" v-if="index <= 8">
-                    <div class="counter-right">
-                        <img :src="category.img" alt="">
-                    </div>
-                    <div class="counter-left">
-                        <p class="counter-name">{{category.name}}</p>
-                        <p class="counter">{{category.count}} products</p>
+                <router-link tag="div" :to="{path: `/admin/` + category.id}" class="counter-wrapper-outer col-lg-4 col-md-6 col-sm-12"
+                    v-for="(category, index) in formSteps" :key="category.id" v-if="index <= 8">
+                    <div class="counter-wrapper">
+                        <div class="counter-right">
+                            <img :src="category.img" alt="">
+                        </div>
+                        <div class="counter-left">
+                            <p class="counter-name">{{category.name}}</p>
+                            <p class="counter">{{category.count}} products</p>
+                        </div>
                     </div>
                 </router-link>
                 <router-link tag="div" :to="{path: '/'}" class="counter-wrapper counter-wrapper-big">
