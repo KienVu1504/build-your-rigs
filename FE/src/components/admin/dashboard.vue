@@ -6,7 +6,7 @@
         <div class="separator"></div>
         <div class="input-fields">
             <div class="input-fields-wrapper">
-                <router-link tag="div" :to="{path: `/admin/` + category.id}" class="counter-wrapper-outer col-lg-4 col-md-6 col-sm-12"
+                <router-link tag="div" :to="{path: `/admin/products/` + category.id}" class="counter-wrapper-outer col-lg-4 col-md-6 col-sm-12"
                     v-for="(category, index) in formSteps" :key="category.id" v-if="index <= 8">
                     <div class="counter-wrapper">
                         <div class="counter-right">

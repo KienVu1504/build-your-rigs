@@ -1,16 +1,19 @@
 <template>
     <div class="flex">
-        <router-link :to="{path: `/admin/add-product/add-` + formStep.name}" tag="div" class="tile" v-for="(formStep, index) in formSteps"
+        <router-link :to="{path: `/admin/add-product/add-` + formStep.name}" tag="div"
+            class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12" v-for="(formStep, index) in formSteps"
             :key="'formSteps'+index" v-if="index <= 8">
-            <input tag="input" type="radio" id="inputCheckbox" name="userChoice" class="tile-input">
-            <label for="userChoice" class="tile-label">
-                <div class="tile-wrapper">
-                    <div class="item-img-wrapper">
-                        <img :src="formStep.img" alt="" class="item-img">
+            <div class="tile">
+                <input tag="input" type="radio" id="inputCheckbox" name="userChoice" class="tile-input">
+                <label for="userChoice" class="tile-label">
+                    <div class="tile-wrapper">
+                        <div class="item-img-wrapper">
+                            <img :src="formStep.img" alt="" class="item-img">
+                        </div>
+                        <h4 class="tile-name">{{formStep.name}}</h4>
                     </div>
-                    <h4 class="tile-name">{{formStep.name}}</h4>
-                </div>
-            </label>
+                </label>
+            </div>
         </router-link>
     </div>
 </template>

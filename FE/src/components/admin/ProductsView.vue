@@ -3,11 +3,14 @@
         <div class="section-header">
             <p class="section-title">Products</p>
         </div>
+        <div class="search-wrapper">
+            <input type="text" v-model="search" placeholder="Search by name.." />
+        </div>
         <div class="separator"></div>
         <div class="input-fields">
             <div class="input-fields-wrapper">
                 <div class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12"
-                    v-for="(pr_attribute, index) in products" :key="'pr_attribute'+index">
+                    v-for="(pr_attribute, index) in filteredList" :key="'pr_attribute'+index">
                     <div class="tile">
                         <input type="radio" id="inputCheckbox" name="userChoice" class="tile-input">
                         <label for="userChoice" class="tile-label">
@@ -21,6 +24,9 @@
                         </label>
                     </div>
                 </div>
+                <div class="no-data" v-if="filteredList.length == 0">
+                    <p>Can't find your item :(</p>
+                </div>
             </div>
         </div>
     </section>
@@ -33,20 +39,25 @@ import qs from "qs"
 export default {
     data() {
         return {
-            products: []
+            products: [],
+            search: ''
         };
     },
     computed: {
         animation() {
             return this.$store.state.animation
+        },
+        filteredList() {
+            return this.products.filter(post => {
+                return post.name.toLowerCase().includes(this.search.toLowerCase())
+            })
         }
     },
     mounted() {
-        this.fetchCpus()
+        this.fetchDatas();
     },
-
     methods: {
-        async fetchCpus() {
+        async fetchDatas() {
             const productsQuery = {
                 method: "GET",
                 url: "search_pr",
@@ -70,5 +81,7 @@ export default {
 </script>
 
 <style scoped>
-
+.tile-input:after {
+    display: none;
+}
 </style>

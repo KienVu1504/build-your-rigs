@@ -12,10 +12,6 @@ const routes = [
     component: GettingStarted
   },
   {
-    path: '/admin/test',
-    component: () => import('../components/admin/hjhgj.vue')
-  },
-  {
     path: '/home',
     name: 'home',
     component: () => import('../views/HomeView.vue')
@@ -51,8 +47,8 @@ const routes = [
             component: () => import('../components/admin/dashboard.vue')
           },
           {
-            path: ':id',
-            name: 'products',
+            path: 'products/:id',
+            // name: 'products',
             component: () => import('../components/admin/ProductsView.vue')
           },
           {

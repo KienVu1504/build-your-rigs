@@ -458,6 +458,7 @@ article section .actions button:hover {
 .flex {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 }
 .header-action a:hover,
 .header-action div:hover {
@@ -503,6 +504,29 @@ article section .actions button:hover {
   z-index: 1;
 }
 
+.no-data {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
+}
+
+.search-wrapper {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 1px solid #ff008b;
+}
+
+.search-wrapper input {
+  background: none;
+  outline: none;
+  border: none;
+}
+
 .tile-input:after {
   position: absolute;
   font-family: "Font Awesome 5 Free";
@@ -512,6 +536,7 @@ article section .actions button:hover {
   top: 10px;
   left: 10px;
   color: #ff008b;
+  /* display: none; */
 }
 
 .tile:hover {

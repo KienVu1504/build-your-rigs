@@ -29,13 +29,20 @@ export default {
             return this.$store.state.animation
         }
     },
+    data() {
+        return {
+        };
+    },
     methods: {
         ...mapActions([
             'fetchCoolers',
             'fetchMains',
             'fetchRams',
             'fetchSsds',
-            'fetchHdds'
+            'fetchHdds',
+            'fetchGpus',
+            'fetchCases',
+            'fetchPsus'
         ]),
         nextStep() {
             this.clearForm()
@@ -51,6 +58,12 @@ export default {
                 this.fetchSsds();
             } else if (this.activeStep == 4) {
                 this.fetchHdds();
+            } else if (this.activeStep == 5) {
+                this.fetchGpus();
+            } else if (this.activeStep == 6) {
+                this.fetchCases();
+            } else if (this.activeStep == 7) {
+                this.fetchPsus();
             }
             setTimeout(() => {
                 this.$store.commit("setAnimate", "animate-in")

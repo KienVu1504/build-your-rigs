@@ -55,6 +55,15 @@ export default new Vuex.Store({
     setHDDData(state, newData) {
       state.hdd = newData
     },
+    setGPUData(state, newData) {
+      state.gpu = newData
+    },
+    setCASEData(state, newData) {
+      state.case = newData
+    },
+    setPSUData(state, newData) {
+      state.psu = newData
+    },
     setAnimate(state, newAnimate) {
       state.animation = newAnimate
     },
@@ -221,6 +230,69 @@ export default new Vuex.Store({
       await axios(hddsQuery).then(res => {
         this.dataHDD = res.data;
         commit("setHDDData", this.dataHDD);
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    async fetchGpus({ commit }) {
+      const gpusQuery = {
+        method: "GET",
+        url: "search_pr",
+        params: {
+          q: {
+            product_name_cont: 'GPU',
+            price_lt: this.state.cih
+          }
+        },
+        paramsSerializer: params => {
+          return qs.stringify(params)
+        }
+      }
+      await axios(gpusQuery).then(res => {
+        this.dataGPU = res.data;
+        commit("setGPUData", this.dataGPU);
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    async fetchCases({ commit }) {
+      const casesQuery = {
+        method: "GET",
+        url: "search_pr",
+        params: {
+          q: {
+            product_name_cont: 'CASE',
+            price_lt: this.state.cih
+          }
+        },
+        paramsSerializer: params => {
+          return qs.stringify(params)
+        }
+      }
+      await axios(casesQuery).then(res => {
+        this.dataCASE = res.data;
+        commit("setCASEData", this.dataCASE);
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    async fetchPsus({ commit }) {
+      const psusQuery = {
+        method: "GET",
+        url: "search_pr",
+        params: {
+          q: {
+            product_name_cont: 'PSU',
+            price_lt: this.state.cih
+          }
+        },
+        paramsSerializer: params => {
+          return qs.stringify(params)
+        }
+      }
+      await axios(psusQuery).then(res => {
+        this.dataPSU = res.data;
+        commit("setPSUData", this.dataPSU);
       }).catch(err => {
         console.log(err)
       })
