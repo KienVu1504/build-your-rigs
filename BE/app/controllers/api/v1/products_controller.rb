@@ -17,6 +17,7 @@ module Api
 
       def create
         @product = Product.create(product_params)
+        @product.image.attach(params[:product][:image])
 
         if @product.valid?
           render json: @product, status: :created
@@ -44,7 +45,7 @@ module Api
       end
 
       def product_params
-        params.permit(:name, :img)
+        params.permit(:name, :img, :image)
       end
     end
   end
