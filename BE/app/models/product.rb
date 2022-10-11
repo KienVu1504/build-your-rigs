@@ -4,4 +4,8 @@ class Product < ApplicationRecord
   has_one_attached :image
 
   validates :name, uniqueness: true, presence: true
+
+  #post image
+  attribute :image_url
+  after_find :set_image_url
 end

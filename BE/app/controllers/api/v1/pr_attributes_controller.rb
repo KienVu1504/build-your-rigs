@@ -16,6 +16,7 @@ module Api
 
       def create
         @product_att = PrAttribute.new(product_att_params)
+        @product_att.image.attach(params[:image])
         if @product_att.save
           render json: @product_att, status: :created
         else
@@ -58,7 +59,7 @@ module Api
 
       def product_att_params
         params.permit(:product_id, :name, :socket, :dimm, :ssd, :hdd, :form, :size, :capacity,
-                      :wattage, :price, :img,:brand_id, :status)
+                      :wattage, :price, :img,:brand_id, :status, :image)
       end
     end
   end

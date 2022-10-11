@@ -15,6 +15,7 @@ module Api
 
       def create
         @pre_build = PreBuild.new(pre_build_params)
+        @pre_build.image.attach(params[:image])
 
         if @pre_build.save
           render json: @pre_build, status: :created
@@ -43,7 +44,7 @@ module Api
 
       def pre_build_params
         params.require(:pre_build).permit(:purpose_id, :price_range_id, :cpu, :cooler, :main, :ram, :ssd, :hdd, :gpu,
-                                          :psw, :case, :price, :img, :status)
+                                          :psw, :case, :price, :img, :status,:image)
       end
     end
   end

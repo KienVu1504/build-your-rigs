@@ -5,7 +5,7 @@ module Api
 
       def create
         @brand = Brand.create(brand_params)
-        @product.image.attach(params[:brand][:image])
+        @brand.image.attach(params[:image])
         if @brand.valid?
           render json: @brand, status: :created
         else
@@ -24,12 +24,12 @@ module Api
 
       def index
         @brand = Brand.all
-        render json: @brand
+        render json: { count: @brand.count, brand: @brand }
       end
 
       def destroy
         @brand = Brand.find(params[:id])
-        
+
         @brand.destroy
         render json: { message: 'deleted' }
       end
@@ -38,6 +38,7 @@ module Api
         @brand = Brand.find(params[:id])
         render json: @brand
       end
+
       def brand_params
         params.permit(:name, :img, :status, :image)
       end
