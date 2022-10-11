@@ -21,16 +21,10 @@ export default {
         };
     },
     mounted() {
-        // checkToken: {
-        //     const token = this.$store.state.token
-        //     if (token.length == 0 || token == null || token == '') {
-        //         this.$router.push({ path: "/admin/login" }).catch(() => { });
-        //     }
-        // }
     },
     methods: {
         logout() {
-            this.$store.commit("clearToken");
+            this.$store.commit("userToken/clearToken");
             this.$router.push({ path: '/admin/login' })
         }
     },

@@ -6,7 +6,7 @@
 export default {
     mounted() {
         checkToken: {
-            console.log(this.$store.state.userToken.token)
+            // console.log(this.$store.state.userToken.token)
             const token = this.$store.state.userToken.token
             if (token.length == 0 || token == null || token == '') {
                 this.$router.push({ path: "/admin/login" }).catch(() => { });

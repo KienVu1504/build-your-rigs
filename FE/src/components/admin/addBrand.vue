@@ -57,7 +57,11 @@ export default {
     mounted() {
 
     },
-
+    computed: {
+        animation() {
+            return this.$store.state.animation
+        },
+    },
     methods: {
         async addPSU(e) {
             const psuData = {

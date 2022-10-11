@@ -174,7 +174,7 @@ body {
   display: flex;
   justify-content: center;
   width: 100%;
-  min-height: 95vh;
+  min-height: 100vh;
   font-family: "Noto Sans", sans-serif;
 }
 
@@ -193,10 +193,11 @@ body {
 article {
   display: flex;
   margin: 10px;
-  width: calc(100% - 20px);
+  /* width: calc(100% - 20px); */
+  width: 100%;
   min-height: 480px;
   perspective: 1000px;
-  max-width: 95%;
+  /* max-width: 95%; */
 }
 
 article header {

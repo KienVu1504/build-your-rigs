@@ -130,7 +130,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = store.state.token
+  const isAuthenticated = store.state.userToken.token
   if (to.path.includes('/admin') && isAuthenticated.length == 0 && to.path !== "/admin/login") {
     next({ path: "/admin/login" })
   } else next()

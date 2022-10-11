@@ -6,8 +6,9 @@
         <div class="separator"></div>
         <div class="input-fields">
             <div class="input-fields-wrapper">
-                <router-link tag="div" :to="{path: `/admin/products/` + category.id}" class="counter-wrapper-outer col-lg-4 col-md-6 col-sm-12"
-                    v-for="(category, index) in formSteps" :key="category.id" v-if="index <= 8">
+                <router-link tag="div" :to="{path: `/admin/products/` + category.id}"
+                    class="counter-wrapper-outer col-lg-4 col-md-6 col-sm-12" v-for="(category, index) in formSteps"
+                    :key="category.id" v-if="index <= 8">
                     <div class="counter-wrapper">
                         <div class="counter-right">
                             <img :src="category.img" alt="">
@@ -33,7 +34,9 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { createNamespacedHelpers } from 'vuex'
+const formStepsStore = createNamespacedHelpers('formStepsData')
+const preBuildStore = createNamespacedHelpers('preBuild')
 
 export default {
     data() {
@@ -50,21 +53,23 @@ export default {
             return this.$store.state.animation
         },
         formSteps() {
-            return this.$store.state.formSteps
+            return this.$store.state.formStepsData.formSteps
         },
         preBuildCountData() {
-            return this.$store.state.preBuildCount
+            return this.$store.state.preBuild.preBuildCount
         }
     },
     methods: {
-        ...mapActions([
-            'fetchSteps',
+        ...formStepsStore.mapActions([
+            'fetchSteps'
+        ]),
+        ...preBuildStore.mapActions([
             'preBuildCount'
         ])
     },
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>

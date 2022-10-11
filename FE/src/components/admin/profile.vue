@@ -59,11 +59,9 @@ export default {
         checkPassword(e) {
             e.preventDefault();
             if (this.password != this.confirmPassword) {
-                console.log("password is incorrect")
                 alert("Password is not match")
             } else {
                 this.changePassword()
-                console.log("password is correct")
             }
         },
         async changePassword() {
@@ -78,14 +76,12 @@ export default {
                 }
             }
             await axios(PasswordParams).then(res => {
-                // console.log(res)
                 if (res.status == "200") {
                     alert("Update successful")
                 } else {
                     alert("Something went wrong")
                 }
             }).catch(err => {
-                console.log(err)
                 alert(err.response.data.message)
             })
         },
@@ -175,28 +171,8 @@ input:disabled {
     border-color: #ff008b;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.035);
-    border-radius: 4px;
+    border-radius: 10px;
     font-size: 14px;
     cursor: pointer;
-}
-
-.submitButton:disabled,
-button[disabled] {
-    border: 1px solid #cccccc;
-    background-color: #cccccc;
-    color: #666666;
-}
-
-#loader {
-    position: absolute;
-    z-index: 1;
-    margin: -2px 0 0 10px;
-    border: 4px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 4px solid #666666;
-    width: 14px;
-    height: 14px;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
 }
 </style>

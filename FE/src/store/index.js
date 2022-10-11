@@ -5,6 +5,10 @@ import search from "@/store/modules/search"
 import userInfo from '@/store/modules/userInfo'
 import formStepsData from "@/store/modules/formStepsData"
 import userToken from '@/store/modules/userToken'
+import createPersistedState from "vuex-persistedstate";
+const dataState = createPersistedState({
+  paths: ['userToken.token']
+})
 
 Vue.use(Vuex)
 
@@ -33,4 +37,5 @@ export default new Vuex.Store({
     userInfo,
     userToken
   },
+  plugins: [dataState]
 })

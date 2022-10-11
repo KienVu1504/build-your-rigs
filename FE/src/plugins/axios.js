@@ -8,7 +8,7 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
   config.headers = {
-    Authorization: "Bearer " + store.state.token,
+    Authorization: "Bearer " + store.state.userToken.token,
   };
   return config;
 });

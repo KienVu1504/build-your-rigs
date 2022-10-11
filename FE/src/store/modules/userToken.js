@@ -1,7 +1,7 @@
-import createPersistedState from "vuex-persistedstate";
-const dataState = createPersistedState({
-    paths: ['token']
-})
+// import createPersistedState from "vuex-persistedstate";
+// const dataState = createPersistedState({
+//     paths: ['token']
+// })
 export default {
     namespaced: true,
     strict: true,
@@ -21,5 +21,5 @@ export default {
     actions: {
 
     },
-    plugins: [dataState]
+    // plugins: [dataState]
 }
