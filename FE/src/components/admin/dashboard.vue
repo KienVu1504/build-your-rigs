@@ -11,7 +11,8 @@
                     :key="category.id" v-if="index <= 8">
                     <div class="counter-wrapper">
                         <div class="counter-right">
-                            <img :src="category.img" alt="">
+                            <img :src="category.img" v-if="category.image_url == null" alt="">
+                            <img :src="category.img" v-if="category.img == null" alt="">
                         </div>
                         <div class="counter-left">
                             <p class="counter-name">{{category.name}}</p>
@@ -19,13 +20,26 @@
                         </div>
                     </div>
                 </router-link>
-                <router-link tag="div" :to="{path: '/'}" class="counter-wrapper counter-wrapper-big">
-                    <div class="counter-right">
-                        <img src="@/assets/images/gsImage.png" alt="">
+                <router-link tag="div" :to="{path: '/admin/pre-builds/'}" class="counter-wrapper-outer col-lg-6 col-md-6 col-sm-12">
+                    <div class="counter-wrapper">
+                        <div class="counter-right">
+                            <img src="@/assets/images/gsImage.png" alt="">
+                        </div>
+                        <div class="counter-left">
+                            <p class="counter-name">Pre-build set</p>
+                            <p class="counter">{{preBuildCountData.count}} sets</p>
+                        </div>
                     </div>
-                    <div class="counter-left">
-                        <p class="counter-name">Pre-build set ready</p>
-                        <p class="counter">{{preBuildCountData.count}} sets</p>
+                </router-link>
+                <router-link tag="div" :to="{path: '/admin/brands'}" class="counter-wrapper-outer col-lg-6 col-md-6 col-sm-12">
+                    <div class="counter-wrapper">
+                        <div class="counter-right">
+                            <img src="@/assets/images/logo.png" alt="">
+                        </div>
+                        <div class="counter-left">
+                            <p class="counter-name">Brands</p>
+                            <p class="counter">{{preBuildCountData.count}} brands</p>
+                        </div>
                     </div>
                 </router-link>
             </div>

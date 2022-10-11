@@ -9,21 +9,25 @@
         <div class="separator"></div>
         <div class="input-fields">
             <div class="input-fields-wrapper">
-                <div class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12"
+                <router-link tag="div" :to="{path: `/admin/products/` + $route.params.id + '/' + pr_attribute.id}"
+                    class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12"
                     v-for="(pr_attribute, index) in filteredList" :key="'pr_attribute'+index">
                     <div class="tile">
                         <input type="radio" id="inputCheckbox" name="userChoice" class="tile-input">
                         <label for="userChoice" class="tile-label">
                             <div class="tile-wrapper">
                                 <div class="item-img-wrapper">
-                                    <img :src="pr_attribute.img" alt="" class="item-img">
+                                    <img :src="pr_attribute.img" v-if="pr_attribute.image_url == null" alt=""
+                                        class="item-img">
+                                    <img :src="pr_attribute.image_url" v-if="pr_attribute.img == null" alt=""
+                                        class="item-img">
                                 </div>
                                 <h4 class="tile-name">{{ pr_attribute.name }}</h4>
                                 <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
                             </div>
                         </label>
                     </div>
-                </div>
+                </router-link>
                 <div class="no-data" v-if="filteredList.length == 0">
                     <p>Can't find your item :(</p>
                 </div>

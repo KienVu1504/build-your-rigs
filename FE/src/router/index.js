@@ -48,8 +48,11 @@ const routes = [
           },
           {
             path: 'products/:id',
-            // name: 'products',
             component: () => import('../components/admin/ProductsView.vue')
+          },
+          {
+            path: 'products/:id/:pr_id',
+            component: () => import('../components/admin/productsDetails.vue')
           },
           {
             path: 'add-brand',

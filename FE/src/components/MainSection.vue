@@ -22,7 +22,8 @@
                         <label for="userChoice" class="tile-label">
                             <div class="tile-wrapper">
                                 <div class="item-img-wrapper">
-                                    <img :src="pr_attribute.img" alt="" class="item-img">
+                                    <img :src="pr_attribute.img" v-if="pr_attribute.image_url == null" alt="" class="item-img">
+                                    <img :src="pr_attribute.image_url" v-if="pr_attribute.img == null" alt="" class="item-img">
                                 </div>
                                 <h4 class="tile-name">{{ pr_attribute.name }}</h4>
                                 <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>

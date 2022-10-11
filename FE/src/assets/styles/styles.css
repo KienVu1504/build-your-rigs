@@ -596,7 +596,7 @@ article section .actions button:hover {
 }
 
 .counter-wrapper {
-  width: 495px;
+  width: 100%;
   border: 1px pink solid;
   border-radius: 20px;
   margin: 0px 10px;
@@ -613,7 +613,7 @@ article section .actions button:hover {
 }
 
 .counter-wrapper-big {
-  width: 100%;
+  width: 50%;
 }
 
 .counter-right {
