@@ -5,9 +5,11 @@ module Api
       before_action :set_product_att, only: %i[show update destroy]
 
       def index
-        @product_att = PrAttribute.paginate(page: params[:page], per_page: 50)
+        product_att = PrAttribute.all
+        @pagy, @product_att = pagy(product_att, items: params[:per_page] || DEFAULT_PER_PAGE,
+                                                page: params[:page] || DEFAULT_PAGE)
 
-        render json: @product_att, each_serializer: nil
+        render json: { page: pages, product_att: @product_att }
       end
 
       def show

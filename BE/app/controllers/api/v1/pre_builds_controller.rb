@@ -5,7 +5,9 @@ module Api
       before_action :set_pre_build, only: %i[show update destroy]
 
       def index
-        @pre_builds = PreBuild.all
+        pre_builds = PreBuild.all
+        @pagy, @pre_builds = pagy(pre_builds, items: params[:per_page] || DEFAULT_PER_PAGE,
+          page: params[:page] || DEFAULT_PAGE)
         render json: { count: @pre_builds.count, pre_builds: @pre_builds }
       end
 
@@ -43,7 +45,7 @@ module Api
       end
 
       def pre_build_params
-        params.require(:pre_build).permit(:purpose_id, :price_range_id, :cpu, :cooler, :main, :ram, :ssd, :hdd, :gpu,
+        params.permit(:purpose_id, :price_range_id, :cpu, :cooler, :main, :ram, :ssd, :hdd, :gpu,
                                           :psw, :case, :price, :img, :status,:image)
       end
     end

@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::API
+  include Pagy::Backend
+  DEFAULT_PER_PAGE = 15
+  DEFAULT_PAGE = 1
   def encode_token(payload)
     JWT.encode(payload, 'secret')  
   end
@@ -28,5 +31,15 @@ class ApplicationController < ActionController::API
   def authorize
     render json: { message: 'You have to log in.'}, status: :unauthorized unless
     authorized_user
+  end
+
+  def pages
+    {
+      total: @pagy.count,
+      page: @pagy.page,
+      from: @pagy.from,
+      to: @pagy.to,
+      pages: @pagy.pages
+    }
   end
 end
