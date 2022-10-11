@@ -16,16 +16,28 @@
                         <div class="row tm-edit-product-row">
                             <div class="col-xl-12 col-lg-12 col-md-12">
                                 <form action="" class="tm-edit-product-form" autocomplete="off"
-                                    @submit.prevent="addPSU">
+                                    @submit.prevent="addBrand">
                                     <div class="form-group mb-3">
                                         <label for="name">Name</label>
                                         <input id="name" name="name" v-model="name" type="text"
                                             placeholder="Enter brand name" class="form-control validate" required="">
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label for="description">Image Link</label>
-                                        <textarea class="form-control validate" rows="5" required="" v-model="image"
+                                        <label for="description">Add image link</label>
+                                        <textarea class="form-control validate" rows="5" v-model="image"
                                             placeholder="Enter image's embed link"></textarea>
+                                    </div>
+                                    <label>Or</label>
+                                    <div class="form-group mb-3 image-upload">
+                                        <label for="inputTag">
+                                            Select Image <br />
+                                            <center>
+                                                <i class="fa fa-2x fa-camera"></i>
+                                            </center>
+                                            <input id="inputTag" name="image" ref="imgInput" type="file" />
+                                            <br />
+                                            <span id="imageName"></span>
+                                        </label>
                                     </div>
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary btn-block text-uppercase">Add
@@ -48,9 +60,7 @@ export default {
     data() {
         return {
             name: '',
-            wattage: '',
-            image: '',
-            price: null,
+            image: ''
         };
     },
 
@@ -63,35 +73,24 @@ export default {
         },
     },
     methods: {
-        async addPSU(e) {
-            const psuData = {
-                method: "POST",
-                url: "pr_attributes",
-                params: {
-                    product_id: 9,
-                    name: this.name,
-                    img: this.image,
-                    wattage: this.wattage,
-                    price: this.price
+        addBrand(e) {
+            console.log(this.$refs.imgInput.files);
+            let formData = new FormData();
+            formData.append("name", this.name);
+            formData.append("img", this.image);
+            if (this.$refs.imgInput.files[0]) formData.append("image", this.$refs.imgInput.files[0]);
+            axios.post(`brands`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
                 },
-                paramsSerializer: params => {
-                    return qs.stringify(params)
-                }
-            }
-            await axios(psuData).then(res => {
-                console.log(res)
+            }).then(() => {
+                this.$refs.imgInput.value = ''
+                // this.fetching();
                 e.preventDefault();
-                if (res.request.status >= 200 && res.request.status < 300) {
-                    alert("Add BRAND successful!")
-                    this.$router.push({ path: "/admin/add-product" })
-                } else {
-                    alert("Something went wrong, please try again!")
-                }
-            }).catch(err => {
-                console.log(err)
+            }).catch(() => {
+                alert("something wrong happen !");
                 e.preventDefault();
-                alert("Something went wrong, please try again!")
-            })
+            });
         },
     },
 };
@@ -108,5 +107,17 @@ export default {
     justify-content: center;
     align-items: center;
     height: 100%;
+}
+
+.image-upload input {
+    display: none;
+}
+
+.image-upload label {
+    cursor: pointer;
+}
+
+.image-upload #imageName {
+    color: green;
 }
 </style>

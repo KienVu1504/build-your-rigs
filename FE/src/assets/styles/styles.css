@@ -633,6 +633,21 @@ article section .actions button:hover {
   font-size: large;
 }
 
+.image-upload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ff008b;
+  border-radius: 10px;
+}
+
+.image-upload label {
+  margin: 0;
+  padding-top: 25px;
+  width: 100%;
+  text-align: center;
+}
+
 @keyframes in {
   0% {
     opacity: 0;
