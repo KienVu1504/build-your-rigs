@@ -15,7 +15,7 @@ export default {
     },
     methods: {
         getLSUserCIH() {
-            const cihInt = this.$store.state.cih
+            const cihInt = this.$store.state.userInfo.cih
             const cih = cihInt.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
             const cihP = document.getElementById('cihP')
             cihP.innerHTML = "Your CIH: $" + cih

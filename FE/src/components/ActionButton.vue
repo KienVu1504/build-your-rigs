@@ -12,18 +12,19 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { createNamespacedHelpers } from 'vuex'
+const searchStore = createNamespacedHelpers('search')
 
 export default {
     computed: {
         activeStep() {
-            return this.$store.state.activeStep
+            return this.$store.state.formStepsData.activeStep
         },
         formSteps() {
-            return this.$store.state.formSteps
+            return this.$store.state.formStepsData.formSteps
         },
         valid() {
-            return this.$store.state.valid
+            return this.$store.state.formStepsData.valid
         },
         animation() {
             return this.$store.state.animation
@@ -34,7 +35,7 @@ export default {
         };
     },
     methods: {
-        ...mapActions([
+        ...searchStore.mapActions([
             'fetchCoolers',
             'fetchMains',
             'fetchRams',
@@ -47,7 +48,6 @@ export default {
         nextStep() {
             this.clearForm()
             this.$store.commit("setAnimate", "animate-out")
-            console.log(this.activeStep)
             if (this.activeStep == 0) {
                 this.fetchCoolers();
             } else if (this.activeStep == 1) {
@@ -67,7 +67,7 @@ export default {
             }
             setTimeout(() => {
                 this.$store.commit("setAnimate", "animate-in")
-                this.$store.commit("setStep")
+                this.$store.commit("formStepsData/setStep")
             }, 550);
         },
         checkFields() {
@@ -84,7 +84,7 @@ export default {
         clearForm() {
             const radio = document.getElementById("checkClone")
             radio.checked = true;
-            this.$store.commit("setValid")
+            this.$store.commit("formStepsData/setValid")
         },
         rotateBack() {
             const btn = document.getElementById("action-btn")

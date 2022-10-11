@@ -52,6 +52,10 @@ const routes = [
             component: () => import('../components/admin/ProductsView.vue')
           },
           {
+            path: 'add-brand',
+            component: () => import('../components/admin/addBrand.vue')
+          },
+          {
             path: 'profile',
             name: 'profile',
             component: () => import('../components/admin/profile.vue')

@@ -1,5 +1,5 @@
 <template>
-  <div class="input-container" @mousemove="mousemove" @mouseenter="mouseenter" @mouseleave="mouseleave">
+  <div class="input-container">
     <div class="inputBg"></div>
 
     <div class="input-box">
@@ -33,7 +33,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'GettingStarted',
   data() {
@@ -46,29 +45,6 @@ export default {
   mounted() {
   },
   methods: {
-    mousemove(event) {
-      const box = document.querySelector('.input-box')
-      let horizontal = (window.innerWidth / 2 - event.pageX) / 25
-      let vertical = (window.innerHeight / 2 - event.pageY) / 25
-      box.style.transform = `rotateX(${vertical}deg) rotateY(${horizontal}deg)`
-    },
-    mouseenter(event) {
-      const box = document.querySelector('.input-box')
-      const header = document.querySelector('#input-header')
-      const gsImage = document.querySelector('#gsImage')
-      const logo = document.querySelector('#logo')
-      const form = document.querySelector('#form')
-      box.style.transition = ".1s"
-      header.style.transform = "translateZ(120px)"
-      gsImage.style.transform = "translateZ(150px)"
-      logo.style.transform = "translateZ(130px)"
-      form.style.transform = "translateZ(100px)"
-    },
-    mouseleave(event) {
-      const box = document.querySelector('.input-box')
-      box.style.transition = ".1s"
-      box.style.transform = `rotateX(0deg) rotateY(0deg)`
-    },
     redirect() {
       this.saveToLS()
       this.$router.push({ path: '/home' })
@@ -76,9 +52,9 @@ export default {
     saveToLS() {
       const name = document.getElementById('username').value;
       const cih = document.getElementById('cih').value;
-      this.$store.commit("setName", name);
-      this.$store.commit("setCih", parseInt(cih));
-      this.$store.commit("resetStep")
+      this.$store.commit("userInfo/setName", name);
+      this.$store.commit("userInfo/setCih", parseInt(cih));
+      this.$store.commit("formStepsData/resetStep")
     },
     checkForm: function (e) {
       const name = document.getElementById('username').value;

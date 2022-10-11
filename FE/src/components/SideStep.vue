@@ -21,13 +21,13 @@
 export default {
     computed: {
         activeStep() {
-            return this.$store.state.activeStep
+            return this.$store.state.formStepsData.activeStep
         },
         username() {
-            return this.$store.state.name
+            return this.$store.state.userInfo.name
         },
         formSteps() {
-            return this.$store.state.formSteps
+            return this.$store.state.formStepsData.formSteps
         },
     },
 };

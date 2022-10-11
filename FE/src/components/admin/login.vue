@@ -1,5 +1,5 @@
 <template>
-    <div class="input-container" @mousemove="mousemove" @mouseenter="mouseenter" @mouseleave="mouseleave">
+    <div class="input-container">
         <div class="inputBg"></div>
 
         <div class="input-box">
@@ -43,36 +43,12 @@ export default {
         };
     },
     methods: {
-        mousemove(event) {
-            const box = document.querySelector('.input-box')
-            let horizontal = (window.innerWidth / 2 - event.pageX) / 25
-            let vertical = (window.innerHeight / 2 - event.pageY) / 25
-            box.style.transform = `rotateX(${vertical}deg) rotateY(${horizontal}deg)`
-        },
-        mouseenter(event) {
-            const box = document.querySelector('.input-box')
-            const header = document.querySelector('#input-header')
-            const gsImage = document.querySelector('#gsImage')
-            const logo = document.querySelector('#logo')
-            const form = document.querySelector('#form')
-            box.style.transition = ".1s"
-            header.style.transform = "translateZ(120px)"
-            gsImage.style.transform = "translateZ(150px)"
-            logo.style.transform = "translateZ(130px)"
-            form.style.transform = "translateZ(100px)"
-        },
-        mouseleave(event) {
-            const box = document.querySelector('.input-box')
-            box.style.transition = ".1s"
-            box.style.transform = `rotateX(0deg) rotateY(0deg)`
-        },
         adminAuthenticate() {
             let self = this;
             axios.post('http://localhost:3000/api/v1/login', {
                 email: this.email,
                 password: this.password
             }).then(function (response) {
-                // console.log(response);
                 if (response.status == 200) {
                     self.setToken(response.data.token)
                     self.redirect()
@@ -80,7 +56,6 @@ export default {
             }).catch(function (error) {
                 console.log(error);
                 self.err = "Email or password is incorrect"
-                // alert("Something went wrong. Please try again later!" + error);
             });
         },
         checkForm: function (e) {
@@ -97,7 +72,7 @@ export default {
             this.$router.push({ path: '/admin' })
         },
         setToken(token) {
-            this.$store.commit("setToken", token);
+            this.$store.commit("userToken/setToken", token);
         }
     }
 }
