@@ -1,6 +1,7 @@
 class PrAttribute < ApplicationRecord
   belongs_to :product
   belongs_to :brand
+  has_many :comments
   # post Img
   has_one_attached :image
 
@@ -10,4 +11,5 @@ class PrAttribute < ApplicationRecord
   # post image
   attribute :image_url
   after_find :set_image_url
+  validate :validate_image
 end

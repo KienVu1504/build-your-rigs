@@ -5,16 +5,15 @@ class Brand < ApplicationRecord
   # add attribute image_url to brand
   attribute :image_url
   after_find :set_image_url
+  validate :validate_image
+  # validates :image, attached: true, byte_size: { less_than: 1.megabytes, message: 'is too large' }
 
   # private
 
-  # validates :image, file_size: { less_than_or_equal_to: 1.megabytes, message: 'Please Check File Size' },
-  #                         file_content_type: { allow: ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'],
-  #                                              message: 'Please Check File Format' }
-
-  # def set_image_url
-  #   return if image.blank?
-
-  #   self.image_url = Rails.application.routes.url_helpers.url_for(image)
+  # def validate_image
+  #   # debugger
+  #   return errors.add(:image, 'must be a JPEG, JPG or PNG.') unless image.content_type.in?(%w[image/jpeg image/jpg
+  #                                                                                         image/png])
+  #   return errors.add(:image, 'Image should be less than 1MB') if image.byte_size > 1.megabytes
   # end
 end

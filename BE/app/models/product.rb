@@ -8,4 +8,6 @@ class Product < ApplicationRecord
   #post image
   attribute :image_url
   after_find :set_image_url
+  validate :validate_image
+
 end

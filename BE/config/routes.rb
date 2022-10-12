@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-
-  #set default url 
+  # set default url
   Rails.application.routes.default_url_options[:host] = 'localhost:3000'
   namespace :api do
     namespace :v1 do
@@ -10,6 +9,7 @@ Rails.application.routes.draw do
       resources :pr_attributes
       resources :products
       resources :brands
+      resources :comments, only: %i[destroy create]
       get '/search_pr', to: 'search#search_pr'
       get '/search_pre', to: 'search#search_pre'
 

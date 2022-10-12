@@ -4,12 +4,13 @@ module Api
       before_action :authorize, only: %i[create update destroy]
 
       def create
-        @brand = Brand.create(brand_params)
+        @brand = Brand.new(brand_params)
         @brand.image.attach(params[:image])
-        if @brand.valid?
+
+        if @brand.save
           render json: @brand, status: :created
         else
-          render json: @brand.errors.full_messages, stauts: :unprocessable_entity
+          render json: @brand.errors.to_hash, stauts: :unprocessable_entity
         end
       end
 

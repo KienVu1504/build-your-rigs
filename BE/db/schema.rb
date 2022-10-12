@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_06_044636) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_12_024639) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -45,6 +45,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_06_044636) do
     t.boolean "status", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "body"
+    t.bigint "pr_attribute_id", null: false
+    t.boolean "status", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pr_attribute_id"], name: "index_comments_on_pr_attribute_id"
   end
 
   create_table "pr_attributes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -83,7 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_06_044636) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "img"
+    t.string "img"
     t.index ["price_range_id"], name: "index_pre_builds_on_price_range_id"
     t.index ["purpose_id"], name: "index_pre_builds_on_purpose_id"
   end
@@ -99,7 +108,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_06_044636) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "img"
+    t.string "img"
   end
 
   create_table "purposes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -118,6 +127,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_06_044636) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "pr_attributes"
   add_foreign_key "pr_attributes", "products"
   add_foreign_key "pre_builds", "price_ranges"
   add_foreign_key "pre_builds", "purposes"
