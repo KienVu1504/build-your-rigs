@@ -6,7 +6,7 @@ module Api
       def search_pr
         @q = PrAttribute.ransack(params[:q])
         @s_name = @q.result
-        render json: @s_name, each_serializer: nil
+        render json: { count: @s_name.count, data: @s_name}, each_serializer: nil
       end
 
       def search_pre
