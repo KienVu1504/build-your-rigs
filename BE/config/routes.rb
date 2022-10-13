@@ -14,6 +14,8 @@ Rails.application.routes.draw do
       get '/search_pre', to: 'search#search_pre'
       get '/search_brands', to: 'search#search_brands'
       get '/search_comment', to: 'search#search_comments'
+      get '/brand_count', to: 'brands#count'
+
 
 
 

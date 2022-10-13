@@ -9,7 +9,7 @@ module Api
         @pagy, @product_att = pagy(product_att, items: params[:per_page] || DEFAULT_PER_PAGE,
                                                 page: params[:page] || DEFAULT_PAGE)
 
-        render json: { page: pages, product_att: @product_att, brand: @product_att.brand_id.count }
+        render json: { page: pages, product_att: @product_att }
       end
 
       def show

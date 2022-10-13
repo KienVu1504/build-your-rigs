@@ -44,6 +44,12 @@ module Api
         render json: @brand
       end
 
+      def count
+        brand = Brand.all
+        render json: {count:brand.count}
+      end
+
+
       def brand_params
         params.permit(:name, :img, :status, :image)
       end
