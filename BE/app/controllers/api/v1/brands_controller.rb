@@ -24,8 +24,12 @@ module Api
       end
 
       def index
-        @brand = Brand.all
-        render json: { count: @brand.count, brand: @brand }
+        brand = Brand.all
+        @pagy, @brand = pagy(brand, items: params[:per_page] || 20,
+                                    page: params[:page] || DEFAULT_PAGE)
+
+        render json: { page: pages, count: @brand.count, brand: @brand }
+        # render json: { count: @brand.count, brand: @brand }
       end
 
       def destroy

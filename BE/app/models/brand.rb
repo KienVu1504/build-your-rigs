@@ -1,7 +1,7 @@
 class Brand < ApplicationRecord
   has_one_attached :image
   has_many :pr_attributes
-  # validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true
   # add attribute image_url to brand
   attribute :image_url
   after_find :set_image_url

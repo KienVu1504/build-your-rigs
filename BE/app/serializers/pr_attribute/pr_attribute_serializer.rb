@@ -1,6 +1,7 @@
 class PrAttributeSerializer < ActiveModel::Serializer
   attributes :id, :brand_id, :name, :socket, :dimm, :ssd, :hdd, :form, :size, :capacity, :wattage, :price, :img,
              :status
+
   class CommentSerializer < ActiveModel::Serializer
     attributes :body
 
