@@ -648,6 +648,44 @@ article section .actions button:hover {
   text-align: center;
 }
 
+.wrapper-inner {
+  width: 100%;
+  display: flex;
+}
+
+.section-left,
+.section-right {
+  width: 50%;
+}
+
+.product-img-outer img {
+  border-radius: 10px;
+  width: 100%;
+}
+
+.product-img-outer {
+  margin: 5px 50px 50px 50px;
+  border-radius: 10px;
+  border: 1px solid #ff008b;
+}
+
+.section-right h2 {
+  color: #ff008b;
+  font-weight: bold;
+}
+
+.section-right {
+  padding-right: 2rem;
+}
+
+hr {
+  border-top: 2px solid #ff008b !important;
+}
+
+img.product-img {
+  width: 100%;
+}
+
 @keyframes in {
   0% {
     opacity: 0;

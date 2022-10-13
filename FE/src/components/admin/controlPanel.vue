@@ -25,6 +25,6 @@ export default {
 "
 <style scoped>
 article section {
-    width: 86%;
+    width: 87%;
 }
 </style>

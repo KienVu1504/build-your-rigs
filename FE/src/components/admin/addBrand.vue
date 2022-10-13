@@ -85,7 +85,7 @@ export default {
                 },
             }).then(() => {
                 this.$refs.imgInput.value = ''
-                // this.fetching();
+                alert("Add brand successfully!")
                 e.preventDefault();
             }).catch(() => {
                 alert("something wrong happen !");

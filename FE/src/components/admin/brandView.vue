@@ -68,7 +68,7 @@ export default {
                 url: "search_pr",
                 params: {
                     q: {
-                        product_id_in: this.$route.params.id
+                        brand_id_in: this.$route.params.id
                     }
                 },
                 paramsSerializer: params => {
