@@ -7,7 +7,7 @@
 
         <SectionHeader></SectionHeader>
         <div class="separator"></div>
-        <div class="input-fields">
+        <div class="input-fields" v-if="filteredList">
             <input type="radio" name="userChoice" id="checkClone" @click="checkValid(index)" style="display:none"
                 checked>
             <div class="no-data" v-if="filteredList.length == 0">
@@ -22,8 +22,10 @@
                         <label for="userChoice" class="tile-label">
                             <div class="tile-wrapper">
                                 <div class="item-img-wrapper">
-                                    <img :src="pr_attribute.img" v-if="pr_attribute.image_url == null" alt="" class="item-img">
-                                    <img :src="pr_attribute.image_url" v-if="pr_attribute.img == null" alt="" class="item-img">
+                                    <img :src="pr_attribute.img" v-if="pr_attribute.image_url == null" alt=""
+                                        class="item-img">
+                                    <img :src="pr_attribute.image_url" v-if="pr_attribute.img == null" alt=""
+                                        class="item-img">
                                 </div>
                                 <h4 class="tile-name">{{ pr_attribute.name }}</h4>
                                 <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
@@ -58,9 +60,11 @@ export default {
     computed: {
         filteredList() {
             if (this.activeStep == 0) {
-                return this.cpu.filter(post => {
-                    return post.name.toLowerCase().includes(this.searchData.toLowerCase())
-                })
+                if (this.cpu) {
+                    return this.cpu.filter(post => {
+                        return post.name.toLowerCase().includes(this.searchData.toLowerCase())
+                    })
+                }
             } else if (this.activeStep == 1) {
                 return this.cooler.filter(post => {
                     return post.name.toLowerCase().includes(this.searchData.toLowerCase())
@@ -99,31 +103,31 @@ export default {
             return this.$store.state.formStepsData.formSteps
         },
         cpu() {
-            return this.$store.state.search.cpu
+            return this.$store.state.search.cpu.data
         },
         cooler() {
-            return this.$store.state.search.cooler
+            return this.$store.state.search.cooler.data
         },
         main() {
-            return this.$store.state.search.main
+            return this.$store.state.search.main.data
         },
         ram() {
-            return this.$store.state.search.ram
+            return this.$store.state.search.ram.data
         },
         ssd() {
-            return this.$store.state.search.ssd
+            return this.$store.state.search.ssd.data
         },
         hdd() {
-            return this.$store.state.search.hdd
+            return this.$store.state.search.hdd.data
         },
         gpu() {
-            return this.$store.state.search.gpu
+            return this.$store.state.search.gpu.data
         },
         pcCase() {
-            return this.$store.state.search.case
+            return this.$store.state.search.case.data
         },
         psu() {
-            return this.$store.state.search.psu
+            return this.$store.state.search.psu.data
         },
         activeStep() {
             return this.$store.state.formStepsData.activeStep
@@ -161,7 +165,7 @@ export default {
         },
         checkLocalStorage() {
             let oldData = this.$store.state.userInfo.cih
-            if (oldData == 0 || oldData == null || oldData.length == 0) {
+            if (oldData == 0 || oldData == null) {
                 this.$router.push({ path: '/' })
             }
         }

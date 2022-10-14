@@ -65,6 +65,7 @@ export default {
             }
             await axios(cpusQuery).then(res => {
                 this.dataCPU = res.data;
+                // console.log(this.dataCPU);
                 commit("setCPUData", this.dataCPU);
             }).catch(err => {
                 console.log(err)

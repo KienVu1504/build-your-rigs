@@ -32,6 +32,7 @@ export default {
             };
             await axios(productsQuery).then(res => {
                 this.dataFormSteps = res.data;
+                // console.log(this.dataFormSteps);
                 commit("setFormSteps", this.dataFormSteps);
             }).catch(err => {
                 console.log(err)

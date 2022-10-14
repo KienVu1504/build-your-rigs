@@ -19,7 +19,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { createNamespacedHelpers } from 'vuex'
+const formStepsStore = createNamespacedHelpers('formStepsData')
 export default {
     data() {
         return {
@@ -28,7 +29,7 @@ export default {
     },
     computed: {
         formSteps() {
-            return this.$store.state.formSteps
+            return this.$store.state.formStepsData.formSteps
         },
     },
     mounted() {
@@ -36,7 +37,7 @@ export default {
     },
 
     methods: {
-        ...mapActions([
+        ...formStepsStore.mapActions([
             'fetchSteps'
         ]),
     },
@@ -48,5 +49,9 @@ export default {
     height: 100%;
     justify-content: center;
     align-content: center;
+}
+
+.tile-input:after{
+    display: none;
 }
 </style>

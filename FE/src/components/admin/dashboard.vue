@@ -72,6 +72,7 @@ export default {
             return this.$store.state.animation
         },
         formSteps() {
+            // console.log(this.$store.state.formStepsData.formSteps)
             return this.$store.state.formStepsData.formSteps
         },
         preBuildCountData() {

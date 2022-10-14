@@ -14,14 +14,17 @@ export default {
         this.getWattage()
     },
     methods: {
+        currency(data) {
+            return data.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
+        },
         getLSUserCIH() {
             const cihInt = this.$store.state.userInfo.cih
-            const cih = cihInt.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
+            const cih = this.currency(cihInt)
             const cihP = document.getElementById('cihP')
             cihP.innerHTML = "Your CIH: $" + cih
         },
         formatEstimate() {
-            const estimated = this.$store.state.estimated.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
+            const estimated = this.currency(this.$store.state.estimated)
             const estimateP = document.getElementById('estimateP')
             estimateP.innerHTML = "Estimated: $" + estimated
         },
