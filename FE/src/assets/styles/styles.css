@@ -686,6 +686,21 @@ img.product-img {
   width: 100%;
 }
 
+.pagi-input {
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+  text-align: center;
+  color: #ff008b;
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  font-size: 1.6rem;
+}
+
+.pagi-Input-wrapper {
+  width: 150px !important;
+}
+
 @keyframes in {
   0% {
     opacity: 0;
