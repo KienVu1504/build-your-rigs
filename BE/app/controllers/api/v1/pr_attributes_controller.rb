@@ -60,7 +60,7 @@ module Api
 
         @scpu = PrAttribute.where(product_id: 1, socket: params[:socket]).shuffle
         @smain = PrAttribute.where(product_id: 3, socket: params[:socket], dimm: params[:dimm], ssd: params[:ssd],
-                                   hdd: params[:hhd], form: params[:form], capacity: params[:capacity]).shuffle
+                                   hdd: params[:hdd], form: params[:form], capacity: params[:capacity]).shuffle
         @sram = PrAttribute.where(product_id: 4, dimm: params[:dimm], capacity: params[:capacity]).shuffle
         @scooler = PrAttribute.where(product_id: 2, socket: params[:socket]).shuffle
         @sssd = PrAttribute.where(product_id: 5, ssd: params[:ssd]).shuffle
