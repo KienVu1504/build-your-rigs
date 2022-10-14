@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
   include Pagy::Backend
-  DEFAULT_PER_PAGE = 15
+  DEFAULT_PER_PAGE = 20
   DEFAULT_PAGE = 1
   def encode_token(payload)
     JWT.encode(payload, 'secret')  

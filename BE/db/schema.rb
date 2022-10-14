@@ -41,7 +41,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_024639) do
 
   create_table "brands", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
-    t.string "img"
+    t.text "img"
     t.boolean "status", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -92,7 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_024639) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "img"
+    t.text "img"
     t.index ["price_range_id"], name: "index_pre_builds_on_price_range_id"
     t.index ["purpose_id"], name: "index_pre_builds_on_purpose_id"
   end
@@ -108,7 +108,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_024639) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "img"
+    t.text "img"
   end
 
   create_table "purposes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

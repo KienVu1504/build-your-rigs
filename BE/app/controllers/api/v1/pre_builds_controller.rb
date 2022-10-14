@@ -6,9 +6,8 @@ module Api
 
       def index
         pre_builds = PreBuild.all
-        @pagy, @pre_builds = pagy(pre_builds, items: params[:per_page] || DEFAULT_PER_PAGE,
-          page: params[:page] || DEFAULT_PAGE)
-        render json: { count: @pre_builds.count, pre_builds: @pre_builds }
+        @pagy, @pre_builds = pagy(pre_builds)
+        render json: { count: @pre_builds.count, page: pages, pre_builds: @pre_builds }
       end
 
       def show

@@ -54,3 +54,4 @@ gem 'active_storage_validations', '0.8.9'
 gem 'jwt'
 gem "pagy"
 gem 'carrierwave', '~> 1.0'
+gem 'pry-rails', :group => :development

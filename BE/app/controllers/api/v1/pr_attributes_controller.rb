@@ -6,10 +6,11 @@ module Api
 
       def index
         product_att = PrAttribute.all
-        @pagy, @product_att = pagy(product_att, items: params[:per_page] || DEFAULT_PER_PAGE,
-                                                page: params[:page] || DEFAULT_PAGE)
+        @pagy, @product_att = pagy(product_att)
+        # page = { page: pages, message: "cmm thang hoang"}
 
-        render json: { page: pages, product_att: @product_att }
+        # render json: { page: pages, product_att: @product_att }
+        render({ meta: pages, json: @product_att, adapter: :json, each_serializer: PrAttributeSerializer })
       end
 
       def show
@@ -53,6 +54,26 @@ module Api
         render json: @selected
       end
 
+      def show_items
+        @socket = '', @dimm = '', @ssd = '', @hdd = '', @form = '', @capacity = '', @brand_id = ''
+        # @scpu = PrAttribute.where(product_id: 2).shuffle
+
+        @scpu = PrAttribute.where(product_id: 1, socket: params[:socket]).shuffle
+        @smain = PrAttribute.where(product_id: 3, socket: params[:socket], dimm: params[:dimm], ssd: params[:ssd],
+                                   hdd: params[:hhd], form: params[:form], capacity: params[:capacity]).shuffle
+        @sram = PrAttribute.where(product_id: 4, dimm: params[:dimm], capacity: params[:capacity]).shuffle
+        @scooler = PrAttribute.where(product_id: 2, socket: params[:socket]).shuffle
+        @sssd = PrAttribute.where(product_id: 5, ssd: params[:ssd]).shuffle
+        @shdd = PrAttribute.where(product_id: 6, hdd: params[:hdd]).shuffle
+        @sgpu = PrAttribute.where(product_id: 7, brand_id: params[:brand_id]).shuffle
+        @scase = PrAttribute.where(product_id: 8, form: params[:form]).shuffle
+        @spsu = PrAttribute.where(product_id: 9, brand_id: params[:brand_id]).shuffle
+        render json: { cpu: @scpu[0..4], cooler: @scooler[0..4], main: @smain[0..4], ram: @sram[0..4], ssd: @sssd[0..4], hdd: @shdd[0..4], gpu: @sgpu[0..4],
+                       case: @scase[0..4], psu: @spsu[0..4] }
+
+        # render json: @scpu[0..1]
+      end
+
       private
 
       def set_product_att
@@ -61,7 +82,7 @@ module Api
 
       def product_att_params
         params.permit(:product_id, :name, :socket, :dimm, :ssd, :hdd, :form, :size, :capacity,
-                      :wattage, :price, :img,:brand_id, :status, :image)
+                      :wattage, :price, :img, :brand_id, :status, :image)
       end
     end
   end

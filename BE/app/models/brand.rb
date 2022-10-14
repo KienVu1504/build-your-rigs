@@ -3,9 +3,12 @@ class Brand < ApplicationRecord
   has_many :pr_attributes
   validates :name, presence: true, uniqueness: true
   # add attribute image_url to brand
+
+
   attribute :image_url
   after_find :set_image_url
   validate :validate_image
+  
   # validates :image, attached: true, byte_size: { less_than: 1.megabytes, message: 'is too large' }
 
   # private

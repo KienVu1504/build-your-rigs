@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
 
 
+      post '/show_items', to: 'pr_attributes#show_items'
       post '/selected', to: 'pr_attributes#selected'
       resources :users
       post '/login', to: 'sessions#login'
