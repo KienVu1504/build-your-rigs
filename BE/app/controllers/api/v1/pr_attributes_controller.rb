@@ -68,8 +68,12 @@ module Api
         @sgpu = PrAttribute.where(product_id: 7, brand_id: params[:brand_id]).shuffle
         @scase = PrAttribute.where(product_id: 8, form: params[:form]).shuffle
         @spsu = PrAttribute.where(product_id: 9, brand_id: params[:brand_id]).shuffle
-        render json: { cpu: @scpu[0..4], cooler: @scooler[0..4], main: @smain[0..4], ram: @sram[0..4], ssd: @sssd[0..4], hdd: @shdd[0..4], gpu: @sgpu[0..4],
-                       case: @scase[0..4], psu: @spsu[0..4] }
+
+        # random_items = { cpu: @scpu[0..4], cooler: @scooler[0..4], main: @smain[0..4], ram: @sram[0..4], ssd: @sssd[0..4], hdd: @shdd[0..4], gpu: @sgpu[0..4],
+        #   case: @scase[0..4], psu: @spsu[0..4] }
+        random_items = (@scpu + @smain + @sram + @scooler + @sssd + @shdd + @sgpu + @scase + @spsu)
+
+        render json: random_items[0..4]
 
         # render json: @scpu[0..1]
       end
