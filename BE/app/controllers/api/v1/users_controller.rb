@@ -14,7 +14,7 @@ module Api
           token = encode_token({ user_id: @user.id })
           render json: { user: @user, token: token }, status: :ok
         else
-          render json: @user.errors.full_messages, status: :unprocessable_entity
+          render json: @user.errors, status: :unprocessable_entity
         end
       end
 

@@ -21,7 +21,10 @@ module Api
         q = Brand.ransack(params[:q]).result
         @pagy, @brand = pagy(q, items: params[:per_page] || DEFAULT_PER_PAGE, page: params[:page] || DEFAULT_PAGE)
 
-        render json: { count: @brand.count, page: pages, brand: @brand }
+
+        mata = { count: @brand.count, page: pages}
+        render({ meta: mata, json: @brand, adapter: :json, each_serializer: BrandSerializer })
+
       end
 
       def search_comments
