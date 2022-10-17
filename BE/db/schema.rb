@@ -48,9 +48,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_024639) do
   end
 
   create_table "comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "body"
+    t.text "body"
     t.bigint "pr_attribute_id", null: false
     t.boolean "status", default: true
+    t.bigint "reply_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["pr_attribute_id"], name: "index_comments_on_pr_attribute_id"

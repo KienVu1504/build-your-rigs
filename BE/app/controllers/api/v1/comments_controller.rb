@@ -26,7 +26,7 @@ module Api
       private
 
       def comment_params
-        params.permit(:body, :pr_attribute_id)
+        params.permit(:body, :pr_attribute_id, :reply_id)
       end
     end
   end
