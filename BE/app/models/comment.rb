@@ -1,5 +1,5 @@
 class Comment < ApplicationRecord
-  BLACKLIST = %w[fuck dkm dcm pusy].freeze
+  # BLACKLIST = %w[fuck dkm dcm pussy].freeze
 
   belongs_to :pr_attribute
 
@@ -7,7 +7,7 @@ class Comment < ApplicationRecord
   validate :validate_cmt
 
   def validate_cmt
-    BLACKLIST.each do |w|
+    BlackList.each do |w|
       if body.include?(w)
         errors.add(:body, 'Comment contains obscene content')
         break
