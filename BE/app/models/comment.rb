@@ -7,8 +7,8 @@ class Comment < ApplicationRecord
   validate :validate_cmt
 
   def validate_cmt
-    BlackList.each do |w|
-      if body.include?(w)
+    BlackList.all.each do |w|
+      if body.include?(w.word)   #.word => object
         errors.add(:body, 'Comment contains obscene content')
         break
       end
