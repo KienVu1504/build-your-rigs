@@ -41,7 +41,6 @@
 <script>
 import Pagination from './pagination.vue';
 import { createNamespacedHelpers } from 'vuex'
-import { eventBus } from "@/main";
 
 const brandsStore = createNamespacedHelpers('brandsData')
 
@@ -51,9 +50,6 @@ export default {
             search: ""
         };
     },
-    created() {
-
-    },
     components: {
         Pagination
     },
@@ -61,11 +57,6 @@ export default {
         animation() {
             return this.$store.state.animation;
         },
-        // filteredList() {
-        //     return this.fetchBrandsDatas.filter((post) => {
-        //         return post.name.toLowerCase().includes(this.search.toLowerCase());
-        //     });
-        // },
         fetchBrandsDatas() {
             return this.$store.state.brandsData.brands
         }
@@ -77,7 +68,6 @@ export default {
         searchReset() {
             this.$store.commit('paging/resetPage')
             this.fetchDatas(this.search)
-            eventBus.$emit('updatePages');
         },
         ...brandsStore.mapActions([
             'fetchDatas'
