@@ -72,7 +72,6 @@
 import axios from "@/plugins/axios";
 import { createNamespacedHelpers } from 'vuex'
 const brandStore = createNamespacedHelpers('brandsData')
-import qs from "qs"
 
 export default {
     data() {

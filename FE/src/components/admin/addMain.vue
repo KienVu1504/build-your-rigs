@@ -10,15 +10,21 @@
                 <div class="col-xl-12 col-lg-12 col-md-12">
                     <form class="tm-edit-product-form" autocomplete="off" @submit.prevent="addCOOLER">
                         <div class="row">
-                            <div class="form-group mb-3 col-xs-12 col-sm-6">
+                            <div class="form-group mb-3 col-xs-12 col-sm-8">
                                 <label for="name">Name</label>
                                 <input id="name" name="name" v-model="name" type="text" placeholder="Enter COOLER name"
                                     class="form-control validate" required="">
                             </div>
-                            <div class="form-group mb-3 col-xs-12 col-sm-6">
+                            <div class="form-group mb-3 col-xs-12 col-sm-2">
                                 <label for="description">Socket</label>
                                 <input class="form-control validate" v-model="socket" type="text" required=""
                                     wt-ignore-input="true" placeholder="Enter MAIN socket">
+                            </div>
+                            <div class="form-group mb-3 col-xs-12 col-sm-2">
+                                <label for="stock">Brands</label>
+                                <v-select label="name" :options="options" :reduce="name => name.id" class="form-control"
+                                    v-model="brand">
+                                </v-select>
                             </div>
                         </div>
                         <div class="row">
@@ -39,9 +45,20 @@
                             </div>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="description">Image Link</label>
-                            <textarea class="form-control validate" rows="5" required="" v-model="image"
+                            <label for="description">Image</label>
+                            <textarea class="form-control validate" rows="5" v-model="image"
                                 placeholder="Enter image's embed link"></textarea>
+                        </div>
+                        <div class="form-group mb-3 image-upload">
+                            <label for="inputTag">
+                                Select Image <br />
+                                <center>
+                                    <i class="fa fa-2x fa-camera"></i>
+                                </center>
+                                <input id="inputTag" name="image" ref="imgInput" type="file" />
+                                <br />
+                                <span id="imageName"></span>
+                            </label>
                         </div>
                         <div class="row">
                             <div class="form-group mb-3 col-xs-12 col-sm-4">
@@ -73,7 +90,9 @@
 
 <script>
 import axios from "@/plugins/axios";
-import qs from "qs"
+import { createNamespacedHelpers } from 'vuex'
+const brandStore = createNamespacedHelpers('brandsData')
+
 export default {
     data() {
         return {
@@ -84,50 +103,50 @@ export default {
             hdd: '',
             form: '',
             image: '',
+            brand: null,
             capacity: '',
             price: null,
         };
     },
-
-    mounted() {
-
+    computed: {
+        options() {
+            return this.$store.state.brandsData.brandsOptions
+        }
     },
-
+    mounted() {
+        this.fetchAllDatas();
+    },
     methods: {
-        async addCOOLER(e) {
-            const coolerData = {
-                method: "POST",
-                url: "pr_attributes",
-                params: {
-                    product_id: 3,
-                    name: this.name,
-                    socket: this.socket,
-                    dimm: this.dimm,
-                    ssd: this.ssd,
-                    hdd: this.hdd,
-                    form: this.form,
-                    capacity: this.capacity,
-                    img: this.image,
-                    price: this.price
+        ...brandStore.mapActions([
+            'fetchAllDatas'
+        ]),
+        addCOOLER(e) {
+            let formData = new FormData();
+            formData.append("product_id", 3);
+            formData.append("name", this.name);
+            formData.append("socket", this.socket);
+            formData.append("brand_id", this.brand);
+            formData.append("dimm", this.dimm);
+            formData.append("img", this.image);
+            formData.append("ssd", this.ssd);
+            formData.append("hdd", this.hdd);
+            formData.append("form", this.form);
+            formData.append("capacity", this.capacity);
+            formData.append("price", this.price);
+            if (this.$refs.imgInput.files[0]) formData.append("image", this.$refs.imgInput.files[0]);
+            axios.post(`pr_attributes`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
                 },
-                paramsSerializer: params => {
-                    return qs.stringify(params)
-                }
-            }
-            await axios(coolerData).then(res => {
-                console.log(res)
+            }).then(() => {
+                this.$refs.imgInput.value = ''
+                alert("Add MAIN successfully!")
+                this.$router.push({ path: "/admin/add-product" })
                 e.preventDefault();
-                if (res.request.status >= 200 && res.request.status < 300) {
-                    alert("Add MAIN successful!")
-                    this.$router.push({ path: "/admin/add-product" })
-                } else {
-                    alert("Something went wrong, please try again!")
-                }
-            }).catch(err => {
-                console.log(err)
+            }).catch(() => {
+                alert("Something wrong happen !");
                 e.preventDefault();
-                alert("Something went wrong, please try again!")
-            })
+            });
         },
     },
 };
@@ -135,8 +154,27 @@ export default {
 
 <style scoped>
 @import url(@/assets/styles/admin.css);
+@import url(@/assets/styles/customDropdown.css);
 
 .wrapper {
     width: 95%;
+}
+
+.input-fields-wrapper {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.image-upload input {
+    display: none;
+}
+
+.image-upload label {
+    cursor: pointer;
+}
+
+.image-upload #imageName {
+    color: green;
 }
 </style>
