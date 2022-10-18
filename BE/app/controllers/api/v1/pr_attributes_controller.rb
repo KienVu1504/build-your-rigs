@@ -10,7 +10,7 @@ module Api
         # page = { page: pages, message: "cmm thang hoang"}
 
         # render json: { page: pages, product_att: @product_att }
-        render({ meta: pages, json: @product_att, adapter: :json, each_serializer: PrAttributeSerializer })
+        render({ meta: pages, json: @product_att, adapter: :json, each_serializer: ::PrAttributes::PrAttributeSerializer })
       end
 
       def show
