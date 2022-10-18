@@ -2,7 +2,7 @@ module Api
   module V1
     class PrAttributesController < ApplicationController
       before_action :authorize, only: %i[create update destroy]
-      before_action :set_product_att, only: %i[show update destroy]
+      before_action :set_product_att, only: %i[show update destroy show_comments]
 
       def index
         product_att = PrAttribute.all
@@ -14,7 +14,7 @@ module Api
       end
 
       def show
-        render json: @product_att, each_serializer: PrAttributeSerializer
+        render json: @product_att, each_serializer: ::PrAttributes::PrAttributeSerializer
       end
 
       def create
@@ -76,6 +76,10 @@ module Api
         render json: random_items[0..4]
 
         # render json: @scpu[0..1]
+      end
+
+      def show_comments
+        render json: @product_att, serializer: ::PrAttributes::ShowCommentSerializer
       end
 
       private

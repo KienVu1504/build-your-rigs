@@ -17,10 +17,7 @@ Rails.application.routes.draw do
       get '/brand_count', to: 'brands#count'
       get '/all_brand', to: 'brands#all_brand'
 
-
-
-
-
+      post '/show_comments/:id', to: 'pr_attributes#show_comments'
       post '/show_items', to: 'pr_attributes#show_items'
       post '/selected', to: 'pr_attributes#selected'
       resources :users
