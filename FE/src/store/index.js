@@ -7,6 +7,7 @@ import formStepsData from "@/store/modules/formStepsData"
 import userToken from '@/store/modules/userToken'
 import paging from '@/store/modules/paging'
 import brandsData from '@/store/modules/brandsData'
+import productsData from '@/store/modules/productsData'
 import createPersistedState from "vuex-persistedstate";
 const dataState = createPersistedState({
   paths: ['userToken.token']
@@ -39,7 +40,8 @@ export default new Vuex.Store({
     userInfo,
     userToken,
     paging,
-    brandsData
+    brandsData,
+    productsData
   },
   plugins: [dataState]
 })

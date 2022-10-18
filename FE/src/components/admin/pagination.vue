@@ -36,9 +36,6 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex'
-
-const brandsStore = createNamespacedHelpers('brandsData')
 export default {
     data() {
         return {
@@ -53,19 +50,16 @@ export default {
     methods: {
         goToPrePage() {
             this.$store.commit('paging/prePage')
-            this.fetchDatas()
+            this.$emit('fetchNewDatas')
         },
         goToNextPage() {
             this.$store.commit('paging/nextPage')
-            this.fetchDatas()
+            this.$emit('fetchNewDatas')
         },
         changePage(newPage) {
             this.$store.commit('paging/changePage', newPage)
-            this.fetchDatas()
+            this.$emit('fetchNewDatas')
         },
-        ...brandsStore.mapActions([
-            'fetchDatas'
-        ])
     },
 };
 </script>

@@ -18,7 +18,6 @@ export default {
             state.currentPage = 1
         },
         nextPage(state) {
-            console.log('nextPage')
             state.currentPage++
         },
         prePage(state) {

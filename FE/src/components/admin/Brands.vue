@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-            <Pagination></Pagination>
+            <Pagination @fetchNewDatas="fetchDatas(search)"></Pagination>
         </div>
     </section>
 </template>
@@ -41,7 +41,6 @@
 <script>
 import Pagination from './pagination.vue';
 import { createNamespacedHelpers } from 'vuex'
-
 const brandsStore = createNamespacedHelpers('brandsData')
 
 export default {

@@ -4,23 +4,20 @@
             <p class="section-title">Products</p>
         </div>
         <div class="search-wrapper">
-            <input type="text" v-model="search" placeholder="Search by name.." />
+            <input type="text" v-model="search" @keyup="searchReset" placeholder="Search by name.." />
         </div>
         <div class="separator"></div>
         <div class="input-fields">
             <div class="input-fields-wrapper">
                 <router-link tag="div" :to="{path: `/admin/products/` + $route.params.id + '/' + pr_attribute.id}"
                     class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12"
-                    v-for="(pr_attribute, index) in filteredList" :key="'pr_attribute'+index">
+                    v-for="(pr_attribute, index) in fetchProductsDatas" :key="'pr_attribute'+index">
                     <div class="tile">
                         <input type="radio" id="inputCheckbox" name="userChoice" class="tile-input">
                         <label for="userChoice" class="tile-label">
                             <div class="tile-wrapper">
                                 <div class="item-img-wrapper">
-                                    <img :src="pr_attribute.img" v-if="pr_attribute.image_url == null" alt=""
-                                        class="item-img">
-                                    <img :src="pr_attribute.image_url" v-if="pr_attribute.img == null" alt=""
-                                        class="item-img">
+                                    <img :src="pr_attribute.img || pr_attribute.image_url" alt="" class="item-img" />
                                 </div>
                                 <h4 class="tile-name">{{ pr_attribute.name }}</h4>
                                 <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
@@ -28,60 +25,51 @@
                         </label>
                     </div>
                 </router-link>
-                <div class="no-data" v-if="filteredList.length == 0">
+                <div class="no-data" v-if="fetchProductsDatas.length == 0">
                     <p>Can't find your item :(</p>
                 </div>
             </div>
+
+            <Pagination @fetchNewDatas="fetchDatas(search)"></Pagination>
+
         </div>
     </section>
 </template>
 
 <script>
-import axios from "@/plugins/axios"
-import qs from "qs"
+import Pagination from './pagination.vue';
+import { createNamespacedHelpers } from 'vuex'
+const productStore = createNamespacedHelpers('productsData')
 
 export default {
     data() {
         return {
-            products: [],
             search: ''
         };
     },
     mounted() {
         this.fetchDatas();
     },
+    components: {
+        Pagination
+    },
     computed: {
         animation() {
             return this.$store.state.animation
         },
-        filteredList() {
-            // console.log(this.products)
-            return this.products.filter(post => {
-                return post.name.toLowerCase().includes(this.search.toLowerCase())
-            })
+        fetchProductsDatas() {
+            console.log(this.$store.state.productsData.products);
+            return this.$store.state.productsData.products
         }
     },
     methods: {
-        async fetchDatas() {
-            const productsQuery = {
-                method: "GET",
-                url: "search_pr",
-                params: {
-                    q: {
-                        product_id_in: this.$route.params.id
-                    }
-                },
-                paramsSerializer: params => {
-                    return qs.stringify(params)
-                }
-            }
-            await axios(productsQuery).then(res => {
-                console.log(res.data);
-                this.products = res.data.data;
-            }).catch(err => {
-                console.log(err)
-            })
+        searchReset() {
+            this.$store.commit('paging/resetPage')
+            this.fetchDatas(this.search)
         },
+        ...productStore.mapActions([
+            'fetchDatas'
+        ])
     }
 }
 </script>
