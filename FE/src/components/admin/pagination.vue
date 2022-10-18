@@ -2,8 +2,7 @@
     <center class="pagi-center" v-if="pagesData.page">
         <div class="pagination-wrapper" v-if="pagesData.pages > 1">
             <div v-if="pagesData.page > 1" @click="goToPrePage">&laquo;</div>
-            <div v-if="pagesData.page == 4 || pagesData.page > 5" :class="{ active: pagesData.page === pageIndex }"
-                @click="changePage(1)">
+            <div v-if="pagesData.page == 4 || pagesData.page > 5" @click="changePage(1)">
                 <p>1</p>
             </div>
             <template v-for="pageIndex in 2">
@@ -24,12 +23,11 @@
             <div v-if="pagesData.page <= pagesData.pages - 5">
                 <p>...</p>
             </div>
-            <div v-if="pagesData.page == pagesData.pages - 4" :class="{ active: pagesData.page === pageIndex }"
-                @click="changePage(pagesData.pages)">
+            <div v-if="pagesData.page == pagesData.pages - 4" @click="changePage(pagesData.pages)">
                 <p>{{pagesData.pages - 1}}</p>
             </div>
             <div v-if="pagesData.page <= pagesData.pages - 3 || pagesData.page < pagesData.pages - 4"
-                :class="{ active: pagesData.page === pageIndex }" @click="changePage(pagesData.pages)">
+                @click="changePage(pagesData.pages)">
                 <p>{{pagesData.pages}}</p>
             </div>
             <div v-if="pagesData.page < pagesData.pages" @click="goToNextPage">&raquo;</div>

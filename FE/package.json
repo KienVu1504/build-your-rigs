@@ -15,6 +15,7 @@
     "qs": "^6.11.0",
     "vue": "^2.6.14",
     "vue-router": "^3.5.1",
+    "vue-select": "^3.20.0",
     "vuejs-loadmore": "^1.0.7",
     "vuejs-paginate": "^2.1.0",
     "vuex": "^3.6.2",

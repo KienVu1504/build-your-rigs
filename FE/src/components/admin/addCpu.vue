@@ -14,10 +14,18 @@
                             <input id="name" name="name" v-model="name" type="text" placeholder="Enter CPU name"
                                 class="form-control validate" required="">
                         </div>
-                        <div class="form-group mb-3">
-                            <label for="description">Socket</label>
-                            <input class="form-control validate" v-model="socket" type="text" required=""
-                                wt-ignore-input="true" placeholder="Enter CPU socket">
+                        <div class="row">
+                            <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                <label for="description">Socket</label>
+                                <input class="form-control validate" v-model="socket" type="text" required=""
+                                    wt-ignore-input="true" placeholder="Enter CPU socket">
+                            </div>
+                            <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                <label for="stock">Brands</label>
+                                <v-select label="name" :options="options" :reduce="name => name.id" class="form-control"
+                                    v-model="brand">
+                                </v-select>
+                            </div>
                         </div>
                         <div class="form-group mb-3">
                             <label for="description">Image Link</label>
@@ -51,6 +59,9 @@
 <script>
 import axios from "@/plugins/axios";
 import qs from "qs"
+import { createNamespacedHelpers } from 'vuex'
+const brandStore = createNamespacedHelpers('brandsData')
+
 export default {
     data() {
         return {
@@ -59,14 +70,22 @@ export default {
             image: '',
             wattage: null,
             price: null,
+            brand: null,
         };
     },
-
+    computed: {
+        options() {
+            return this.$store.state.brandsData.brandsOptions
+        }
+    },
     mounted() {
-
+        this.fetchAllDatas();
     },
 
     methods: {
+        ...brandStore.mapActions([
+            'fetchAllDatas'
+        ]),
         async addCPU(e) {
             const cpuData = {
                 method: "POST",
@@ -75,6 +94,7 @@ export default {
                     product_id: 1,
                     name: this.name,
                     socket: this.socket,
+                    brand_id: this.brand,
                     img: this.image,
                     wattage: this.wattage,
                     price: this.price
@@ -84,7 +104,6 @@ export default {
                 }
             }
             await axios(cpuData).then(res => {
-                console.log(res)
                 e.preventDefault();
                 if (res.request.status >= 200 && res.request.status < 300) {
                     alert("Add CPU successful!")
@@ -104,4 +123,5 @@ export default {
 
 <style scoped>
 @import url(@/assets/styles/admin.css);
+@import url(@/assets/styles/customDropdown.css);
 </style>

@@ -648,6 +648,10 @@ article section .actions button:hover {
   text-align: center;
 }
 
+.vs__dropdown-toggle {
+  border: 1px solid white !important;
+}
+
 .wrapper-inner {
   width: 100%;
   display: flex;

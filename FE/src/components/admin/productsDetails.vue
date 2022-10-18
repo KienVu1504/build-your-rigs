@@ -88,10 +88,7 @@ export default {
     computed: {
         animation() {
             return this.$store.state.animation
-        },
-        // product() {
-        //     return this.products[0] || {}
-        // }
+        }
     },
     mounted() {
         this.fetchDatas();
@@ -113,7 +110,6 @@ export default {
             }
             await axios(productsQuery).then(res => {
                 this.products = res.data.data[0];
-                // console.log(this.products);
                 setTimeout(function () {
                     self.fetchBrand();
                 }, 300);
@@ -128,7 +124,6 @@ export default {
             }
             await axios(brandQuery).then(res => {
                 this.brandName = res.data;
-                // console.log(this.brandName)
             }).catch(err => {
                 console.log("fetchBrand: " + err)
             })
