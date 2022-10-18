@@ -82,7 +82,8 @@ export default {
     data() {
         return {
             products: [],
-            brandName: ''
+            brandName: '',
+            comments: []
         };
     },
     computed: {
@@ -113,6 +114,9 @@ export default {
                 setTimeout(function () {
                     self.fetchBrand();
                 }, 300);
+                setTimeout(function () {
+                    self.fetchComment();
+                }, 500);
             }).catch(err => {
                 console.log(err)
             })
@@ -126,6 +130,18 @@ export default {
                 this.brandName = res.data;
             }).catch(err => {
                 console.log("fetchBrand: " + err)
+            })
+        },
+        async fetchComment() {
+            const brandQuery = {
+                method: "GET",
+                url: "comments/" + this.products.brand_id
+            }
+            await axios(brandQuery).then(res => {
+                this.comments = res.data;
+                console.log(this.comments)
+            }).catch(err => {
+                console.log(err)
             })
         }
     }

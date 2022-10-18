@@ -69,7 +69,6 @@
 
 <script>
 import axios from "@/plugins/axios";
-import qs from "qs"
 import { createNamespacedHelpers } from 'vuex'
 const brandStore = createNamespacedHelpers('brandsData')
 
@@ -98,7 +97,7 @@ export default {
             'fetchAllDatas'
         ]),
         addCPU(e) {
-            console.log(this.$refs.imgInput.files);
+            // console.log(this.$refs.imgInput.files);
             let formData = new FormData();
             formData.append("product_id", 1);
             formData.append("name", this.name);

@@ -58,7 +58,7 @@ export default {
             return this.$store.state.animation
         },
         fetchProductsDatas() {
-            console.log(this.$store.state.productsData.products);
+            // console.log(this.$store.state.productsData.products);
             return this.$store.state.productsData.products
         }
     },
