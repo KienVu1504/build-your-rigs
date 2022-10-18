@@ -27,7 +27,7 @@ module Api
 
       def update
         if @price_range.update(price_range_params)
-          render json: @price_range
+          render json: @price_range, status: :ok
         else
           render json: @price_range.errors, status: :unprocessable_entity
         end
@@ -35,6 +35,9 @@ module Api
 
       def destroy
         @price_range.destroy
+        render json: {
+          message: 'delete success'
+        }
       end
 
       private
@@ -44,7 +47,7 @@ module Api
       end
 
       def price_range_params
-        params.require(:price_range).permit(:price, :status, :operator)
+        params.permit(:price, :status)
       end
     end
   end

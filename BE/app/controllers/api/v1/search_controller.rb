@@ -11,7 +11,7 @@ module Api
       end
 
       def search_pre
-        @q = PreBuild.ransack(params[:q]).result
+        q = PreBuild.ransack(params[:q]).result
         @pagy, @pre = pagy(q, items: params[:per_page] || DEFAULT_PER_PAGE, page: params[:page] || DEFAULT_PAGE)
 
         render json: { count: @pre.count, page: pages, data: @pre }
@@ -21,10 +21,8 @@ module Api
         q = Brand.ransack(params[:q]).result
         @pagy, @brand = pagy(q, items: params[:per_page] || DEFAULT_PER_PAGE, page: params[:page] || DEFAULT_PAGE)
 
-
-        mata = { count: @brand.count, page: pages}
-        render({ meta: mata, json: @brand, adapter: :json, each_serializer: BrandSerializer })
-
+        meta = { count: @brand.count, page: pages }
+        render({ meta: meta, json: @brand, adapter: :json, each_serializer: BrandSerializer })
       end
 
       def search_comments

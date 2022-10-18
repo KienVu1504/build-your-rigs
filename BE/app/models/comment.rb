@@ -4,11 +4,11 @@ class Comment < ApplicationRecord
   belongs_to :pr_attribute
 
   validates :body, presence: true
-  validate :validate_cmt
+  validate :validate_cmt, if: -> { body.present? }
 
   def validate_cmt
     BlackList.all.each do |w|
-      if body.include?(w.word)   #.word => object
+      if body.include?(w.word)   # .word => object
         errors.add(:body, 'Comment contains obscene content')
         break
       end

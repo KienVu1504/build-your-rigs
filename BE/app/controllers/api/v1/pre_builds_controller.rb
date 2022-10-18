@@ -7,7 +7,7 @@ module Api
       def index
         pre_builds = PreBuild.all
         @pagy, @pre_builds = pagy(pre_builds)
-        render json: { count: @pre_builds.count, page: pages, pre_builds: @pre_builds }
+        render json: { page: pages, pre_builds: @pre_builds }
       end
 
       def show
@@ -35,6 +35,9 @@ module Api
 
       def destroy
         @pre_build.destroy
+        render json: {
+          message: "deleted"
+        }
       end
 
       private

@@ -8,7 +8,7 @@ module Api
           token = encode_token({ user_id: @user.id })
           render json: { user: @user, token: token }, status: :ok
         else
-          render json: { error: 'invalid name or password' }, status: :unprocessable_entity
+          render json: { error: 'invalid email or password' }, status: :unprocessable_entity
         end
       end
     end

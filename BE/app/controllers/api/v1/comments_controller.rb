@@ -23,6 +23,12 @@ module Api
         render json: { message: 'deleted' }
       end
 
+      def show
+        @comment = Comment.find_by(params[:id])
+        render json: @comment
+
+      end
+
       private
 
       def comment_params

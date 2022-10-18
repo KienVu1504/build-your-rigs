@@ -33,6 +33,9 @@ module Api
 
       def destroy
         @purpose.destroy
+        render json: {
+          message: "delete succsess"
+        }
       end
 
       private

@@ -11,5 +11,5 @@ class PrAttribute < ApplicationRecord
   # post image
   attribute :image_url
   after_find :set_image_url
-  validate :validate_image
+  validate :validate_image, on: :create, if: -> { image.present? }
 end

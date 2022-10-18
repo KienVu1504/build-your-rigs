@@ -7,17 +7,17 @@ module Api
       def index
         @product = Product.all
         # @product = Product.paginate(page: params[:page])
-        render json: @product, each_serializer: ProductSerializer
+        render json: @product, each_serializer: ::Products::ProductSerializer
       end
 
       def show
         @product = Product.find(params[:id])
-        render json: @product, each_serializer: nil
+        render json: @product
       end
 
       def create
         @product = Product.create(product_params)
-        @product.image.attach(params[:product][:image])
+        @product.image.attach(params[:image])
 
         if @product.valid?
           render json: @product, status: :created
@@ -28,7 +28,7 @@ module Api
 
       def update
         if @product.update(product_params)
-          render json: @product
+          render json: @product, each_serializer: nil
         else
           render json: @product.errors, status: :unprocessable_entity
         end
@@ -36,6 +36,9 @@ module Api
 
       def destroy
         @product.destroy
+        render json: {
+          message: "deleted"
+        }
       end
 
       private

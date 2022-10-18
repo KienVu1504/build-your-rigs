@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       resources :pr_attributes
       resources :products
       resources :brands
-      resources :comments, only: %i[destroy create index]
+      resources :comments, only: %i[destroy create index show]
       get '/search_pr', to: 'search#search_pr'
       get '/search_pre', to: 'search#search_pre'
       get '/search_brands', to: 'search#search_brands'
