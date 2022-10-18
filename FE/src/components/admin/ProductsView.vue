@@ -76,8 +76,8 @@ export default {
                 }
             }
             await axios(productsQuery).then(res => {
+                console.log(res.data);
                 this.products = res.data.data;
-                // console.log(this.products.data);
             }).catch(err => {
                 console.log(err)
             })

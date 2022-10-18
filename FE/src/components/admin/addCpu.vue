@@ -28,9 +28,20 @@
                             </div>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="description">Image Link</label>
-                            <textarea class="form-control validate" rows="5" required="" v-model="image"
+                            <label for="description">Image</label>
+                            <textarea class="form-control validate" rows="4" v-model="image"
                                 placeholder="Enter image's embed link"></textarea>
+                        </div>
+                        <div class="form-group mb-3 image-upload">
+                            <label for="inputTag">
+                                Select Image <br />
+                                <center>
+                                    <i class="fa fa-2x fa-camera"></i>
+                                </center>
+                                <input id="inputTag" name="image" ref="imgInput" type="file" />
+                                <br />
+                                <span id="imageName"></span>
+                            </label>
                         </div>
                         <div class="row">
                             <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -86,36 +97,30 @@ export default {
         ...brandStore.mapActions([
             'fetchAllDatas'
         ]),
-        async addCPU(e) {
-            const cpuData = {
-                method: "POST",
-                url: "pr_attributes",
-                params: {
-                    product_id: 1,
-                    name: this.name,
-                    socket: this.socket,
-                    brand_id: this.brand,
-                    img: this.image,
-                    wattage: this.wattage,
-                    price: this.price
+        addCPU(e) {
+            console.log(this.$refs.imgInput.files);
+            let formData = new FormData();
+            formData.append("product_id", 1);
+            formData.append("name", this.name);
+            formData.append("socket", this.socket);
+            formData.append("brand_id", this.brand);
+            formData.append("img", this.image);
+            formData.append("wattage", this.wattage);
+            formData.append("price", this.price);
+            if (this.$refs.imgInput.files[0]) formData.append("image", this.$refs.imgInput.files[0]);
+            axios.post(`pr_attributes`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
                 },
-                paramsSerializer: params => {
-                    return qs.stringify(params)
-                }
-            }
-            await axios(cpuData).then(res => {
+            }).then(() => {
+                this.$refs.imgInput.value = ''
+                alert("Add CPU successfully!")
+                this.$router.push({ path: "/admin/add-product" })
                 e.preventDefault();
-                if (res.request.status >= 200 && res.request.status < 300) {
-                    alert("Add CPU successful!")
-                    this.$router.push({ path: "/admin/add-product" })
-                } else {
-                    alert("Something went wrong, please try again!")
-                }
-            }).catch(err => {
-                console.log(err)
+            }).catch(() => {
+                alert("Something wrong happen !");
                 e.preventDefault();
-                alert("Something went wrong, please try again!")
-            })
+            });
         },
     },
 };
@@ -124,4 +129,26 @@ export default {
 <style scoped>
 @import url(@/assets/styles/admin.css);
 @import url(@/assets/styles/customDropdown.css);
+
+.wrapper {
+    width: 95%;
+}
+
+.input-fields-wrapper {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.image-upload input {
+    display: none;
+}
+
+.image-upload label {
+    cursor: pointer;
+}
+
+.image-upload #imageName {
+    color: green;
+}
 </style>

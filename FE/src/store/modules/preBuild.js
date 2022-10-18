@@ -20,7 +20,7 @@ export default {
                 url: "pre_builds"
             }
             await axios(preBuildQuery).then(res => {
-                this.setCount = res.data;
+                this.setCount = res.data.page.total;
                 commit("setPreBuildCount", this.setCount);
             }).catch(err => {
                 console.log(err)

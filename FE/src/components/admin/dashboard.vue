@@ -28,7 +28,7 @@
                         </div>
                         <div class="counter-left">
                             <p class="counter-name">Pre-build set</p>
-                            <p class="counter">{{preBuildCountData.count}} sets</p>
+                            <p class="counter">{{preBuildCountData}} sets</p>
                         </div>
                     </div>
                 </router-link>

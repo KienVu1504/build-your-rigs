@@ -88,7 +88,7 @@ export default {
                 alert("Add brand successfully!")
                 e.preventDefault();
             }).catch(() => {
-                alert("something wrong happen !");
+                alert("Something wrong happen !");
                 e.preventDefault();
             });
         },
