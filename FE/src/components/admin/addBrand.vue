@@ -55,7 +55,6 @@
 
 <script>
 import axios from "@/plugins/axios";
-import qs from "qs"
 export default {
     data() {
         return {

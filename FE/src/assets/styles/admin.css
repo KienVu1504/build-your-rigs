@@ -214,17 +214,17 @@
   font-size: 90%;
 }
 
-.table {
+/* .table {
   background-color: #50697f;
   color: #fff;
   font-size: 85%;
   margin-bottom: 0;
-}
+} */
 
-thead {
+/* thead {
   background-color: #486177;
   color: #fff;
-}
+} */
 
 .table thead th {
   border-bottom: 0;
@@ -404,7 +404,7 @@ input.form-control {
 
 .table td,
 .table th {
-  border-top: 1px solid #415a70;
+  /* border-top: 1px solid #415a70; */
   padding: 15px 25px;
   vertical-align: middle;
 }

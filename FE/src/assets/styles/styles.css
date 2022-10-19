@@ -705,6 +705,91 @@ img.product-img {
   width: 150px !important;
 }
 
+.comments-wrapper {
+  padding: 0 20px 20px 20px;
+}
+
+.comment {
+  display: flex;
+  border: 1px solid #ff008b;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.comment-left {
+  width: 15%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment-avt {
+  border: 1px solid #ff008b;
+  border-radius: 50%;
+  height: 6rem;
+  width: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment-right {
+  width: 85%;
+  border-left: 1px dashed #ff008b;
+}
+
+.comment-action {
+  transition: 0.2s all ease-in-out;
+}
+
+.comment-action::after {
+  content: "";
+  border-right: 1px solid #ff008b;
+  margin: 10px;
+}
+
+.comment-action:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.comment-header {
+  padding: 10px;
+  border-bottom: 1px dashed #ff008b;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.comment-body {
+  padding: 10px;
+}
+
+.comment-header p {
+  font-size: 1rem;
+}
+
+.reply-wrapper p {
+  padding: 10px;
+  border-bottom: 1px dashed #ff008b;
+  font-size: 1rem;
+}
+
+.reply-wrapper {
+  margin: 10px;
+  border: 1px solid #ff008b;
+  border-left: 10px solid #ff008b;
+  border-radius: 10px;
+}
+
 @keyframes in {
   0% {
     opacity: 0;
