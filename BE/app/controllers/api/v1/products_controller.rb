@@ -28,7 +28,7 @@ module Api
 
       def update
         if @product.update(product_params)
-          render json: @product, each_serializer: nil
+          render json: { product: @product, message: 'Update success' }, status: 200
         else
           render json: @product.errors, status: :unprocessable_entity
         end
@@ -37,7 +37,7 @@ module Api
       def destroy
         @product.destroy
         render json: {
-          message: "deleted"
+          message: 'deleted'
         }
       end
 

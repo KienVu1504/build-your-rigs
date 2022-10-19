@@ -17,7 +17,7 @@ module Api
       def update
         @brand = Brand.find(params[:id])
         if @brand.update(brand_params)
-          render json: @brand
+          render json: { brand: @brand, message: 'Update success' }, status: 200
         else
           render json: @brand.errors.full_messages, stauts: :unprocessable_entity
         end
@@ -46,15 +46,13 @@ module Api
 
       def count
         brand = Brand.all
-        render json: {count:brand.count}
+        render json: { count: brand.count }
       end
 
       def all_brand
         brand = Brand.all
         render json: brand
       end
-
-
 
       def brand_params
         params.permit(:name, :img, :status, :image)

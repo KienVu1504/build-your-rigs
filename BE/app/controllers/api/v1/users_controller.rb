@@ -27,7 +27,7 @@ module Api
       def update
         @user = User.find(params[:id])
         if @user.update(user_params)
-          render json: { user: @user }, status: :ok
+          render json: { user: @user, message: 'Update success' }, status: :ok
         else
           render json: { message: 'Password is not in the correct format' }, status: 422
         end

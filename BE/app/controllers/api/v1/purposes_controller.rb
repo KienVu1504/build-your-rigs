@@ -25,7 +25,7 @@ module Api
 
       def update
         if @purpose.update(purpose_params)
-          render json: @purpose
+          render json: { purpose: @purpose, message: 'Update success' }, status: 200
         else
           render json: @purpose.errors, status: :unprocessable_entity
         end
@@ -34,7 +34,7 @@ module Api
       def destroy
         @purpose.destroy
         render json: {
-          message: "delete succsess"
+          message: 'delete succsess'
         }
       end
 

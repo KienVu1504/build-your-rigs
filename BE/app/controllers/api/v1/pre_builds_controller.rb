@@ -27,7 +27,7 @@ module Api
 
       def update
         if @pre_build.update(pre_build_params)
-          render json: @pre_build
+          render json: { pre_build: @pre_build, message: 'Update success' }, status: 200
         else
           render json: @pre_build.errors, status: :unprocessable_entity
         end
@@ -36,7 +36,7 @@ module Api
       def destroy
         @pre_build.destroy
         render json: {
-          message: "deleted"
+          message: 'deleted'
         }
       end
 
@@ -48,7 +48,7 @@ module Api
 
       def pre_build_params
         params.permit(:purpose_id, :price_range_id, :cpu, :cooler, :main, :ram, :ssd, :hdd, :gpu,
-                                          :psw, :case, :price, :img, :status,:image)
+                      :psw, :case, :price, :img, :status, :image)
       end
     end
   end

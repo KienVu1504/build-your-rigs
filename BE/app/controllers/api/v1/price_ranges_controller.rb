@@ -27,7 +27,7 @@ module Api
 
       def update
         if @price_range.update(price_range_params)
-          render json: @price_range, status: :ok
+          render json: { price_range: @price_range, message: 'Update success' }, status: :ok
         else
           render json: @price_range.errors, status: :unprocessable_entity
         end

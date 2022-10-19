@@ -2,7 +2,7 @@ module Api
   module V1
     class PrAttributesController < ApplicationController
       before_action :authorize, only: %i[create update destroy]
-      before_action :set_product_att, only: %i[show update destroy show_comments]
+      before_action :set_product_att, only: %i[show update destroy]
 
       def index
         product_att = PrAttribute.all
@@ -10,11 +10,12 @@ module Api
         # page = { page: pages, message: "cmm thang hoang"}
 
         # render json: { page: pages, product_att: @product_att }
-        render({ meta: pages, json: @product_att, adapter: :json, each_serializer: ::PrAttributes::PrAttributeSerializer })
+        render({ meta: pages, json: @product_att, adapter: :json,
+                 each_serializer: ::PrAttributes::PrAttributeSerializer })
       end
 
       def show
-        render json: @product_att, each_serializer: ::PrAttributes::PrAttributeSerializer
+        render json: @product_att, serializer: ::PrAttributes::PrAttributeSerializer
       end
 
       def create
@@ -29,7 +30,7 @@ module Api
 
       def update
         if @product_att.update(product_att_params)
-          render json: @product_att
+          render json: { pr_attribute: @product_att, message: 'Update success' }, status: 200
         else
           render json: @product_att.errors, status: :unprocessable_entity
         end
@@ -37,6 +38,9 @@ module Api
 
       def destroy
         @product_att.destroy
+        render json: {
+          message: 'delete success'
+        }
       end
 
       def selected
@@ -79,7 +83,10 @@ module Api
       end
 
       def show_comments
-        render json: @product_att, serializer: ::PrAttributes::ShowCommentSerializer
+        @product_att = PrAttribute.find(params[:id])
+        @pagy, cmt = pagy(@product_att.comments)
+
+        render({ meta: pages, json: cmt, adapter: :json, each_serializer: CommentSerializer })
       end
 
       private
