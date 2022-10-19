@@ -83,10 +83,16 @@ module Api
       end
 
       def show_comments
-        @product_att = PrAttribute.find(params[:id])
-        @pagy, cmt = pagy(@product_att.comments)
+        @product_att = PrAttribute.find(params[:id]).comments.order(id: :desc)
 
-        render({ meta: pages, json: cmt, adapter: :json, each_serializer: CommentSerializer })
+        @pagy, cmt = pagy(@product_att, items: params[:per_page] || DEFAULT_PER_PAGE,
+                                        page: params[:page] || DEFAULT_PAGE)
+        render json: { page: pages, comment: cmt }
+
+        # render({ meta: pages, json: cmt, adapter: :json, each_serializer: CommentSerializer })
+
+        ####
+        # render json: @product_att
       end
 
       private
