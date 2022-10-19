@@ -722,6 +722,7 @@ img.product-img {
   text-align: center;
   justify-content: center;
   align-items: center;
+  padding: 1rem;
 }
 
 .left-wrapper {
@@ -788,6 +789,54 @@ img.product-img {
   border: 1px solid #ff008b;
   border-left: 10px solid #ff008b;
   border-radius: 10px;
+}
+
+form.post-wrapper {
+  border: 1px solid #ff008b;
+  padding: 10px;
+  margin: 0px 30px 10px 30px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-wrapper textarea#content {
+  outline: none;
+  border: none;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+.post-wrapper label {
+  border-bottom: 1px dashed #ff008b;
+  color: #ff008b;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.post-wrapper button {
+  margin-top: 10px;
+  outline: none;
+  border: 1px solid #ff008b;
+  border-radius: 10px;
+  padding: 10px;
+  background: white;
+  transition: 0.2s all ease-in-out;
+  color: #ff008b;
+  font-weight: bold;
+}
+
+.post-wrapper button:hover {
+  background-color: #ff008b;
+  color: white;
+}
+
+.relatePr-wrapper {
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 @keyframes in {

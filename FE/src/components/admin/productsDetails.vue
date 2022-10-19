@@ -66,6 +66,28 @@
                                     </tr>
                                 </tbody>
                             </table>
+
+                            <p>Related Product</p>
+                            <div class="relatePr-wrapper" @click="newData">
+                                <router-link tag="div"
+                                    :to="{path: `/admin/products/` + pr_attribute.product_id + '/' + pr_attribute.id}"
+                                    class="tile-wrapper-outer col-lg-4" v-for="(pr_attribute, index) in relatedData"
+                                    :key="'pr_attribute'+index" v-if="pr_attribute.id != $route.params.pr_id">
+                                    <div class="tile">
+                                        <input type="radio" id="inputCheckbox" name="userChoice" class="tile-input">
+                                        <label for="userChoice" class="tile-label">
+                                            <div class="tile-wrapper">
+                                                <div class="item-img-wrapper">
+                                                    <img :src="pr_attribute.img || pr_attribute.image_url" alt=""
+                                                        class="item-img" />
+                                                </div>
+                                                <h4 class="tile-name">{{ pr_attribute.name }}</h4>
+                                                <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </router-link>
+                            </div>
                         </div>
                     </div>
                     <div class="comments-wrapper">
@@ -97,6 +119,12 @@
                             </div>
                         </div>
                     </div>
+                    <form class="post-wrapper">
+                        <label for="content">Comment:</label>
+                        <textarea id="content" name="content" rows="5" placeholder="Enter your comment..."
+                            required></textarea>
+                        <button type="submit">Post</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -106,6 +134,8 @@
 <script>
 import axios from "@/plugins/axios"
 import qs from "qs"
+import { createNamespacedHelpers } from 'vuex'
+const relatePrStore = createNamespacedHelpers('relatePr')
 
 export default {
     data() {
@@ -118,12 +148,19 @@ export default {
     computed: {
         animation() {
             return this.$store.state.animation
+        },
+        relatedData() {
+            // console.log(this.$route.params.pr_id);
+            return this.$store.state.relatePr.relatedProducts
         }
     },
     mounted() {
         this.fetchDatas();
     },
     methods: {
+        newData() {
+            this.fetchDatas();
+        },
         async fetchDatas() {
             const self = this;
             const productsQuery = {
@@ -140,12 +177,20 @@ export default {
             }
             await axios(productsQuery).then(res => {
                 this.products = res.data.data[0];
+                // console.log(this.products);
                 setTimeout(function () {
+                    self.fetchRelateData(
+                        self.products.socket,
+                        self.products.dimm,
+                        self.products.ssd,
+                        self.products.hdd,
+                        self.products.form,
+                        self.products.capacity,
+                        self.products.brand_id
+                    )
                     self.fetchBrand();
-                }, 300);
-                setTimeout(function () {
                     self.fetchComment();
-                }, 500);
+                }, 300);
             }).catch(err => {
                 console.log(err)
             })
@@ -164,15 +209,18 @@ export default {
         async fetchComment() {
             const brandQuery = {
                 method: "POST",
-                url: "show_comments/" + this.$route.params.id
+                url: "show_comments/" + this.$route.params.pr_id
             }
             await axios(brandQuery).then(res => {
                 this.comments = res.data.comment;
-                console.log(this.comments)
+                // console.log(this.comments)
             }).catch(err => {
                 console.log(err)
             })
-        }
+        },
+        ...relatePrStore.mapActions([
+            'fetchRelateData'
+        ])
     }
 }
 </script>
