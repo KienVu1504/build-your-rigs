@@ -4,5 +4,6 @@ class CommentSerializer < ActiveModel::Serializer
   def date_time
     object.created_at.to_datetime.strftime('%a %d %b  %Y')
   end
-  # belongs_to :pr_attribute, serializer: ::PrAttributes::ShowCommentSerializer
+  # belongs_to :comment, serializer: CommentSerializer
+  has_many :comments, serializer: CommentSerializer
 end
