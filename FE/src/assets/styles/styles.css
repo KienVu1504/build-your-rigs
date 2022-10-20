@@ -250,6 +250,27 @@ article .progress-step.active,
   transition: 0.2s all ease-in-out !important;
 }
 
+.progress-step:hover .tile-wrapper-outer {
+  display: block;
+  color: black !important;
+}
+
+.progress-step .tile-wrapper-outer {
+  display: none;
+  width: 290px;
+  z-index: 2;
+  position: absolute;
+  left: 2rem;
+}
+
+.progress-step .tile {
+  background: white;
+}
+
+.progress-step .tile input::after {
+  display: none;
+}
+
 article .progress-step.active ~ .progress-step {
   color: #555;
   background-color: #ccc;
@@ -759,7 +780,7 @@ img.product-img {
 
 .comment-action:hover {
   cursor: pointer;
-  text-decoration: underline;
+  color: #ff008b;
 }
 
 .comment-header {
@@ -774,7 +795,12 @@ img.product-img {
   padding: 10px;
 }
 
+.comment-body p {
+  color: black;
+}
+
 .comment-header p {
+  color: black;
   font-size: 1rem;
 }
 
@@ -782,6 +808,16 @@ img.product-img {
   padding: 10px;
   border-bottom: 1px dashed #ff008b;
   font-size: 1rem;
+  color: black;
+}
+
+.reply-name {
+  transition: 0.2s all ease-in-out;
+}
+
+.reply-name:hover {
+  color: #ff008b;
+  cursor: pointer;
 }
 
 .reply-wrapper {
@@ -837,6 +873,10 @@ form.post-wrapper {
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+.annm-name {
+  color: black;
 }
 
 @keyframes in {

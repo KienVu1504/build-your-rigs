@@ -43,7 +43,8 @@ export default {
             'fetchHdds',
             'fetchGpus',
             'fetchCases',
-            'fetchPsus'
+            'fetchPsus',
+            'fetchSelectedData'
         ]),
         nextStep() {
             this.clearForm()
@@ -64,6 +65,8 @@ export default {
                 this.fetchCases();
             } else if (this.activeStep == 7) {
                 this.fetchPsus();
+            } else if (this.activeStep == 8) {
+                this.fetchSelectedData();
             }
             setTimeout(() => {
                 this.$store.commit("setAnimate", "animate-in")

@@ -97,7 +97,7 @@
                                     <div class="comment-avt">
                                         <p>{{comment.name.substring(0, 1).toUpperCase()}}</p>
                                     </div>
-                                    <p>{{comment.name}}</p>
+                                    <p class="annm-name">{{comment.name}}</p>
                                 </div>
                             </div>
                             <div class="comment-right">
@@ -107,7 +107,7 @@
                                     <p>{{comment.created_at}}</p>
                                 </div>
                                 <div class="reply-wrapper">
-                                    <p>supermaninvoz said:</p>
+                                    <p class="reply-name">supermaninvoz said:</p>
                                     <div class="reply-body">
                                         <p>forum ko có công cụ lọc nick phản cảm nhỉ? có mấy game đặt tên như admin,
                                             gamemaster, f-uck, suc-k co-ck này nọ ko được ngay cả lách cũng ko được.</p>

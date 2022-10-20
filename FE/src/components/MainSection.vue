@@ -17,15 +17,12 @@
                 <div class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12"
                     v-for="(pr_attribute, index) in filteredList" :key="'pr_attribute'+index">
                     <div class="tile">
-                        <input type="radio" @click="checkValid(index)" id="inputCheckbox" name="userChoice"
+                        <input type="radio" @click="checkValid(pr_attribute.id)" id="inputCheckbox" name="userChoice"
                             class="tile-input">
                         <label for="userChoice" class="tile-label">
                             <div class="tile-wrapper">
                                 <div class="item-img-wrapper">
-                                    <img :src="pr_attribute.img" v-if="pr_attribute.image_url == null" alt=""
-                                        class="item-img">
-                                    <img :src="pr_attribute.image_url" v-if="pr_attribute.img == null" alt=""
-                                        class="item-img">
+                                    <img :src="pr_attribute.img || pr_attribute.image_url" alt="" class="item-img" />
                                 </div>
                                 <h4 class="tile-name">{{ pr_attribute.name }}</h4>
                                 <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
@@ -97,6 +94,8 @@ export default {
                 return this.psu.filter(post => {
                     return post.name.toLowerCase().includes(this.searchData.toLowerCase())
                 })
+            } else if (this.activeStep == 9) {
+                return this.selectedData
             }
         },
         formStepsList() {
@@ -140,6 +139,9 @@ export default {
         },
         searchData() {
             return this.$store.state.search.search
+        },
+        selectedData() {
+            return this.$store.state.search.completedRig.data
         }
     },
     async mounted() {
@@ -160,8 +162,27 @@ export default {
         redirect() {
             this.$router.push({ path: '/' })
         },
-        checkValid() {
+        checkValid(id) {
             this.$store.commit("formStepsData/setValid")
+            if (this.activeStep == 0) {
+                this.$store.commit('search/setCPU', id)
+            } else if (this.activeStep == 1) {
+                this.$store.commit('search/setCOOLER', id)
+            } else if (this.activeStep == 2) {
+                this.$store.commit('search/setMAIN', id)
+            } else if (this.activeStep == 3) {
+                this.$store.commit('search/setRAM', id)
+            } else if (this.activeStep == 4) {
+                this.$store.commit('search/setSSD', id)
+            } else if (this.activeStep == 5) {
+                this.$store.commit('search/setHDD', id)
+            } else if (this.activeStep == 6) {
+                this.$store.commit('search/setGPU', id)
+            } else if (this.activeStep == 7) {
+                this.$store.commit('search/setCASE', id)
+            } else if (this.activeStep == 8) {
+                this.$store.commit('search/setPSU', id)
+            }
         },
         checkLocalStorage() {
             let oldData = this.$store.state.userInfo.cih

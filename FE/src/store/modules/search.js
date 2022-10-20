@@ -12,7 +12,22 @@ export default {
         ram: [],
         ssd: [],
         hdd: [],
-        search: ''
+        gpu: [],
+        case: [],
+        psu: [],
+        completedRig: [],
+        search: '',
+        selectedData: {
+            cpu: '',
+            cooler: '',
+            main: '',
+            ram: '',
+            ssd: '',
+            hdd: '',
+            gpu: '',
+            case: '',
+            psu: '',
+        },
     },
     getters: {
     },
@@ -46,6 +61,39 @@ export default {
         },
         setPSUData(state, newData) {
             state.psu = newData
+        },
+        setSearchData(state, newData) {
+            state.search = newData
+        },
+        setCPU(state, newData) {
+            state.selectedData.cpu = newData
+        },
+        setCOOLER(state, newData) {
+            state.selectedData.cooler = newData
+        },
+        setMAIN(state, newData) {
+            state.selectedData.main = newData
+        },
+        setRAM(state, newData) {
+            state.selectedData.ram = newData
+        },
+        setSSD(state, newData) {
+            state.selectedData.ssd = newData
+        },
+        setHDD(state, newData) {
+            state.selectedData.hdd = newData
+        },
+        setGPU(state, newData) {
+            state.selectedData.gpu = newData
+        },
+        setCASE(state, newData) {
+            state.selectedData.case = newData
+        },
+        setPSU(state, newData) {
+            state.selectedData.psu = newData
+        },
+        setAllData(state, newData) {
+            state.completedRig = newData
         }
     },
     actions: {
@@ -238,6 +286,33 @@ export default {
             }).catch(err => {
                 console.log(err)
             })
+        },
+        async fetchSelectedData({state, commit }) {
+            // console.log(this.selectedData)
+            const data = {
+                method: "POST",
+                url: "selected",
+                params: {
+                    cpu: state.selectedData.cpu,
+                    main: state.selectedData.main,
+                    psu: state.selectedData.psu,
+                    cooler: state.selectedData.cooler,
+                    ssd: state.selectedData.ssd,
+                    ram: state.selectedData.ram,
+                    gpu: state.selectedData.gpu,
+                    hdd: state.selectedData.hdd,
+                    case: state.selectedData.case
+                },
+                paramsSerializer: (params) => {
+                    return qs.stringify(params);
+                },
+            };
+            await axios(data).then((res) => {
+                this.selectedData = res;
+                commit("setAllData", this.selectedData);
+            }).catch((err) => {
+                console.log(err);
+            });
         },
     },
     modules: {
