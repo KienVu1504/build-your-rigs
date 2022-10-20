@@ -1,7 +1,8 @@
 class PrAttribute < ApplicationRecord
   belongs_to :product
   belongs_to :brand
-  has_many :comments
+  has_many :comments, as: :commentable, dependent: :destroy
+
   # post Img
   has_one_attached :image
 

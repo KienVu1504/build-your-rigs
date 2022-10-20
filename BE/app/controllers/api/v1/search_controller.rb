@@ -26,11 +26,19 @@ module Api
       end
 
       def search_comments
-        @q = Comment.ransack(params[:q]).result
+        q = Comment.ransack(params[:q]).result
         @pagy, @comment = pagy(q, items: params[:per_page] || DEFAULT_PER_PAGE, page: params[:page] || DEFAULT_PAGE)
 
         render json: { count: @comment.count, page: pages, brand: @comment }
       end
+
+      def search_report
+        q = Report.ransack(params[:q]).result
+        @pagy, @report = pagy(q, items: params[:per_page] || DEFAULT_PER_PAGE, page: params[:page] || DEFAULT_PAGE)
+
+        render json: { count: @report.count, page: pages, report: @report }
+      end
+
     end
   end
 end

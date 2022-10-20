@@ -1,7 +1,10 @@
 class Comment < ApplicationRecord
   # BLACKLIST = %w[fuck dkm dcm pussy].freeze
+  # belongs_to :pr_attribute
+  has_one :report
 
-  belongs_to :pr_attribute
+  belongs_to :commentable, polymorphic: true
+  has_many :comments, as: :commentable, dependent: :destroy
 
   validates :body, presence: true
   validate :validate_cmt, if: -> { body.present? }

@@ -2,19 +2,23 @@ module Api
   module V1
     class CommentsController < ApplicationController
       before_action :authorize, only: :destroy
+      before_action :find_commentable, only: :create
 
       def create
-        @comment = Comment.new(comment_params)
+        @comment = @commentable.comments.build(comment_params)
         if @comment.save
           render json: @comment, stauts: :ok
         else
           render json: @comment.errors, status: :unprocessable_entity
         end
+        # render json: @commentable
       end
 
       def index
         @comment = Comment.all
-        render json: @comment
+        @pagy, comments = pagy(@comment, items: params[:per_page] || DEFAULT_PER_PAGE,
+                                         page: params[:page] || DEFAULT_PAGE)
+        render({ meta: pages, json: comments, adapter: :json, each_serializer: CommentSerializer })
       end
 
       def destroy
@@ -26,14 +30,25 @@ module Api
       def show
         @comment = Comment.find_by(params[:id])
         render json: @comment
-
       end
 
       private
 
-      def comment_params
-        params.permit(:body, :pr_attribute_id,:name, :reply_id)
+      def find_commentable
+        if params[:comment_id]
+          @commentable = Comment.find_by_id(params[:comment_id])
+        elsif params[:pr_attribute_id]
+          @commentable = PrAttribute.find_by_id(params[:pr_attribute_id])
+        end
       end
+
+      def comment_params
+        params.permit(:body, :name)
+      end
+
+      # def report_params
+      #   params.permit(:comment_id, :reason, :status)
+      # end
     end
   end
 end

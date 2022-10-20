@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_19_020422) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_19_102856) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -49,13 +49,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_020422) do
 
   create_table "comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "body"
-    t.bigint "pr_attribute_id", null: false
     t.boolean "status", default: true
-    t.bigint "reply_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
-    t.index ["pr_attribute_id"], name: "index_comments_on_pr_attribute_id"
+    t.string "commentable_type"
+    t.bigint "commentable_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
   end
 
   create_table "pr_attributes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -120,6 +120,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_020422) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reports", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "comment_id", null: false
+    t.text "reason", null: false
+    t.boolean "status", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -129,7 +137,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_020422) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "comments", "pr_attributes"
   add_foreign_key "pr_attributes", "products"
   add_foreign_key "pre_builds", "price_ranges"
   add_foreign_key "pre_builds", "purposes"
