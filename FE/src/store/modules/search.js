@@ -17,17 +17,17 @@ export default {
         psu: [],
         completedRig: [],
         search: '',
-        selectedData: {
-            cpu: '',
-            cooler: '',
-            main: '',
-            ram: '',
-            ssd: '',
-            hdd: '',
-            gpu: '',
-            case: '',
-            psu: '',
-        },
+        selectedData: [
+            // {cpu: ''},
+            // {cooler: ''},
+            // {main: ''},
+            // {ram: ''},
+            // {ssd: ''},
+            // {hdd: ''},
+            // {gpu: ''},
+            // {case: ''},
+            // {psu: ''},
+        ],
     },
     getters: {
     },
@@ -66,31 +66,31 @@ export default {
             state.search = newData
         },
         setCPU(state, newData) {
-            state.selectedData.cpu = newData
+            state.selectedData[0] = newData
         },
         setCOOLER(state, newData) {
-            state.selectedData.cooler = newData
+            state.selectedData[1] = newData
         },
         setMAIN(state, newData) {
-            state.selectedData.main = newData
+            state.selectedData[2] = newData
         },
         setRAM(state, newData) {
-            state.selectedData.ram = newData
+            state.selectedData[3] = newData
         },
         setSSD(state, newData) {
-            state.selectedData.ssd = newData
+            state.selectedData[4] = newData
         },
         setHDD(state, newData) {
-            state.selectedData.hdd = newData
+            state.selectedData[5] = newData
         },
         setGPU(state, newData) {
-            state.selectedData.gpu = newData
+            state.selectedData[6] = newData
         },
         setCASE(state, newData) {
-            state.selectedData.case = newData
+            state.selectedData[7] = newData
         },
         setPSU(state, newData) {
-            state.selectedData.psu = newData
+            state.selectedData[8] = newData
         },
         setAllData(state, newData) {
             state.completedRig = newData
