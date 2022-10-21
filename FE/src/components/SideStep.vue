@@ -3,7 +3,7 @@
         <div class="header-greeting">
             <p>Hello:<br>{{username}}</p>
         </div>
-        
+
         <div class="view-progress">
             <div class="progress-step" :class="{'active':index === activeStep}" v-for="(step, index) in formSteps"
                 :key="'step'+index" @mouseover="fetchSelectedPr(step.id-1)">
@@ -46,6 +46,7 @@ export default {
         };
     },
     computed: {
+
         activeStep() {
             return this.$store.state.formStepsData.activeStep
         },
@@ -66,6 +67,7 @@ export default {
                 if (this.$store.state.search.selectedData[id] !== undefined) {
                     await axios(productsQuery).then(res => {
                         this.selectedPr[id] = res.data
+                        this.$forceUpdate();
                     }).catch(err => {
                         console.log(err)
                     })

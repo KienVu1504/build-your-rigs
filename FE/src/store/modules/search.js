@@ -240,6 +240,7 @@ export default {
             }
             await axios(gpusQuery).then(res => {
                 this.dataGPU = res.data;
+                console.log(res.data)
                 commit("setGPUData", this.dataGPU);
             }).catch(err => {
                 console.log(err)
@@ -287,7 +288,7 @@ export default {
                 console.log(err)
             })
         },
-        async fetchSelectedData({state, commit }) {
+        async fetchSelectedData({ state, commit }) {
             // console.log(this.selectedData)
             const data = {
                 method: "POST",
