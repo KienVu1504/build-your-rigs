@@ -45,10 +45,6 @@ module Api
       def comment_params
         params.permit(:body, :name)
       end
-
-      # def report_params
-      #   params.permit(:comment_id, :reason, :status)
-      # end
     end
   end
 end
