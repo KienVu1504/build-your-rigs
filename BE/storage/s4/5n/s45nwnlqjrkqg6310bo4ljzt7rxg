@@ -1,0 +1,92 @@
+<?php
+    require_once('database.php');
+    $error=[];
+    function isFormValidated(){
+        global $error;
+        return count($error) == 0;
+    }
+   
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        $date = explode("-",$_POST['dob']);
+        if(empty($_POST['namet'])){
+            $error[]="Teacher Name is require";
+        }
+        if(empty($_POST['dob'])){
+            $error[]="Date of Birth is require";
+        }
+        if(empty($_POST['ssid'])){
+            $error[]="SSID is require";
+        }
+        if(strlen($_POST['ssid']) != 11){
+            $error[]= "SSID must 11 number";
+        }
+        if((substr(($_POST['ssid']),0,1) !='0' && substr(($_POST['ssid']),0,1) !='1' ) || (substr(($_POST['ssid']),1,1) !='0' && substr(($_POST['ssid']),1,1) !='1')){
+            $error[]= "SSID must start 00,01,10,11";
+        }
+        if($date[1] != substr(($_POST['ssid']),4,2)){
+            $error[]= "SSID ----xx have xx same with month date of birth";
+        }
+        if(substr($date[0],2,2) != substr(($_POST['ssid']),2,2)){
+            $error[]= "SSID have 3rd digit and 4th digit same with last 2 digits of year";
+        }
+    }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<?php if ($_SERVER['REQUEST_METHOD']=='POST' && !isFormValidated()) : ?>
+    <span> Please fix the following errors </span>
+            <ul>
+                <?php
+                foreach ($error as $key => $value){
+                    if (!empty($value)){
+                        echo '<li>', $value, '</li>';
+                    }
+                }
+                ?>
+            </ul>
+<?php endif;?>
+    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method ="post">
+        <label for="namet">Teacher Name</label>
+        <input type="text" name="namet" id="namet" value="<?php echo isFormValidated()? '': $_POST['namet'] ?>"><br><br>
+        <label for="dob">Date of Birth</label>
+        <input type="date" name="dob" id="dob" value="<?php echo isFormValidated()? '': $_POST['dob'] ?>"><br><br>
+        <label for="ssid">Ssid</label>
+        <input type="number" name="ssid" id="ssid" value="<?php echo isFormValidated()? '': $_POST['ssid'] ?>"><br><br>
+        <input type="submit" name="submit" value="Submit">
+    </form>
+
+    <?php if ($_SERVER["REQUEST_METHOD"] == 'POST' && isFormValidated()): ?> 
+        <?php 
+            $teacher= [];
+            $teacher['namet']= $_POST['namet'];
+            $teacher['dob']= $_POST['dob'];
+            $teacher['ssid'] = $_POST['ssid'];
+            $result = insert_teacher($teacher);
+            $newid = mysqli_insert_id($db);
+        ?>
+
+<h2>A new student (ID: <?php echo $newid ?>) has been created:</h2>
+        <ul>
+        <?php 
+            foreach ($teacher as $key => $value) {
+                if ($key == 'submit') continue;
+                if(!empty($value)) echo '<li>', $key.': '.$value, '</li>';
+            }        
+        ?>
+        </ul>
+<?php endif; ?>
+<a href="index.php">Back to index</a> 
+</body>
+</html>
+
+<?php
+db_disconnect($db);
+?>
