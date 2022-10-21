@@ -104,17 +104,16 @@
                                 <div class="comment-header">
                                     <p class="comment-action">Reply</p>
                                     <p class="comment-action">Report</p>
-                                    <p>{{comment.created_at}}</p>
-                                </div>
-                                <div class="reply-wrapper">
-                                    <p class="reply-name">supermaninvoz said:</p>
-                                    <div class="reply-body">
-                                        <p>forum ko có công cụ lọc nick phản cảm nhỉ? có mấy game đặt tên như admin,
-                                            gamemaster, f-uck, suc-k co-ck này nọ ko được ngay cả lách cũng ko được.</p>
-                                    </div>
+                                    <p>{{comment.date_time}}</p>
                                 </div>
                                 <div class="comment-body">
                                     <p>{{comment.body}}</p>
+                                </div>
+                                <div class="reply-wrapper" v-for="reply in comment.comments" v-bind:key="reply.id">
+                                    <p class="reply-name">{{reply.name}} said:</p>
+                                    <div class="reply-body">
+                                        <p>{{reply.body}}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -212,8 +211,8 @@ export default {
                 url: "show_comments/" + this.$route.params.pr_id
             }
             await axios(brandQuery).then(res => {
-                this.comments = res.data.comment;
-                // console.log(this.comments)
+                this.comments = res.data.comments;
+                console.log(this.comments)
             }).catch(err => {
                 console.log(err)
             })
