@@ -114,23 +114,33 @@
                                             class="reply-section">
                                         <button type="submit">Reply</button>
                                     </form>
+                                    <form v-show="currentRPCommentId == comment.id" class="reply-form"
+                                        @submit.prevent="commentRP(comment.id)">
+                                        <input type="text" v-model="replyBody" placeholder="Enter reason here..."
+                                            class="reply-section">
+                                        <button type="submit">Report</button>
+                                    </form>
                                     <p v-show="currentCommentId != comment.id" class="comment-action"
                                         @click="toggleReply(comment.id)">Reply</p>
-                                    <p class="comment-action">Report</p>
+                                    <p v-show="currentRPCommentId != comment.id" class="comment-action"
+                                        @click="toggleReport(comment.id)">Report</p>
                                     <p>{{comment.date_time}}</p>
                                 </div>
                                 <div class="comment-body">
                                     <p>{{comment.body}}</p>
                                 </div>
-                                <div class="reply-wrapper" v-for="reply in comment.comments" v-bind:key="reply.id">
-                                    <p class="reply-name">{{reply.name}} said:</p>
-                                    <div class="reply-body">
-                                        <p>{{reply.body}}</p>
+                                <div class="overflow-wrapper">
+                                    <div class="reply-wrapper" v-for="reply in comment.comments" v-bind:key="reply.id">
+                                        <p class="reply-name">{{reply.name}} said on {{reply.date_time}}</p>
+                                        <div class="reply-body">
+                                            <p>{{reply.body}}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <Pagination @fetchNewDatas="fetchCommentData"></Pagination>
                 </div>
             </div>
         </div>
@@ -139,25 +149,33 @@
 
 <script>
 import axios from "@/plugins/axios"
+import Pagination from './pagination.vue';
 import qs from "qs"
 import { createNamespacedHelpers } from 'vuex'
 const relatePrStore = createNamespacedHelpers('relatePr')
+const commentsStore = createNamespacedHelpers('comments')
 
 export default {
     data() {
         return {
             products: [],
             brandName: '',
-            comments: [],
             commentBody: '',
             replyBody: '',
-            currentCommentId: null
+            currentCommentId: null,
+            currentRPCommentId: null
         };
+    },
+    components: {
+        Pagination
     },
     computed: {
         animation() {
             return this.$store.state.animation
         },
+        ...commentsStore.mapState([
+            'comments'
+        ]),
         relatedData() {
             return this.$store.state.relatePr.relatedProducts
         }
@@ -196,7 +214,7 @@ export default {
                         self.products.brand_id
                     )
                     self.fetchBrand();
-                    self.fetchComment();
+                    self.fetchCommentData();
                 }, 300);
             }).catch(err => {
                 console.log(err)
@@ -213,17 +231,20 @@ export default {
                 console.log("fetchBrand: " + err)
             })
         },
-        async fetchComment() {
-            const brandQuery = {
+        async commentRP(id) {
+            const commentQuery = {
                 method: "POST",
-                url: "show_comments/" + this.$route.params.pr_id
+                url: `comments/` + id + `/reports`
             }
-            await axios(brandQuery).then(res => {
-                this.comments = res.data.comments;
+            await axios(commentQuery).then(res => {
+                alert("Report successful!")
             }).catch(err => {
                 console.log(err)
             })
         },
+        ...commentsStore.mapActions([
+            'fetchCommentData'
+        ]),
         async addComment(e) {
             const comment = {
                 method: "POST",
@@ -240,8 +261,7 @@ export default {
                 console.log(res)
                 e.preventDefault();
                 if (res.request.status >= 200 && res.request.status < 300) {
-                    this.fetchComment()
-                    alert("Add comment successful!")
+                    this.fetchCommentData()
                 } else {
                     alert(res.response.data.body)
                 }
@@ -253,6 +273,11 @@ export default {
         },
         toggleReply(commentId) {
             this.currentCommentId = this.currentCommentId == commentId ? null : commentId;
+            this.currentRPCommentId = null;
+        },
+        toggleReport(commentId) {
+            this.currentRPCommentId = this.currentCommentId == commentId ? null : commentId;
+            this.currentCommentId = null;
         },
         async addReply(id) {
             const comment = {
@@ -267,18 +292,16 @@ export default {
                 }
             }
             await axios(comment).then(res => {
-                console.log(res)
-                // e.preventDefault();
+                // console.log(res)
                 if (res.request.status >= 200 && res.request.status < 300) {
-                    this.fetchComment()
+                    this.fetchCommentData()
                     this.currentCommentId = null
-                    alert("Add comment successful!")
+                    this.replyBody = null
                 } else {
                     alert(res.response.data.body)
                 }
             }).catch(err => {
                 console.log(err)
-                // e.preventDefault();
                 alert(err.response.data.body)
             })
         },

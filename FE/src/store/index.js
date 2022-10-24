@@ -9,6 +9,7 @@ import paging from '@/store/modules/paging'
 import brandsData from '@/store/modules/brandsData'
 import productsData from '@/store/modules/productsData'
 import relatePr from '@/store/modules/relatePr'
+import comments from '@/store/modules/comments'
 import createPersistedState from "vuex-persistedstate";
 const dataState = createPersistedState({
   paths: ['userToken.token']
@@ -43,7 +44,8 @@ export default new Vuex.Store({
     paging,
     brandsData,
     productsData,
-    relatePr
+    relatePr,
+    comments
   },
   plugins: [dataState]
 })

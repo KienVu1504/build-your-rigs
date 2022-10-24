@@ -312,6 +312,11 @@ article section {
   transition: 0.2s all ease-in-out;
 }
 
+.overflow-wrapper {
+  max-height: 500px;
+  overflow-x: auto;
+}
+
 .reply-form button:hover {
   cursor: pointer;
   color: #ff008b;
