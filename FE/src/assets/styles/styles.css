@@ -305,6 +305,27 @@ article section {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.2);
 }
 
+.reply-form button {
+  outline: none;
+  border: none;
+  background: none;
+  transition: 0.2s all ease-in-out;
+}
+
+.reply-form button:hover {
+  cursor: pointer;
+  color: #ff008b;
+}
+
+.reply-section {
+  margin-right: 10px;
+  border: 1px solid #ff008b;
+  border-radius: 10px;
+  outline: none;
+  padding: 0 10px;
+  width: 100vh;
+}
+
 .article img {
   width: 700px;
 }
@@ -772,7 +793,8 @@ img.product-img {
   transition: 0.2s all ease-in-out;
 }
 
-.comment-action::after {
+.comment-action::after,
+.reply-form button::after {
   content: "";
   border-right: 1px solid #ff008b;
   margin: 10px;
@@ -797,6 +819,7 @@ img.product-img {
 
 .comment-body p {
   color: black;
+  word-break: break-word;
 }
 
 .comment-header p {

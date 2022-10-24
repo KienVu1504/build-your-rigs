@@ -90,19 +90,32 @@
                             </div>
                         </div>
                     </div>
+                    <form class="post-wrapper" @submit.prevent="addComment">
+                        <label for="content">Comment:</label>
+                        <textarea id="content" v-model="commentBody" name="content" rows="5"
+                            placeholder="Enter your comment..." required></textarea>
+                        <button type="submit">Post</button>
+                    </form>
                     <div class="comments-wrapper">
                         <div class="comment" v-for="comment in comments" :key="comment.id">
                             <div class="comment-left">
                                 <div class="left-wrapper">
                                     <div class="comment-avt">
-                                        <p>{{comment.name.substring(0, 1).toUpperCase()}}</p>
+                                        <p>{{comment.name.substring(0, 2).toUpperCase()}}</p>
                                     </div>
                                     <p class="annm-name">{{comment.name}}</p>
                                 </div>
                             </div>
                             <div class="comment-right">
                                 <div class="comment-header">
-                                    <p class="comment-action">Reply</p>
+                                    <form v-show="currentCommentId == comment.id" class="reply-form"
+                                        @submit.prevent="addReply(comment.id)">
+                                        <input type="text" v-model="replyBody" placeholder="Enter reply here..."
+                                            class="reply-section">
+                                        <button type="submit">Reply</button>
+                                    </form>
+                                    <p v-show="currentCommentId != comment.id" class="comment-action"
+                                        @click="toggleReply(comment.id)">Reply</p>
                                     <p class="comment-action">Report</p>
                                     <p>{{comment.date_time}}</p>
                                 </div>
@@ -118,12 +131,6 @@
                             </div>
                         </div>
                     </div>
-                    <form class="post-wrapper">
-                        <label for="content">Comment:</label>
-                        <textarea id="content" name="content" rows="5" placeholder="Enter your comment..."
-                            required></textarea>
-                        <button type="submit">Post</button>
-                    </form>
                 </div>
             </div>
         </div>
@@ -141,7 +148,10 @@ export default {
         return {
             products: [],
             brandName: '',
-            comments: []
+            comments: [],
+            commentBody: '',
+            replyBody: '',
+            currentCommentId: null
         };
     },
     computed: {
@@ -149,7 +159,6 @@ export default {
             return this.$store.state.animation
         },
         relatedData() {
-            // console.log(this.$route.params.pr_id);
             return this.$store.state.relatePr.relatedProducts
         }
     },
@@ -176,7 +185,6 @@ export default {
             }
             await axios(productsQuery).then(res => {
                 this.products = res.data.data[0];
-                // console.log(this.products);
                 setTimeout(function () {
                     self.fetchRelateData(
                         self.products.socket,
@@ -212,10 +220,76 @@ export default {
             }
             await axios(brandQuery).then(res => {
                 this.comments = res.data.comments;
-                console.log(this.comments)
             }).catch(err => {
                 console.log(err)
             })
+        },
+        async addComment(e) {
+            const comment = {
+                method: "POST",
+                url: `pr_attributes/` + this.$route.params.pr_id + `/comments`,
+                params: {
+                    name: this.fetchRandomUsername(),
+                    body: this.commentBody
+                },
+                paramsSerializer: params => {
+                    return qs.stringify(params)
+                }
+            }
+            await axios(comment).then(res => {
+                console.log(res)
+                e.preventDefault();
+                if (res.request.status >= 200 && res.request.status < 300) {
+                    this.fetchComment()
+                    alert("Add comment successful!")
+                } else {
+                    alert(res.response.data.body)
+                }
+            }).catch(err => {
+                console.log(err)
+                e.preventDefault();
+                alert(err.response.data.body)
+            })
+        },
+        toggleReply(commentId) {
+            this.currentCommentId = this.currentCommentId == commentId ? null : commentId;
+        },
+        async addReply(id) {
+            const comment = {
+                method: "POST",
+                url: `comments/` + id + `/comments`,
+                params: {
+                    name: this.fetchRandomUsername(),
+                    body: this.replyBody
+                },
+                paramsSerializer: params => {
+                    return qs.stringify(params)
+                }
+            }
+            await axios(comment).then(res => {
+                console.log(res)
+                // e.preventDefault();
+                if (res.request.status >= 200 && res.request.status < 300) {
+                    this.fetchComment()
+                    this.currentCommentId = null
+                    alert("Add comment successful!")
+                } else {
+                    alert(res.response.data.body)
+                }
+            }).catch(err => {
+                console.log(err)
+                // e.preventDefault();
+                alert(err.response.data.body)
+            })
+        },
+        fetchRandomUsername() {
+            var result = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for (var i = 0; i < 10; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
         },
         ...relatePrStore.mapActions([
             'fetchRelateData'
