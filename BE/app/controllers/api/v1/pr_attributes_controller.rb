@@ -8,40 +8,34 @@ module Api
         product_att = PrAttribute.all
         @pagy, @product_att = pagy(product_att, items: params[:per_page] || DEFAULT_PER_PAGE,
                                                 page: params[:page] || DEFAULT_PAGE)
-        # page = { page: pages, message: "cmm thang hoang"}
-
-        # render json: { page: pages, product_att: @product_att }
-        render({ meta: pages, json: @product_att, adapter: :json,
-                 each_serializer: ::PrAttributes::PrAttributeSerializer })
+        response_list(@product_att, { adapter: :json, each_serializer: ::PrAttributes::PrAttributeSerializer })
       end
 
       def show
-        render json: @product_att, serializer: ::PrAttributes::PrAttributeSerializer
+        response_success(@product_att, serializer: ::PrAttributes::PrAttributeSerializer)
       end
 
       def create
         @product_att = PrAttribute.new(product_att_params)
         @product_att.image.attach(params[:image])
         if @product_att.save
-          render json: @product_att, status: :created
+          response_success(@product_att)
         else
-          render json: @product_att.errors, status: :unprocessable_entity
+          response_error(error: @product_att.errors.messages)
         end
       end
 
       def update
         if @product_att.update(product_att_params)
-          render json: { pr_attribute: @product_att, message: 'Update success' }, status: 200
+          response_success(pr_attribute: @product_att, message: 'Update success')
         else
-          render json: @product_att.errors, status: :unprocessable_entity
+          response_error(error: @product_att.errors.messages)
         end
       end
 
       def destroy
         @product_att.destroy
-        render json: {
-          message: 'delete success'
-        }
+        response_success(message: 'Deleted')
       end
 
       def selected
@@ -56,7 +50,7 @@ module Api
                                .or(PrAttribute.where('pr_attributes.id' => params[:gpu]))
                                .or(PrAttribute.where('pr_attributes.id' => params[:hdd]))
 
-        render json: @selected
+        response_success(@selected)
       end
 
       def show_items
@@ -75,9 +69,7 @@ module Api
         @spsu = PrAttribute.where(product_id: 9, brand_id: params[:brand_id]).shuffle
         random_items = (@scpu + @smain + @sram + @scooler + @sssd + @shdd + @sgpu + @scase + @spsu)
 
-        render json: random_items[0..4]
-
-        # render json: @scpu[0..1]
+        response_success(random_items[0..4])
       end
 
       def show_comments
@@ -85,9 +77,7 @@ module Api
 
         @pagy, cmt = pagy(@product_att, items: params[:per_page] || DEFAULT_PER_PAGE,
                                         page: params[:page] || DEFAULT_PAGE)
-        render({ meta: pages, json: cmt, adapter: :json, each_serializer: ::PrAttributes::ShowCommentSerializer })
-        ###
-        # render json: @product_att
+        response_list(cmt, { adapter: :json, each_serializer: ::PrAttributes::ShowCommentSerializer })
       end
 
       private

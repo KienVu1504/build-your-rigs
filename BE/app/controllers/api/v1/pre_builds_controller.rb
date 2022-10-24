@@ -7,11 +7,11 @@ module Api
       def index
         pre_builds = PreBuild.all
         @pagy, @pre_builds = pagy(pre_builds)
-        render json: { page: pages, pre_builds: @pre_builds }
+        response_success(page: pages, pre_build: @pre_builds)
       end
 
       def show
-        render json: @pre_build
+        response_success(@pre_build)
       end
 
       def create
@@ -19,25 +19,23 @@ module Api
         @pre_build.image.attach(params[:image])
 
         if @pre_build.save
-          render json: @pre_build, status: :created
+          response_success(@pre_build, status)
         else
-          render json: @pre_build.errors, status: :unprocessable_entity
+          response_error(@pre_build.errors.messages)
         end
       end
 
       def update
         if @pre_build.update(pre_build_params)
-          render json: { pre_build: @pre_build, message: 'Update success' }, status: 200
+          response_success(pre_build: @pre_build, message: 'Update success')
         else
-          render json: @pre_build.errors, status: :unprocessable_entity
+          response_error(@pre_build.errors.messages)
         end
       end
 
       def destroy
         @pre_build.destroy
-        render json: {
-          message: 'deleted'
-        }
+        response_success(message: "deleted")
       end
 
       private

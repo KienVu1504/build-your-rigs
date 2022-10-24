@@ -6,36 +6,34 @@ module Api
 
       def index
         @purposes = Purpose.all
-        render json: @purposes
+        response_success(@purposes)
       end
 
       def show
-        render json: @purpose
+        response_success(@purpose)
       end
 
       def create
         @purpose = Purpose.new(purpose_params)
 
         if @purpose.save
-          render json: @purpose, status: :created
+          response_success(@purpose)
         else
-          render json: @purpose.errors, status: :unprocessable_entity
+          response_error(@purpose.errors.messages)
         end
       end
 
       def update
         if @purpose.update(purpose_params)
-          render json: { purpose: @purpose, message: 'Update success' }, status: 200
+          response_success(purposes: @purposes, message: 'update success')
         else
-          render json: @purpose.errors, status: :unprocessable_entity
+          response_error(@purpose.errors.messages)
         end
       end
 
       def destroy
         @purpose.destroy
-        render json: {
-          message: 'delete succsess'
-        }
+        response_success(message: 'delete success')
       end
 
       private

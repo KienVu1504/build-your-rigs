@@ -3,23 +3,19 @@ module Api
     class ReportsController < ApplicationController
       def index
         @report = Report.all
-        render json: @report
+        response_success(@report)
       end
 
       def destroy
         @report = Report.find(params[:id])
         @report.destroy
-        render json: {
-          message: 'deleted'
-        }
+        response_success(message: 'deleted')
       end
 
       def update
         @report = Report.find(params[:id])
         @report.update(status: params[:status] || false)
-        render json: {
-          report: @report, message: 'Done'
-        }
+        response_success(report: @report, message: 'Done')
       end
 
       def create
@@ -27,16 +23,14 @@ module Api
         @report = Report.where(comment_id: @comment_id)
         # report = @report.id
         if @report.present?
-          render json: {
-            message: 'reported'
-          }
+          response_success(message: 'reported')
         else
           report = Report.new(comment_id: params[:comment_id], reason: params[:reason],
                               status: params[:status] || false)
           if report.save
-            render json: { report: report, message: 'reported' }, status: :created
+            response_success(report)
           else
-            render json: report.errors.messages, status: 422
+            response_error(report.errors.messages)
           end
 
         end

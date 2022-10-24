@@ -11,14 +11,12 @@ module Api
         else
           render json: @comment.errors, status: :unprocessable_entity
         end
-        # render json: @commentable
       end
 
       def index
         @comment = Comment.all.order(id: :desc)
         @pagy, comments = pagy(@comment, items: params[:per_page] || DEFAULT_PER_PAGE,
                                          page: params[:page] || DEFAULT_PAGE)
-        # comments
         render({ meta: pages, json: comments, adapter: :json, each_serializer: CommentSerializer })
       end
 

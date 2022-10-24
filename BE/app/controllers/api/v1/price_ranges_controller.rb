@@ -7,37 +7,34 @@ module Api
 
       def index
         @price_ranges = PriceRange.all
-
-        render json: @price_ranges
+        response_success(@price_ranges)
       end
 
       def show
-        render json: @price_range
+        response_success(@price_range)
       end
 
       def create
         @price_range = PriceRange.new(price_range_params)
 
         if @price_range.save
-          render json: @price_range, status: :created
+          response_success(@price_range)
         else
-          render json: @price_range.errors, status: :unprocessable_entity
+          response_error(@price_range.errors.messages)
         end
       end
 
       def update
         if @price_range.update(price_range_params)
-          render json: { price_range: @price_range, message: 'Update success' }, status: :ok
+          response_success(price_range: @price_range, message: 'Update success')
         else
-          render json: @price_range.errors, status: :unprocessable_entity
+          response_error(@price_range.errors.messages)
         end
       end
 
       def destroy
         @price_range.destroy
-        render json: {
-          message: 'delete success'
-        }
+        response_success(message: 'delete success')
       end
 
       private

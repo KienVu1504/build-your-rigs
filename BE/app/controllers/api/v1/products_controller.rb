@@ -6,13 +6,12 @@ module Api
 
       def index
         @product = Product.all
-        # @product = Product.paginate(page: params[:page])
-        render json: @product, each_serializer: ::Products::ProductSerializer
+        response_success(@product, each_serializer: ::Products::ProductSerializer)
       end
 
       def show
         @product = Product.find(params[:id])
-        render json: @product
+        response_success(@product)
       end
 
       def create
@@ -20,9 +19,9 @@ module Api
         @product.image.attach(params[:image])
 
         if @product.valid?
-          render json: @product, status: :created
+          response_success(@product)
         else
-          render json: @product.errors, status: :unprocessable_entity
+          rresponse_error(@product.errors.messages)
         end
       end
 
@@ -30,15 +29,13 @@ module Api
         if @product.update(product_params)
           render json: { product: @product, message: 'Update success' }, status: 200
         else
-          render json: @product.errors, status: :unprocessable_entity
+          rresponse_error(@product.errors.messages)
         end
       end
 
       def destroy
         @product.destroy
-        render json: {
-          message: 'deleted'
-        }
+        response_success(message: 'deleted')
       end
 
       private
