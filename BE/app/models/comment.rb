@@ -2,6 +2,8 @@ class Comment < ApplicationRecord
   # BLACKLIST = %w[fuck dkm dcm pussy].freeze
   # belongs_to :pr_attribute
   has_one :report
+  after_create :increment_count
+  after_destroy :decrement_count
 
   belongs_to :commentable, polymorphic: true
   has_many :comments, as: :commentable, dependent: :destroy
@@ -12,10 +14,20 @@ class Comment < ApplicationRecord
 
   def validate_cmt
     BlackList.all.each do |w|
-      if body.include?(w.word)   # .word => object
+      if body.include?(w.word) # .word => object
         errors.add(:body, 'Comment contains obscene content')
         break
       end
     end
+  end
+
+  # Dem comment to comment (+)
+  def increment_count
+    commentable.increment! :comment_count
+  end
+  # Dem comment to comment (-)
+
+  def decrement_count
+    commentable.decrement! :comment_count
   end
 end

@@ -15,21 +15,22 @@ module Api
       end
 
       def index
-        @comment = Comment.all
+        @comment = Comment.all.order(id: :desc)
         @pagy, comments = pagy(@comment, items: params[:per_page] || DEFAULT_PER_PAGE,
                                          page: params[:page] || DEFAULT_PAGE)
+        # comments
         render({ meta: pages, json: comments, adapter: :json, each_serializer: CommentSerializer })
       end
 
       def destroy
-        @comment = Comment.find_by(params[:id])
+        @comment = Comment.find(params[:id])
         @comment.destroy
         render json: { message: 'deleted' }
       end
 
       def show
-        @comment = Comment.find_by(params[:id])
-        render json: @comment
+        @comment = Comment.find_by(id: params[:id]).comments.order(id: :desc)
+        render json: @comment, serializer: nil
       end
 
       private

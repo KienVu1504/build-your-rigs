@@ -85,11 +85,8 @@ module Api
 
         @pagy, cmt = pagy(@product_att, items: params[:per_page] || DEFAULT_PER_PAGE,
                                         page: params[:page] || DEFAULT_PAGE)
-        # render json: { page: pages, comment: cmt}
-
         render({ meta: pages, json: cmt, adapter: :json, each_serializer: ::PrAttributes::ShowCommentSerializer })
-
-        ####
+        ###
         # render json: @product_att
       end
 
