@@ -9,9 +9,9 @@
         <div class="separator"></div>
         <div class="input-fields">
             <div class="input-fields-wrapper">
-                <router-link tag="div" :to="{path: `/admin/products/` + $route.params.id + '/' + pr_attribute.id}"
+                <router-link tag="div" :to="{ path: `/admin/products/` + $route.params.id + '/' + pr_attribute.id }"
                     class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12"
-                    v-for="(pr_attribute, index) in fetchProductsDatas" :key="'pr_attribute'+index">
+                    v-for="(pr_attribute, index) in fetchProductsDatas" :key="'pr_attribute' + index">
                     <div class="tile">
                         <input type="radio" id="inputCheckbox" name="userChoice" class="tile-input">
                         <label for="userChoice" class="tile-label">
@@ -58,7 +58,6 @@ export default {
             return this.$store.state.animation
         },
         fetchProductsDatas() {
-            // console.log(this.$store.state.productsData.products);
             return this.$store.state.productsData.products
         }
     },

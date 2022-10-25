@@ -13,6 +13,7 @@ export default {
         replyId: '',
         reportId: '',
         reasonBody: '',
+        deleteId: ''
     },
     getters: {
 
@@ -38,6 +39,9 @@ export default {
         },
         setRPId(state, newData) {
             state.reportId = newData
+        },
+        setDeleteId(state, newData) {
+            state.deleteId = newData
         }
     },
     actions: {
@@ -46,6 +50,23 @@ export default {
             const brandsQuery = {
                 method: "POST",
                 url: `show_comments/` + router.currentRoute.params.pr_id + `?page=` + currentPage,
+                paramsSerializer: (params) => {
+                    return qs.stringify(params);
+                },
+            };
+            await axios(brandsQuery).then((res) => {
+                this.comments = res.data.comments;
+                context.commit('comments/setComments', this.comments, { root: true })
+                context.commit('paging/setPage', res.data.meta, { root: true })
+            }).catch((err) => {
+                console.log(err);
+            });
+        },
+        async fetchAllCommentData(context) {
+            let currentPage = context.rootState.paging.currentPage;
+            const brandsQuery = {
+                method: "GET",
+                url: `comments/?page=` + currentPage,
                 paramsSerializer: (params) => {
                     return qs.stringify(params);
                 },
@@ -91,6 +112,17 @@ export default {
             }
             await axios(commentQuery).then(res => {
                 alert("Report successful!")
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+        async deleteCMT({ state, dispatch }) {
+            const commentQuery = {
+                method: "DELETE",
+                url: `comments/` + state.deleteId,
+            }
+            await axios(commentQuery).then(res => {
+                dispatch('fetchAllCommentData')
             }).catch(err => {
                 console.log(err)
             })

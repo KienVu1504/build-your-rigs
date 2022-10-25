@@ -4,6 +4,14 @@
   box-sizing: border-box;
 }
 
+.action-btn {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  padding: 0 !important;
+  border-radius: 10px !important;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -880,11 +888,35 @@ form.post-wrapper {
   flex-direction: column;
 }
 
+.router-wrapper {
+  position: absolute;
+  top: -10px;
+  right: 0;
+  display: flex;
+}
+
 .post-wrapper textarea#content {
   outline: none;
   border: none;
   font-size: 1rem;
   padding: 10px;
+}
+
+.nav-buttons {
+  border: 1px solid #ff008b;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px;
+  color: #ff008b;
+  transition: 0.2s all ease-in-out;
+  font-weight: bold;
+}
+
+.nav-buttons:hover {
+  color: white;
+  background-color: #ff008b;
+  cursor: pointer;
+  transform: scale(1.1);
 }
 
 .post-wrapper label {

@@ -1,10 +1,12 @@
 <template>
     <header>
         <div class="view-progress">
-            <router-link :to="{path: '/admin'}" class="progress-step" tag="div">Dashboard</router-link>
-            <router-link :to="{path: '/admin/profile'}" class="progress-step" tag="div">Profile</router-link>
-            <router-link :to="{path: '/admin/add-product'}" class="progress-step" tag="div">Add Product</router-link>
-            <router-link :to="{path: '/admin/add-brand'}" class="progress-step" tag="div">Add Brand</router-link>
+            <router-link :to="{ path: '/admin' }" class="progress-step" tag="div">Dashboard</router-link>
+            <router-link :to="{ path: '/admin/profile' }" class="progress-step" tag="div">Profile</router-link>
+            <router-link :to="{ path: '/admin/add-product' }" class="progress-step" tag="div">Add Product</router-link>
+            <router-link :to="{ path: '/admin/add-brand' }" class="progress-step" tag="div">Add Brand</router-link>
+            <router-link :to="{ path: '/admin/comments-manager' }" class="progress-step" tag="div">Comments
+            </router-link>
         </div>
 
         <div class="header-action">

@@ -127,6 +127,22 @@ const routes = [
                 component: () => import('../components/admin/addPSU.vue')
               },
             ]
+          },
+          {
+            path: 'comments-manager',
+            name: 'comments-manager',
+            component: () => import('../components/admin/comments-manager.vue'),
+            children: [
+              {
+                path: '',
+                name: 'all-comments',
+                component: () => import('../components/admin/all-comments.vue'),
+              },
+              {
+                path: 'reported-comments',
+                component: () => import('../components/admin/reported-comments.vue'),
+              }
+            ]
           }
         ]
       }
