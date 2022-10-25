@@ -131,7 +131,18 @@
                                 </div>
                                 <div class="overflow-wrapper">
                                     <div class="reply-wrapper" v-for="reply in comment.comments" v-bind:key="reply.id">
-                                        <p class="reply-name">{{ reply.name }} said on {{ reply.date_time }}</p>
+                                        <p class="reply-name">{{ reply.name }} said on {{ reply.date_time }} |
+                                            <span v-show="currentRPReplyId != reply.id" class="comment-action"
+                                                @click="toggleReportCmt(reply.id)">Report</span>
+                                        </p>
+                                        <span class="reply-rp-wrapper">
+                                            <form v-show="currentRPReplyId == reply.id" class="reply-form"
+                                                @submit.prevent="reportComment(reply.id, reason)">
+                                                <button type="submit">Report</button>
+                                                <input type="text" v-model="reason" placeholder="Enter reason here..."
+                                                    class="reply-section">
+                                            </form>
+                                        </span>
                                         <div class="reply-body">
                                             <p>{{ reply.body }}</p>
                                         </div>
@@ -164,7 +175,9 @@ export default {
             replyBody: '',
             currentCommentId: null,
             currentRPCommentId: null,
-            reason: ''
+            currentRPReplyId: null,
+            reason: '',
+            currentReplyId: ''
         };
     },
     components: {
@@ -265,6 +278,10 @@ export default {
         toggleReport(commentId) {
             this.currentRPCommentId = this.currentCommentId == commentId ? null : commentId;
             this.currentCommentId = null;
+        },
+        toggleReportCmt(commentId) {
+            this.currentRPReplyId = this.currentReplyId == commentId ? null : commentId;
+            this.currentReplyId = null;
         },
         ...relatePrStore.mapActions([
             'fetchRelateData'

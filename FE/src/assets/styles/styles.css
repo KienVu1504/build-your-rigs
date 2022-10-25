@@ -843,9 +843,24 @@ img.product-img {
   transition: 0.2s all ease-in-out;
 }
 
-.reply-name:hover {
-  color: #ff008b;
-  cursor: pointer;
+span.comment-action::after {
+  content: "";
+  border: none;
+}
+
+.reply-rp-wrapper {
+  position: absolute;
+  top: 10px;
+  right: 0;
+}
+
+.reply-rp-wrapper button::after {
+  content: "";
+  border: none;
+}
+
+.reply-rp-wrapper .reply-section {
+  width: 95vh;
 }
 
 .reply-wrapper {
@@ -853,6 +868,7 @@ img.product-img {
   border: 1px solid #ff008b;
   border-left: 10px solid #ff008b;
   border-radius: 10px;
+  position: relative;
 }
 
 form.post-wrapper {
