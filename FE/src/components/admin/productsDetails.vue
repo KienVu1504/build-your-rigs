@@ -15,9 +15,9 @@
                         </div>
 
                         <div class="section-right">
-                            <h2 v-if="this.products">{{this.products.name}}</h2>
+                            <h2 v-if="this.products">{{ this.products.name }}</h2>
                             <h2 v-else>Please reload the page to see all missing data!</h2>
-                            <p>{{this.products.price | toCurrency}}</p>
+                            <p>{{ this.products.price | toCurrency }}</p>
                             <hr>
 
                             <table class="table table-striped">
@@ -30,39 +30,39 @@
                                 <tbody>
                                     <tr v-if="this.brandName.name">
                                         <th scope="row">Brand</th>
-                                        <td>{{this.brandName.name}}</td>
+                                        <td>{{ this.brandName.name }}</td>
                                     </tr>
                                     <tr v-if="this.products.socket">
                                         <th scope="row">Socket</th>
-                                        <td>{{this.products.socket}}</td>
+                                        <td>{{ this.products.socket }}</td>
                                     </tr>
                                     <tr v-if="this.products.dimm">
                                         <th scope="row">DIMM type</th>
-                                        <td>{{this.products.dimm}}</td>
+                                        <td>{{ this.products.dimm }}</td>
                                     </tr>
                                     <tr v-if="this.products.ssd">
                                         <th scope="row">SSD type</th>
-                                        <td>{{this.products.ssd}}</td>
+                                        <td>{{ this.products.ssd }}</td>
                                     </tr>
                                     <tr v-if="this.products.hdd">
                                         <th scope="row">HDD type</th>
-                                        <td>{{this.products.hdd}}</td>
+                                        <td>{{ this.products.hdd }}</td>
                                     </tr>
                                     <tr v-if="this.products.form">
                                         <th scope="row">Form factor</th>
-                                        <td>{{this.products.form}}</td>
+                                        <td>{{ this.products.form }}</td>
                                     </tr>
                                     <tr v-if="this.products.size">
                                         <th scope="row">AIO size</th>
-                                        <td>{{this.products.size}}</td>
+                                        <td>{{ this.products.size }}</td>
                                     </tr>
                                     <tr v-if="this.products.capacity">
                                         <th scope="row">Capacity</th>
-                                        <td>{{this.products.capacity}}</td>
+                                        <td>{{ this.products.capacity }}</td>
                                     </tr>
                                     <tr v-if="this.products.wattage">
                                         <th scope="row">TDP</th>
-                                        <td>{{this.products.wattage}}</td>
+                                        <td>{{ this.products.wattage }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -70,9 +70,9 @@
                             <p>Related Product</p>
                             <div class="relatePr-wrapper" @click="newData">
                                 <router-link tag="div"
-                                    :to="{path: `/admin/products/` + pr_attribute.product_id + '/' + pr_attribute.id}"
+                                    :to="{ path: `/admin/products/` + pr_attribute.product_id + '/' + pr_attribute.id }"
                                     class="tile-wrapper-outer col-lg-4" v-for="(pr_attribute, index) in relatedData"
-                                    :key="'pr_attribute'+index" v-if="pr_attribute.id != $route.params.pr_id">
+                                    :key="'pr_attribute' + index" v-if="pr_attribute.id != $route.params.pr_id">
                                     <div class="tile">
                                         <input type="radio" id="inputCheckbox" name="userChoice" class="tile-input">
                                         <label for="userChoice" class="tile-label">
@@ -90,7 +90,7 @@
                             </div>
                         </div>
                     </div>
-                    <form class="post-wrapper" @submit.prevent="addComment">
+                    <form class="post-wrapper" @submit.prevent="addNewComment(commentBody)">
                         <label for="content">Comment:</label>
                         <textarea id="content" v-model="commentBody" name="content" rows="5"
                             placeholder="Enter your comment..." required></textarea>
@@ -101,22 +101,22 @@
                             <div class="comment-left">
                                 <div class="left-wrapper">
                                     <div class="comment-avt">
-                                        <p>{{comment.name.substring(0, 2).toUpperCase()}}</p>
+                                        <p>{{ comment.name.substring(0, 2).toUpperCase() }}</p>
                                     </div>
-                                    <p class="annm-name">{{comment.name}}</p>
+                                    <p class="annm-name">{{ comment.name }}</p>
                                 </div>
                             </div>
                             <div class="comment-right">
                                 <div class="comment-header">
                                     <form v-show="currentCommentId == comment.id" class="reply-form"
-                                        @submit.prevent="addReply(comment.id)">
+                                        @submit.prevent="addNewReply(comment.id, replyBody)">
                                         <input type="text" v-model="replyBody" placeholder="Enter reply here..."
                                             class="reply-section">
                                         <button type="submit">Reply</button>
                                     </form>
                                     <form v-show="currentRPCommentId == comment.id" class="reply-form"
-                                        @submit.prevent="commentRP(comment.id)">
-                                        <input type="text" v-model="replyBody" placeholder="Enter reason here..."
+                                        @submit.prevent="reportComment(comment.id, reason)">
+                                        <input type="text" v-model="reason" placeholder="Enter reason here..."
                                             class="reply-section">
                                         <button type="submit">Report</button>
                                     </form>
@@ -124,16 +124,16 @@
                                         @click="toggleReply(comment.id)">Reply</p>
                                     <p v-show="currentRPCommentId != comment.id" class="comment-action"
                                         @click="toggleReport(comment.id)">Report</p>
-                                    <p>{{comment.date_time}}</p>
+                                    <p>{{ comment.date_time }}</p>
                                 </div>
                                 <div class="comment-body">
-                                    <p>{{comment.body}}</p>
+                                    <p>{{ comment.body }}</p>
                                 </div>
                                 <div class="overflow-wrapper">
                                     <div class="reply-wrapper" v-for="reply in comment.comments" v-bind:key="reply.id">
-                                        <p class="reply-name">{{reply.name}} said on {{reply.date_time}}</p>
+                                        <p class="reply-name">{{ reply.name }} said on {{ reply.date_time }}</p>
                                         <div class="reply-body">
-                                            <p>{{reply.body}}</p>
+                                            <p>{{ reply.body }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -163,7 +163,8 @@ export default {
             commentBody: '',
             replyBody: '',
             currentCommentId: null,
-            currentRPCommentId: null
+            currentRPCommentId: null,
+            reason: ''
         };
     },
     components: {
@@ -223,7 +224,7 @@ export default {
         async fetchBrand() {
             const brandQuery = {
                 method: "GET",
-                url: "brands/" + this.products.brand_id
+                url: "brands/" + this.products.brand_id,
             }
             await axios(brandQuery).then(res => {
                 this.brandName = res.data;
@@ -231,45 +232,31 @@ export default {
                 console.log("fetchBrand: " + err)
             })
         },
-        async commentRP(id) {
-            const commentQuery = {
-                method: "POST",
-                url: `comments/` + id + `/reports`
-            }
-            await axios(commentQuery).then(res => {
-                alert("Report successful!")
-            }).catch(err => {
-                console.log(err)
-            })
+        reportComment(id, reason) {
+            this.$store.commit('comments/setReason', reason)
+            this.$store.commit('comments/setRPId', id)
+            this.commentRP()
+            this.reason = null
         },
         ...commentsStore.mapActions([
-            'fetchCommentData'
+            'fetchCommentData',
+            'addComment',
+            'addReply',
+            'commentRP'
         ]),
-        async addComment(e) {
-            const comment = {
-                method: "POST",
-                url: `pr_attributes/` + this.$route.params.pr_id + `/comments`,
-                params: {
-                    name: this.fetchRandomUsername(),
-                    body: this.commentBody
-                },
-                paramsSerializer: params => {
-                    return qs.stringify(params)
-                }
-            }
-            await axios(comment).then(res => {
-                console.log(res)
-                e.preventDefault();
-                if (res.request.status >= 200 && res.request.status < 300) {
-                    this.fetchCommentData()
-                } else {
-                    alert(res.response.data.body)
-                }
-            }).catch(err => {
-                console.log(err)
-                e.preventDefault();
-                alert(err.response.data.body)
-            })
+        ...commentsStore.mapMutations([
+            'setCommentBody'
+        ]),
+        addNewComment(commentBody) {
+            this.$store.commit('comments/setCommentBody', commentBody)
+            this.addComment()
+            this.commentBody = null
+        },
+        addNewReply(id, replyBody) {
+            this.$store.commit('comments/setReplyBody', replyBody)
+            this.$store.commit('comments/setReplyId', id)
+            this.addReply()
+            this.replyBody = null
         },
         toggleReply(commentId) {
             this.currentCommentId = this.currentCommentId == commentId ? null : commentId;
@@ -278,41 +265,6 @@ export default {
         toggleReport(commentId) {
             this.currentRPCommentId = this.currentCommentId == commentId ? null : commentId;
             this.currentCommentId = null;
-        },
-        async addReply(id) {
-            const comment = {
-                method: "POST",
-                url: `comments/` + id + `/comments`,
-                params: {
-                    name: this.fetchRandomUsername(),
-                    body: this.replyBody
-                },
-                paramsSerializer: params => {
-                    return qs.stringify(params)
-                }
-            }
-            await axios(comment).then(res => {
-                // console.log(res)
-                if (res.request.status >= 200 && res.request.status < 300) {
-                    this.fetchCommentData()
-                    this.currentCommentId = null
-                    this.replyBody = null
-                } else {
-                    alert(res.response.data.body)
-                }
-            }).catch(err => {
-                console.log(err)
-                alert(err.response.data.body)
-            })
-        },
-        fetchRandomUsername() {
-            var result = '';
-            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            var charactersLength = characters.length;
-            for (var i = 0; i < 10; i++) {
-                result += characters.charAt(Math.floor(Math.random() * charactersLength));
-            }
-            return result;
         },
         ...relatePrStore.mapActions([
             'fetchRelateData'
