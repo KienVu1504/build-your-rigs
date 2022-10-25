@@ -11,6 +11,7 @@ class Comment < ApplicationRecord
   validates :body, presence: true, length: { maximum: 500,
                                              too_long: '%<count>s characters is the maximum allowed' }
   validate :validate_cmt, if: -> { body.present? }
+  validates :name, presence: true
 
   def validate_cmt
     BlackList.all.each do |w|

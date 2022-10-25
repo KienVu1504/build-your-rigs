@@ -3,7 +3,9 @@ module Api
     class ReportsController < ApplicationController
       def index
         @report = Report.all
-        response_success(@report)
+        @pagy, report = pagy(@report, items: params[:per_page] || DEFAULT_PER_PAGE,
+                                      page: params[:page] || DEFAULT_PAGE)
+        response_success(page: pages, repot: report)
       end
 
       def destroy
