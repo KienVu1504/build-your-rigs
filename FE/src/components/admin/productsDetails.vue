@@ -97,7 +97,7 @@
                         <button type="submit">Post</button>
                     </form>
                     <div class="comments-wrapper">
-                        <div class="comment" v-for="comment in comments" :key="comment.id">
+                        <div class="comment" v-for="comment in comments" :key="comment.id" v-if="comment.status == 1">
                             <div class="comment-left">
                                 <div class="left-wrapper">
                                     <div class="comment-avt">

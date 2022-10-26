@@ -1,5 +1,7 @@
 <template>
-    <router-view></router-view>
+    <transition name="component-fade" mode="out-in">
+        <router-view></router-view>
+    </transition>
 </template>
   
 <script>
@@ -21,7 +23,7 @@ export default {
 </script>
   
 <style scoped>
-@import url('https://use.fontawesome.com/releases/v5.8.2/css/all.css');
+@import url('https://pro.fontawesome.com/releases/v5.15.3/css/all.css');
 @import "@/assets/styles/styles.css";
 @import "vue-select/dist/vue-select.css";
 </style>

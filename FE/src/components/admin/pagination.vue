@@ -24,11 +24,11 @@
                 <p>...</p>
             </div>
             <div v-if="pagesData.page == pagesData.pages - 4" @click="changePage(pagesData.pages)">
-                <p>{{pagesData.pages - 1}}</p>
+                <p>{{ pagesData.pages - 1 }}</p>
             </div>
             <div v-if="pagesData.page <= pagesData.pages - 3 || pagesData.page < pagesData.pages - 4"
                 @click="changePage(pagesData.pages)">
-                <p>{{pagesData.pages}}</p>
+                <p>{{ pagesData.pages }}</p>
             </div>
             <div v-if="pagesData.page < pagesData.pages" @click="goToNextPage">&raquo;</div>
         </div>

@@ -2,6 +2,9 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
+                <div class="cmt-header-wrapper">
+                    <h2>All Comments</h2>
+                </div>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -25,7 +28,7 @@
                             <td>{{ comment.date_time }}</td>
                             <td>{{ (comment.status == 1) ? "Active" : "Hidden" }}</td>
                             <td>
-                                <button type="button" @click="changeVisibility(comment.id)"
+                                <button type="button" @click="updateCmtStatus(comment.id, comment.status)"
                                     class="action-btn btn btn-success"><i class="fas fa-edit"></i></button>
                                 <button type="button" @click="deteteComment(comment.id)"
                                     class="action-btn btn btn-danger"><i class="far fa-trash-alt"></i></button>
@@ -63,15 +66,28 @@ export default {
     methods: {
         ...commentsStore.mapActions([
             'fetchAllCommentData',
-            'deleteCMT'
+            'deleteCMT',
+            'updateStatus'
         ]),
-        changeVisibility(id) {
-
-        },
         deteteComment(id) {
+            let self = this
             this.$store.commit('comments/setDeleteId', id)
             if (confirm("Do you want to delete this comment?")) {
                 this.deleteCMT()
+                setTimeout(function () {
+                    self.fetchAllCommentData()
+                }, 100);
+            }
+        },
+        updateCmtStatus(id, status) {
+            let self = this
+            this.$store.commit('comments/setCmtId', id)
+            this.$store.commit('comments/setCmtStatus', !status)
+            if (confirm("Do you want to update this comment?")) {
+                this.updateStatus()
+                setTimeout(function () {
+                    self.fetchAllCommentData()
+                }, 100);
             }
         }
     },

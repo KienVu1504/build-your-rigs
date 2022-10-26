@@ -250,6 +250,17 @@ article .progress-step {
   bottom: 10px;
 }
 
+.cmt-header-wrapper {
+  border: 1px solid #dee2d6;
+  border-bottom: none;
+  padding: 10px;
+  text-align: center;
+}
+
+.cmt-header-wrapper h2 {
+  margin: 0;
+}
+
 article .progress-step.active,
 .progress-step:hover {
   background-color: #ff008b !important;

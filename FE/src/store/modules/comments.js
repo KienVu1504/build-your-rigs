@@ -7,13 +7,16 @@ export default {
     strict: true,
     state: {
         comments: [],
+        reportedComments: [],
         commentBody: '',
         name: '',
         replyBody: '',
         replyId: '',
         reportId: '',
         reasonBody: '',
-        deleteId: ''
+        deleteId: '',
+        cmtId: '',
+        cmtStatus: ''
     },
     getters: {
 
@@ -21,6 +24,9 @@ export default {
     mutations: {
         setComments(state, newData) {
             state.comments = newData
+        },
+        setReportedComments(state, newData) {
+            state.reportedComments = newData
         },
         setReason(state, newData) {
             state.reasonBody = newData
@@ -42,6 +48,12 @@ export default {
         },
         setDeleteId(state, newData) {
             state.deleteId = newData
+        },
+        setCmtId(state, newData) {
+            state.cmtId = newData
+        },
+        setCmtStatus(state, newData) {
+            state.cmtStatus = newData
         }
     },
     actions: {
@@ -74,6 +86,23 @@ export default {
             await axios(brandsQuery).then((res) => {
                 this.comments = res.data.comments;
                 context.commit('comments/setComments', this.comments, { root: true })
+                context.commit('paging/setPage', res.data.meta, { root: true })
+            }).catch((err) => {
+                console.log(err);
+            });
+        },
+        async fetchReportedCommentData(context) {
+            let currentPage = context.rootState.paging.currentPage;
+            const brandsQuery = {
+                method: "GET",
+                url: `reports?page=` + currentPage,
+                paramsSerializer: (params) => {
+                    return qs.stringify(params);
+                },
+            };
+            await axios(brandsQuery).then((res) => {
+                this.comments = res.data.reports;
+                context.commit('comments/setReportedComments', this.comments, { root: true })
                 context.commit('paging/setPage', res.data.meta, { root: true })
             }).catch((err) => {
                 console.log(err);
@@ -122,7 +151,8 @@ export default {
                 url: `comments/` + state.deleteId,
             }
             await axios(commentQuery).then(res => {
-                dispatch('fetchAllCommentData')
+                // dispatch('fetchAllCommentData')
+                // dispatch('fetchReportedCommentData')
             }).catch(err => {
                 console.log(err)
             })
@@ -152,6 +182,28 @@ export default {
             await axios(comment).then(res => {
                 if (res.request.status >= 200 && res.request.status < 300) {
                     dispatch('fetchCommentData')
+                } else {
+                    console.log(res.response.data.body)
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+        async updateStatus({ state, dispatch }) {
+            const comment = {
+                method: "PUT",
+                url: `comments/` + state.cmtId,
+                params: {
+                    status: state.cmtStatus,
+                },
+                paramsSerializer: params => {
+                    return qs.stringify(params)
+                }
+            }
+            await axios(comment).then(res => {
+                if (res.request.status >= 200 && res.request.status < 300) {
+                    // dispatch('fetchAllCommentData')
+                    // dispatch('fetchReportedCommentData')
                 } else {
                     console.log(res.response.data.body)
                 }
