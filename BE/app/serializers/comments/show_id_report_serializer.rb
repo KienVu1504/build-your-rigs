@@ -1,5 +1,5 @@
-module PrAttributes
-  class ShowCommentSerializer < ActiveModel::Serializer
+module Comments
+  class ShowIdReportSerializer < ActiveModel::Serializer
     attributes :id, :body, :name, :commentable_type, :commentable_id, :date_time, :report_id
 
     def date_time
@@ -7,7 +7,7 @@ module PrAttributes
     end
 
     def report_id
-      object.report
+      object.report.id
     end
 
     has_many :comments, each_serializer: ::PrAttributes::ShowCommentSerializer

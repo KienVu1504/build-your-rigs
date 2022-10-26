@@ -6,7 +6,7 @@ module PrAttributes
     # def product_name
     #   object.product.name
     # end
-    has_many :comments, serializer: CommentSerializer
+    has_many :comments, serializer: ::Comments::CommentSerializer
     belongs_to :product
     # belongs_to :brand
   end

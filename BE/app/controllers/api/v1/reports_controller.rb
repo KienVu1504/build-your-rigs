@@ -5,7 +5,7 @@ module Api
         @report = Report.all
         @pagy, report = pagy(@report, items: params[:per_page] || DEFAULT_PER_PAGE,
                                       page: params[:page] || DEFAULT_PAGE)
-        response_list(report.order(id: :desc), { each_serializer: ReportSerializer })
+        response_list(report.order(id: :desc), { each_serializer: ::Reports::ReportSerializer })
       end
 
       def destroy

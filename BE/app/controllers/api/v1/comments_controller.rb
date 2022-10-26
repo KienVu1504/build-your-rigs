@@ -17,7 +17,7 @@ module Api
         @comment = Comment.all.order(id: :desc)
         @pagy, comments = pagy(@comment, items: params[:per_page] || DEFAULT_PER_PAGE,
                                          page: params[:page] || DEFAULT_PAGE)
-        render({ meta: pages, json: comments, adapter: :json, each_serializer: CommentSerializer })
+        render({ meta: pages, json: comments, adapter: :json, each_serializer: ::PrAttributes::ShowCommentSerializer })
       end
 
       def destroy
@@ -28,7 +28,7 @@ module Api
 
       def show
         @comment = Comment.find_by(id: params[:id]) # .comments.order(id: :desc)
-        render json: @comment, serializer: nil
+        render json: @comment, serializer: ::Comments::ShowIdReportSerializer
       end
 
       def update
