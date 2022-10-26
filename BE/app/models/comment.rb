@@ -10,8 +10,10 @@ class Comment < ApplicationRecord
 
   validates :body, presence: true, length: { maximum: 500,
                                              too_long: '%<count>s characters is the maximum allowed' }
-  validate :validate_cmt, if: -> { body.present? }
+  # validate :validate_cmt, if: -> { body.present? }
   validates :name, presence: true
+  # validate :validate_cmt, on: :update
+  # validate :status, present: true, on: :update
 
   def validate_cmt
     BlackList.all.each do |w|
@@ -22,16 +24,20 @@ class Comment < ApplicationRecord
     end
   end
 
-  # Dem comment to comment (+)
-#   def increment_count
-#     parent = commentable
-#     parent = parent.commentable while parent.is_a? Comment
-#     # commentable.increment! :comment_count
-#     parent.increment! :comment_count
-#   end
-#   # Dem comment to comment (-)
+  def validate_status
+    return errors.add(:status, 'not blank') if status.nil?
+  end
 
-#   def decrement_count
-#     commentable.decrement! :comment_count
-#   end
+  # Dem comment to comment (+)
+  #   def increment_count
+  #     parent = commentable
+  #     parent = parent.commentable while parent.is_a? Comment
+  #     # commentable.increment! :comment_count
+  #     parent.increment! :comment_count
+  #   end
+  #   # Dem comment to comment (-)
+
+  #   def decrement_count
+  #     commentable.decrement! :comment_count
+  #   end
 end

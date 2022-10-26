@@ -1,7 +1,7 @@
 module Api
   module V1
     class CommentsController < ApplicationController
-      before_action :authorize, only: :destroy
+      before_action :authorize, only: %i[destroy update]
       before_action :find_commentable, only: :create
 
       def create
@@ -27,8 +27,17 @@ module Api
       end
 
       def show
-        @comment = Comment.find_by(id: params[:id]).comments.order(id: :desc)
+        @comment = Comment.find_by(id: params[:id]) # .comments.order(id: :desc)
         render json: @comment, serializer: nil
+      end
+
+      def update
+        @comment = Comment.find(params[:id])
+        if @comment.update(status: params[:status] || true)
+          response_success(comment: @comment, message: 'updated')
+        else
+          response_error(@comment.errors.messages)
+        end
       end
 
       private
