@@ -50,7 +50,7 @@ module Api
                                .or(PrAttribute.where('pr_attributes.id' => params[:gpu]))
                                .or(PrAttribute.where('pr_attributes.id' => params[:hdd]))
 
-        response_success(@selected)
+        response_success(@selected, each_serializer: ::PrAttributes::ShowBrandSerializer)
       end
 
       def show_items
