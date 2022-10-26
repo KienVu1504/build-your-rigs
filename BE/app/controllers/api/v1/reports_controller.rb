@@ -5,7 +5,7 @@ module Api
         @report = Report.all
         @pagy, report = pagy(@report, items: params[:per_page] || DEFAULT_PER_PAGE,
                                       page: params[:page] || DEFAULT_PAGE)
-        response_success(page: pages, repot: report)
+        response_list(report.order(id: :desc), { each_serializer: ReportSerializer })
       end
 
       def destroy
@@ -34,7 +34,6 @@ module Api
           else
             response_error(report.errors.messages)
           end
-
         end
       end
     end

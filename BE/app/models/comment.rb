@@ -10,12 +10,14 @@ class Comment < ApplicationRecord
 
   validates :body, presence: true, length: { maximum: 500,
                                              too_long: '%<count>s characters is the maximum allowed' }
-  # validate :validate_cmt, if: -> { body.present? }
+  validate :validate_cmt, if: -> { body.present? }
   validates :name, presence: true
-  # validate :validate_cmt, on: :update
-  # validate :status, present: true, on: :update
+  # validates :status, in: [true, false]#, on: :update
+  # validates_inclusion_of :status, in: [true, false]
+  validate :validate_status, on: :update
 
   def validate_cmt
+    # binding.pry
     BlackList.all.each do |w|
       if body.include?(w.word) # .word => object
         errors.add(:body, 'Comment contains obscene content')

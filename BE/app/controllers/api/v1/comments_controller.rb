@@ -7,7 +7,7 @@ module Api
       def create
         @comment = @commentable.comments.build(comment_params)
         if @comment.save
-          render json: @comment, stauts: :ok
+          render json: @comment, status: :ok
         else
           render json: @comment.errors, status: :unprocessable_entity
         end
@@ -33,7 +33,7 @@ module Api
 
       def update
         @comment = Comment.find(params[:id])
-        if @comment.update(status: params[:status] || true)
+        if @comment.update(status: params[:status])
           response_success(comment: @comment, message: 'updated')
         else
           response_error(@comment.errors.messages)
