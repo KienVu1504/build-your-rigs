@@ -11,18 +11,12 @@
 import Sidenav from './sideNav.vue';
 
 export default {
-    data() {
-        return {};
-    },
-    mounted() {
-    },
-    methods: {},
     components: {
         Sidenav
     }
 };
 </script>
-"
+
 <style scoped>
 article section {
     width: 87%;

@@ -1,10 +1,9 @@
 <template>
     <section :class="animation">
         <div class="section-header">
-            <p class="section-title">{{ formStepsList[activeStep]?.name }}</p>
+            <p class="section-title">{{ formSteps[activeStep]?.name }}</p>
         </div>
         <MainSearch></MainSearch>
-
         <SectionHeader></SectionHeader>
         <div class="separator"></div>
         <div class="input-fields" v-if="filteredList">
@@ -75,7 +74,6 @@
         <ActionButton></ActionButton>
     </section>
 </template>
-
 <script>
 import SectionHeader from '@/components/SectionHeader.vue'
 import ActionButton from '@/components/ActionButton.vue'
@@ -83,92 +81,70 @@ import MainSearch from './admin/mainSearch.vue';
 import { createNamespacedHelpers } from 'vuex'
 const searchStore = createNamespacedHelpers('search')
 const formStepsStore = createNamespacedHelpers('formStepsData')
-
 export default {
     components: {
         ActionButton,
         SectionHeader,
         MainSearch
     },
-    data() {
-        return {
-        };
-    },
     computed: {
         filteredList() {
             if (this.activeStep == 0) {
-                if (this.cpu) {
-                    return this.cpu.filter(post => {
+                if (this.cpu.data) {
+                    return this.cpu.data.filter(post => {
                         return post.name.toLowerCase().includes(this.searchData.toLowerCase())
                     })
                 }
             } else if (this.activeStep == 1) {
-                return this.cooler.filter(post => {
+                return this.cooler.data.filter(post => {
                     return post.name.toLowerCase().includes(this.searchData.toLowerCase())
                 })
             } else if (this.activeStep == 2) {
-                return this.main.filter(post => {
+                return this.main.data.filter(post => {
                     return post.name.toLowerCase().includes(this.searchData.toLowerCase())
                 })
             } else if (this.activeStep == 3) {
-                return this.ram.filter(post => {
+                return this.ram.data.filter(post => {
                     return post.name.toLowerCase().includes(this.searchData.toLowerCase())
                 })
             } else if (this.activeStep == 4) {
-                return this.ssd.filter(post => {
+                return this.ssd.data.filter(post => {
                     return post.name.toLowerCase().includes(this.searchData.toLowerCase())
                 })
             } else if (this.activeStep == 5) {
-                return this.hdd.filter(post => {
+                return this.hdd.data.filter(post => {
                     return post.name.toLowerCase().includes(this.searchData.toLowerCase())
                 })
             } else if (this.activeStep == 6) {
-                return this.gpu.filter(post => {
+                return this.gpu.data.filter(post => {
                     return post.name.toLowerCase().includes(this.searchData.toLowerCase())
                 })
             } else if (this.activeStep == 7) {
-                return this.pcCase.filter(post => {
+                return this.case.data.filter(post => {
                     return post.name.toLowerCase().includes(this.searchData.toLowerCase())
                 })
             } else if (this.activeStep == 8) {
-                return this.psu.filter(post => {
+                return this.psu.data.filter(post => {
                     return post.name.toLowerCase().includes(this.searchData.toLowerCase())
                 })
             } else if (this.activeStep == 9) {
-                console.log(this.selectedData)
                 return this.selectedData
             }
         },
-        formStepsList() {
-            return this.$store.state.formStepsData.formSteps
-        },
-        cpu() {
-            return this.$store.state.search.cpu.data
-        },
-        cooler() {
-            return this.$store.state.search.cooler.data
-        },
-        main() {
-            return this.$store.state.search.main.data
-        },
-        ram() {
-            return this.$store.state.search.ram.data
-        },
-        ssd() {
-            return this.$store.state.search.ssd.data
-        },
-        hdd() {
-            return this.$store.state.search.hdd.data
-        },
-        gpu() {
-            return this.$store.state.search.gpu.data
-        },
-        pcCase() {
-            return this.$store.state.search.case.data
-        },
-        psu() {
-            return this.$store.state.search.psu.data
-        },
+        ...formStepsStore.mapState([
+            'formSteps'
+        ]),
+        ...searchStore.mapState([
+            'cpu',
+            'cooler',
+            'main',
+            'ram',
+            'ssd',
+            'hdd',
+            'gpu',
+            'case',
+            'psu'
+        ]),
         activeStep() {
             return this.$store.state.formStepsData.activeStep
         },
@@ -192,7 +168,6 @@ export default {
             this.fetchCpus();
         }
     },
-
     methods: {
         ...searchStore.mapState([
             'completedRig'
@@ -238,10 +213,10 @@ export default {
     }
 }
 </script>
-
 <style>
 th,
 td {
     text-align: center;
+    font-size: 1.4rem;
 }
 </style>

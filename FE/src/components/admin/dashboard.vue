@@ -6,7 +6,7 @@
         <div class="separator"></div>
         <div class="input-fields">
             <div class="input-fields-wrapper">
-                <router-link tag="div" :to="{path: `/admin/products/` + category.id}"
+                <router-link tag="div" :to="{ path: `/admin/products/` + category.id }"
                     class="counter-wrapper-outer col-lg-4 col-md-6 col-sm-12" v-for="(category, index) in formSteps"
                     :key="category.id" v-if="index <= 8">
                     <div class="counter-wrapper">
@@ -15,12 +15,12 @@
                             <img :src="category.img" v-if="category.img == null" alt="">
                         </div>
                         <div class="counter-left">
-                            <p class="counter-name">{{category.name}}</p>
-                            <p class="counter">{{category.count}} products</p>
+                            <p class="counter-name">{{ category.name }}</p>
+                            <p class="counter">{{ category.count }} products</p>
                         </div>
                     </div>
                 </router-link>
-                <router-link tag="div" :to="{path: '/admin/pre-builds/'}"
+                <router-link tag="div" :to="{ path: '/admin/pre-builds/' }"
                     class="counter-wrapper-outer col-lg-6 col-md-6 col-sm-12">
                     <div class="counter-wrapper">
                         <div class="counter-right">
@@ -28,11 +28,11 @@
                         </div>
                         <div class="counter-left">
                             <p class="counter-name">Pre-build set</p>
-                            <p class="counter">{{preBuildCountData}} sets</p>
+                            <p class="counter">{{ preBuildCountData }} sets</p>
                         </div>
                     </div>
                 </router-link>
-                <router-link tag="div" :to="{path: '/admin/brands'}"
+                <router-link tag="div" :to="{ path: '/admin/brands' }"
                     class="counter-wrapper-outer col-lg-6 col-md-6 col-sm-12">
                     <div class="counter-wrapper">
                         <div class="counter-right">
@@ -40,7 +40,7 @@
                         </div>
                         <div class="counter-left">
                             <p class="counter-name">Brands</p>
-                            <p class="counter">{{brandNumber}} brands</p>
+                            <p class="counter">{{ brandNumber }} brands</p>
                         </div>
                     </div>
                 </router-link>
@@ -67,12 +67,15 @@ export default {
         await this.brandCount()
     },
     computed: {
+        // ...mapState([
+        //     'animation'
+        // ]),
+        // ...formStepsStore.mapState(['formSteps']),
+        // ...preBuildStore.mapState(['preBuildCount']),
         animation() {
-            // console.log(this.brandCount)
             return this.$store.state.animation
         },
         formSteps() {
-            // console.log(this.$store.state.formStepsData.formSteps)
             return this.$store.state.formStepsData.formSteps
         },
         preBuildCountData() {

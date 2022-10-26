@@ -3,22 +3,19 @@
         <input type="text" v-model="search" @keyup="updateSearch" placeholder="Search by name.." />
     </div>
 </template>
-
 <script>
+import { createNamespacedHelpers } from 'vuex'
+const formStepsStore = createNamespacedHelpers('formStepsData')
 export default {
     data() {
         return {
             search: ''
         };
     },
-
-    mounted() {
-
-    },
     computed: {
-        activeStep() {
-            return this.$store.state.formStepsData.activeStep
-        },
+        ...formStepsStore.mapState([
+            'activeStep'
+        ])
     },
     methods: {
         updateSearch() {
@@ -27,7 +24,6 @@ export default {
     },
 };
 </script>
-
 <style scoped>
 .search-wrapper {
     right: unset;

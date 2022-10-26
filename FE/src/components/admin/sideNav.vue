@@ -17,13 +17,6 @@
 
 <script>
 export default {
-    data() {
-        return {
-
-        };
-    },
-    mounted() {
-    },
     methods: {
         logout() {
             this.$store.commit("userToken/clearToken");

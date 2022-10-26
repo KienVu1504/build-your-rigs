@@ -12,27 +12,20 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex'
+import { createNamespacedHelpers, mapState } from 'vuex'
 const searchStore = createNamespacedHelpers('search')
+const formStepsStore = createNamespacedHelpers('formStepsData')
 
 export default {
     computed: {
-        activeStep() {
-            return this.$store.state.formStepsData.activeStep
-        },
-        formSteps() {
-            return this.$store.state.formStepsData.formSteps
-        },
-        valid() {
-            return this.$store.state.formStepsData.valid
-        },
-        animation() {
-            return this.$store.state.animation
-        }
-    },
-    data() {
-        return {
-        };
+        ...formStepsStore.mapState([
+            'activeStep',
+            'formSteps',
+            'valid'
+        ]),
+        ...mapState([
+            'animation'
+        ])
     },
     methods: {
         ...searchStore.mapActions([
