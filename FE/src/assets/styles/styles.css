@@ -808,6 +808,16 @@ img.product-img {
   align-items: center;
 }
 
+.all-view-wrapper {
+  width: 95%;
+  margin: auto;
+}
+
+.product-img-small {
+  width: 150px;
+  height: 150px;
+}
+
 .comment-right {
   width: 85%;
   border-left: 1px dashed #ff008b;

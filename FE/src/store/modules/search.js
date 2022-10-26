@@ -17,17 +17,7 @@ export default {
         psu: [],
         completedRig: [],
         search: '',
-        selectedData: [
-            // {cpu: ''},
-            // {cooler: ''},
-            // {main: ''},
-            // {ram: ''},
-            // {ssd: ''},
-            // {hdd: ''},
-            // {gpu: ''},
-            // {case: ''},
-            // {psu: ''},
-        ],
+        selectedData: [],
     },
     getters: {
     },
@@ -240,7 +230,7 @@ export default {
             }
             await axios(gpusQuery).then(res => {
                 this.dataGPU = res.data;
-                console.log(res.data)
+                // console.log(res.data)
                 commit("setGPUData", this.dataGPU);
             }).catch(err => {
                 console.log(err)
@@ -294,22 +284,22 @@ export default {
                 method: "POST",
                 url: "selected",
                 params: {
-                    cpu: state.selectedData.cpu,
-                    main: state.selectedData.main,
-                    psu: state.selectedData.psu,
-                    cooler: state.selectedData.cooler,
-                    ssd: state.selectedData.ssd,
-                    ram: state.selectedData.ram,
-                    gpu: state.selectedData.gpu,
-                    hdd: state.selectedData.hdd,
-                    case: state.selectedData.case
+                    cpu: state.selectedData[0],
+                    main: state.selectedData[1],
+                    psu: state.selectedData[2],
+                    cooler: state.selectedData[3],
+                    ssd: state.selectedData[4],
+                    ram: state.selectedData[5],
+                    gpu: state.selectedData[6],
+                    hdd: state.selectedData[7],
+                    case: state.selectedData[8]
                 },
                 paramsSerializer: (params) => {
                     return qs.stringify(params);
                 },
             };
             await axios(data).then((res) => {
-                this.selectedData = res;
+                this.selectedData = res.data;
                 commit("setAllData", this.selectedData);
             }).catch((err) => {
                 console.log(err);

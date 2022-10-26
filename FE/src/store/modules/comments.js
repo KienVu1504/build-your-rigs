@@ -16,7 +16,9 @@ export default {
         reasonBody: '',
         deleteId: '',
         cmtId: '',
-        cmtStatus: ''
+        cmtStatus: '',
+        rpStatus: '',
+        rpId: ''
     },
     getters: {
 
@@ -52,8 +54,14 @@ export default {
         setCmtId(state, newData) {
             state.cmtId = newData
         },
+        setRpId(state, newData) {
+            state.rpId = newData
+        },
         setCmtStatus(state, newData) {
             state.cmtStatus = newData
+        },
+        setRpStatus(state, newData) {
+            state.rpStatus = newData
         }
     },
     actions: {
@@ -195,6 +203,28 @@ export default {
                 url: `comments/` + state.cmtId,
                 params: {
                     status: state.cmtStatus,
+                },
+                paramsSerializer: params => {
+                    return qs.stringify(params)
+                }
+            }
+            await axios(comment).then(res => {
+                if (res.request.status >= 200 && res.request.status < 300) {
+                    // dispatch('fetchAllCommentData')
+                    // dispatch('fetchReportedCommentData')
+                } else {
+                    console.log(res.response.data.body)
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+        async updateRPStatus({ state, dispatch }) {
+            const comment = {
+                method: "PATCH",
+                url: `reports/` + state.rpId,
+                params: {
+                    status: state.rpStatus,
                 },
                 paramsSerializer: params => {
                     return qs.stringify(params)

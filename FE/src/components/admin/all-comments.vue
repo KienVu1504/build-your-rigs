@@ -69,9 +69,10 @@ export default {
             'deleteCMT',
             'updateStatus'
         ]),
-        deteteComment(id) {
+        deteteComment(id, status) {
             let self = this
             this.$store.commit('comments/setDeleteId', id)
+            this.$store.commit('comments/setRpStatus', !status)
             if (confirm("Do you want to delete this comment?")) {
                 this.deleteCMT()
                 setTimeout(function () {

@@ -10,24 +10,64 @@
         <div class="input-fields" v-if="filteredList">
             <input type="radio" name="userChoice" id="checkClone" @click="checkValid(index)" style="display:none"
                 checked>
-            <div class="no-data" v-if="filteredList.length == 0">
+            <div class="no-data" v-if="filteredList.length == 0 && activeStep != 9">
                 <p>Can't find your item :(</p>
             </div>
             <div class="input-fields-wrapper">
-                <div class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12"
-                    v-for="(pr_attribute, index) in filteredList" :key="'pr_attribute'+index">
-                    <div class="tile">
-                        <input type="radio" @click="checkValid(pr_attribute.id)" id="inputCheckbox" name="userChoice"
-                            class="tile-input">
-                        <label for="userChoice" class="tile-label">
-                            <div class="tile-wrapper">
-                                <div class="item-img-wrapper">
-                                    <img :src="pr_attribute.img || pr_attribute.image_url" alt="" class="item-img" />
+                <template v-for="(pr_attribute, index) in filteredList">
+                    <div class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12" v-bind:key="index"
+                        v-if="activeStep != 9">
+                        <div class="tile">
+                            <input type="radio" @click="checkValid(pr_attribute.id)" id="inputCheckbox"
+                                name="userChoice" class="tile-input">
+                            <label for="userChoice" class="tile-label">
+                                <div class="tile-wrapper">
+                                    <div class="item-img-wrapper">
+                                        <img :src="pr_attribute.img || pr_attribute.image_url" alt=""
+                                            class="item-img" />
+                                    </div>
+                                    <h4 class="tile-name">{{ pr_attribute.name }}</h4>
+                                    <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
                                 </div>
-                                <h4 class="tile-name">{{ pr_attribute.name }}</h4>
-                                <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
-                            </div>
-                        </label>
+                            </label>
+                        </div>
+                    </div>
+                </template>
+                <div class="all-view-wrapper">
+                    <div class="row" v-if="activeStep == 9">
+                        <div class="col-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col-1">Image</th>
+                                        <th scope="col-2">Name</th>
+                                        <th scope="col-2">Brand</th>
+                                        <th scope="col-2">Socket</th>
+                                        <th scope="col-2">DIMM</th>
+                                        <th scope="col-2">Form</th>
+                                        <th scope="col-2">SSD</th>
+                                        <th scope="col-2">HDD</th>
+                                        <th scope="col-2">TDP</th>
+                                        <th scope="col-2">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="product in filteredList" v-bind:key="product.id">
+                                        <th scope="row"><img :src="product.img || product.image_url" alt=""
+                                                class="product-img-small"></th>
+                                        <td>{{ product.name }}</td>
+                                        <td>{{ product.brand_name }}</td>
+                                        <td>{{ product.socket }}</td>
+                                        <td>{{ product.dimm }}</td>
+                                        <td>{{ product.form }}</td>
+                                        <td>{{ product.ssd }}</td>
+                                        <td>{{ product.hdd }}</td>
+                                        <td>{{ product.wattage }}</td>
+                                        <td>{{ product.price }}$</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -95,6 +135,7 @@ export default {
                     return post.name.toLowerCase().includes(this.searchData.toLowerCase())
                 })
             } else if (this.activeStep == 9) {
+                console.log(this.selectedData)
                 return this.selectedData
             }
         },
@@ -141,7 +182,7 @@ export default {
             return this.$store.state.search.search
         },
         selectedData() {
-            return this.$store.state.search.completedRig.data
+            return this.$store.state.search.completedRig
         }
     },
     async mounted() {
@@ -153,8 +194,12 @@ export default {
     },
 
     methods: {
+        ...searchStore.mapState([
+            'completedRig'
+        ]),
         ...searchStore.mapActions([
-            'fetchCpus'
+            'fetchCpus',
+            'fetchSelectedData'
         ]),
         ...formStepsStore.mapActions([
             'fetchSteps'
@@ -195,5 +240,8 @@ export default {
 </script>
 
 <style>
-
+th,
+td {
+    text-align: center;
+}
 </style>

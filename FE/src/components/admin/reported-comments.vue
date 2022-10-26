@@ -29,7 +29,7 @@
                                 <td>{{ comment.date_time }}</td>
                                 <template v-for="(cmt, index) in comment.content_comment">
                                     <td v-if="index == 'status'" v-bind:key="index">{{ (cmt == true) ? "Active" :
-                                    "Hidden"
+                                            "Hidden"
                                     }}</td>
                                 </template>
                                 <td>
@@ -38,7 +38,8 @@
                                             @click="updateCmtStatus(comment.comment_id, cmt)"
                                             class="action-btn btn btn-success"><i class="fas fa-edit"></i></button>
                                     </template>
-                                    <button type="button" @click="deteteComment(comment.comment_id)"
+                                    <button type="button"
+                                        @click="deteteComment(comment.comment_id, comment.status, comment.id)"
                                         class="action-btn btn btn-danger"><i class="far fa-trash-alt"></i></button>
                                 </td>
                             </tr>
@@ -76,13 +77,17 @@ export default {
         ...commentsStore.mapActions([
             'fetchReportedCommentData',
             'deleteCMT',
-            'updateStatus'
+            'updateStatus',
+            'updateRPStatus'
         ]),
-        deteteComment(id) {
+        deteteComment(id, status, rpId) {
             let self = this
             this.$store.commit('comments/setDeleteId', id)
+            this.$store.commit('comments/setRpId', rpId)
+            this.$store.commit('comments/setRpStatus', !status)
             if (confirm("Do you want to delete this comment?")) {
                 this.deleteCMT()
+                this.updateRPStatus()
                 setTimeout(function () {
                     self.fetchReportedCommentData()
                 }, 100);

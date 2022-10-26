@@ -1,12 +1,12 @@
 <template>
     <div class="actions">
-        <router-link :to="{name: 'build-guide'}" tag="button" @mouseleave.native="rotateBackGuide"
+        <router-link :to="{ name: 'build-guide' }" tag="button" @mouseleave.native="rotateBackGuide"
             @mouseenter.native="resetBgGuide" id="action-guide">Build Guides</router-link>
-        <router-link :to="{name: 'pre-build'}" tag="button" @mouseleave.native="rotateBackRouter"
+        <router-link :to="{ name: 'pre-build' }" tag="button" @mouseleave.native="rotateBackRouter"
             @mouseenter.native="resetBgRouter" id="action-router">Pre-build</router-link>
-        <button v-if="activeStep +1 < formSteps.length -1" @click="checkFields" @mouseleave="rotateBack"
+        <button v-if="activeStep + 1 < formSteps.length - 1" @click="checkFields" @mouseleave="rotateBack"
             @mouseenter="resetBg" id="action-btn">next</button>
-        <button v-if="activeStep +1 == formSteps.length -1" @click="checkFields" @mouseleave="rotateBack"
+        <button v-if="activeStep + 1 == formSteps.length - 1" @click="checkFields" @mouseleave="rotateBack"
             @mouseenter="resetBg" id="action-btn">done</button>
     </div>
 </template>
