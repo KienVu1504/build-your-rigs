@@ -1,41 +1,41 @@
 <template>
-    <section :class="animation">
-        <div class="section-header">
-            <p class="section-title">Products</p>
-        </div>
-        <div class="search-wrapper">
-            <input type="text" v-model="search" @keyup="searchReset" placeholder="Search by name.." />
-        </div>
-        <div class="separator"></div>
-        <div class="input-fields">
-            <div class="input-fields-wrapper">
-                <router-link tag="div" :to="{ path: `/admin/brands/` + pr_attribute.id }"
-                    class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12" v-for="(pr_attribute, index) in brands"
-                    :key="'pr_attribute' + index">
-                    <div class="tile">
-                        <input type="radio" id="inputCheckbox" name="userChoice" class="tile-input" />
-                        <label for="userChoice" class="tile-label">
-                            <div class="tile-wrapper">
-                                <div class="item-img-wrapper">
-                                    <img :src="pr_attribute.img || pr_attribute.image_url" alt="" class="product-img" />
-                                </div>
-                                <h4 class="tile-name">{{ pr_attribute.name }}</h4>
-                                <h5 class="tile-price" id="tile-priceH">
-                                    {{ pr_attribute.count }} products
-                                </h5>
-                            </div>
-                        </label>
-                    </div>
-                </router-link>
-
-                <div class="no-data" v-if="brands.length == 0">
-                    <p>Can't find your item :(</p>
+  <section :class="animation">
+    <div class="section-header">
+      <p class="section-title">Products</p>
+    </div>
+    <div class="search-wrapper">
+      <input type="text" v-model="search" @keyup="searchReset" placeholder="Search by name.." />
+    </div>
+    <div class="separator"></div>
+    <div class="input-fields">
+      <div class="input-fields-wrapper">
+        <router-link tag="div" :to="{ path: `/admin/brands/` + pr_attribute.id }"
+          class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12" v-for="(pr_attribute, index) in brands"
+          :key="'pr_attribute' + index">
+          <div class="tile">
+            <input type="radio" id="inputCheckbox" name="userChoice" class="tile-input" />
+            <label for="userChoice" class="tile-label">
+              <div class="tile-wrapper">
+                <div class="item-img-wrapper">
+                  <img :src="pr_attribute.img || pr_attribute.image_url" alt="" class="product-img" />
                 </div>
-            </div>
+                <h4 class="tile-name">{{ pr_attribute.name }}</h4>
+                <h5 class="tile-price" id="tile-priceH">
+                  {{ pr_attribute.count }} products
+                </h5>
+              </div>
+            </label>
+          </div>
+        </router-link>
 
-            <Pagination @fetchNewDatas="fetchDatas(search)"></Pagination>
+        <div class="no-data" v-if="brands.length == 0">
+          <p>Can't find your item :(</p>
         </div>
-    </section>
+      </div>
+
+      <Pagination @fetchNewDatas="fetchDatas(search)"></Pagination>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -44,39 +44,39 @@ import { createNamespacedHelpers, mapState } from 'vuex'
 const brandsStore = createNamespacedHelpers('brandsData')
 
 export default {
-    data() {
-        return {
-            search: ""
-        };
+  data() {
+    return {
+      search: ""
+    };
+  },
+  components: {
+    Pagination
+  },
+  computed: {
+    ...mapState([
+      'animation'
+    ]),
+    ...brandsStore.mapState([
+      'brands'
+    ])
+  },
+  mounted() {
+    this.fetchDatas();
+  },
+  methods: {
+    searchReset() {
+      this.$store.commit('paging/resetPage')
+      this.fetchDatas(this.search)
     },
-    components: {
-        Pagination
-    },
-    computed: {
-        ...mapState([
-            'animation'
-        ]),
-        ...brandsStore.mapState([
-            'brands'
-        ])
-    },
-    mounted() {
-        this.fetchDatas();
-    },
-    methods: {
-        searchReset() {
-            this.$store.commit('paging/resetPage')
-            this.fetchDatas(this.search)
-        },
-        ...brandsStore.mapActions([
-            'fetchDatas'
-        ])
-    },
+    ...brandsStore.mapActions([
+      'fetchDatas'
+    ])
+  },
 };
 </script>
 
 <style scoped>
 .tile-input:after {
-    display: none;
+  display: none;
 }
 </style>

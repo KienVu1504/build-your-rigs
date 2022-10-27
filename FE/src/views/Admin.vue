@@ -1,7 +1,7 @@
 <template>
-    <transition name="component-fade" mode="out-in">
-        <router-view></router-view>
-    </transition>
+  <transition name="component-fade" mode="out-in">
+    <router-view></router-view>
+  </transition>
 </template>
   
 <script>
@@ -11,14 +11,14 @@ import vSelect from "vue-select";
 Vue.component("v-select", vSelect);
 
 export default {
-    mounted() {
-        checkToken: {
-            const token = this.$store.state.userToken.token
-            if (token.length == 0 || token == null || token == '') {
-                this.$router.push({ path: "/admin/login" }).catch(() => { });
-            }
-        }
+  mounted() {
+    checkToken: {
+      const token = this.$store.state.userToken.token
+      if (token.length == 0 || token == null || token == '') {
+        this.$router.push({ path: "/admin/login" }).catch(() => { });
+      }
     }
+  }
 }
 </script>
   
