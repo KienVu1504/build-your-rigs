@@ -1,5 +1,5 @@
-module Comments
-  class ShowIdReportSerializer < ActiveModel::Serializer
+module PrAttributes
+  class ShowCommentSerializer < ActiveModel::Serializer
     attributes :id, :body, :name, :commentable_type, :commentable_id, :date_time, :report_id
 
     def date_time
