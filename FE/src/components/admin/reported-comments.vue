@@ -56,6 +56,7 @@
 import Pagination from './pagination.vue';
 import { createNamespacedHelpers } from 'vuex'
 const commentsStore = createNamespacedHelpers('comments')
+const pagingStore = createNamespacedHelpers('paging')
 export default {
     data() {
         return {
@@ -66,14 +67,18 @@ export default {
         Pagination
     },
     mounted() {
+        this.resetCurrentPage()
         this.fetchReportedCommentData()
     },
     computed: {
         ...commentsStore.mapState([
             'reportedComments'
-        ])
+        ]),
     },
     methods: {
+        ...pagingStore.mapMutations([
+            'resetCurrentPage'
+        ]),
         ...commentsStore.mapActions([
             'fetchReportedCommentData',
             'deleteCMT',
@@ -90,7 +95,7 @@ export default {
                 this.updateRPStatus()
                 setTimeout(function () {
                     self.fetchReportedCommentData()
-                }, 100);
+                }, 200);
             }
         },
         updateCmtStatus(id, status) {
@@ -101,7 +106,7 @@ export default {
                 this.updateStatus()
                 setTimeout(function () {
                     self.fetchReportedCommentData()
-                }, 100);
+                }, 200);
             }
         }
     },

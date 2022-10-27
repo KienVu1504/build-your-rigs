@@ -159,8 +159,6 @@ export default {
                 url: `comments/` + state.deleteId,
             }
             await axios(commentQuery).then(res => {
-                // dispatch('fetchAllCommentData')
-                // dispatch('fetchReportedCommentData')
             }).catch(err => {
                 console.log(err)
             })
@@ -197,7 +195,7 @@ export default {
                 console.log(err)
             })
         },
-        async updateStatus({ state, dispatch }) {
+        async updateStatus({ state }) {
             const comment = {
                 method: "PUT",
                 url: `comments/` + state.cmtId,
@@ -210,8 +208,7 @@ export default {
             }
             await axios(comment).then(res => {
                 if (res.request.status >= 200 && res.request.status < 300) {
-                    // dispatch('fetchAllCommentData')
-                    // dispatch('fetchReportedCommentData')
+
                 } else {
                     console.log(res.response.data.body)
                 }
@@ -219,7 +216,7 @@ export default {
                 console.log(err)
             })
         },
-        async updateRPStatus({ state, dispatch }) {
+        async updateRPStatus({ state }) {
             const comment = {
                 method: "PATCH",
                 url: `reports/` + state.rpId,
@@ -232,8 +229,7 @@ export default {
             }
             await axios(comment).then(res => {
                 if (res.request.status >= 200 && res.request.status < 300) {
-                    // dispatch('fetchAllCommentData')
-                    // dispatch('fetchReportedCommentData')
+
                 } else {
                     console.log(res.response.data.body)
                 }

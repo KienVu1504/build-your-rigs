@@ -30,7 +30,8 @@
                             <td>
                                 <button type="button" @click="updateCmtStatus(comment.id, comment.status)"
                                     class="action-btn btn btn-success"><i class="fas fa-edit"></i></button>
-                                <button type="button" @click="deteteComment(comment.id)"
+                                <button type="button"
+                                    @click="deteteComment(comment.id, this.rpStatus, comment.report_id)"
                                     class="action-btn btn btn-danger"><i class="far fa-trash-alt"></i></button>
                             </td>
                         </tr>
@@ -45,17 +46,19 @@
 <script>
 import Pagination from './pagination.vue';
 import { createNamespacedHelpers } from 'vuex'
+const pagingStore = createNamespacedHelpers('paging')
 const commentsStore = createNamespacedHelpers('comments')
 export default {
     data() {
         return {
-
+            rpStatus: 1
         };
     },
     components: {
         Pagination
     },
     mounted() {
+        this.resetCurrentPage()
         this.fetchAllCommentData()
     },
     computed: {
@@ -64,20 +67,24 @@ export default {
         ])
     },
     methods: {
+        ...pagingStore.mapMutations([
+            'resetCurrentPage'
+        ]),
         ...commentsStore.mapActions([
             'fetchAllCommentData',
             'deleteCMT',
             'updateStatus'
         ]),
-        deteteComment(id, status) {
+        deteteComment(id, status, rpId) {
             let self = this
             this.$store.commit('comments/setDeleteId', id)
             this.$store.commit('comments/setRpStatus', !status)
+            this.$store.commit('comments/setRpId', rpId)
             if (confirm("Do you want to delete this comment?")) {
                 this.deleteCMT()
                 setTimeout(function () {
                     self.fetchAllCommentData()
-                }, 100);
+                }, 200);
             }
         },
         updateCmtStatus(id, status) {
@@ -88,7 +95,7 @@ export default {
                 this.updateStatus()
                 setTimeout(function () {
                     self.fetchAllCommentData()
-                }, 100);
+                }, 200);
             }
         }
     },

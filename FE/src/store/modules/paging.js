@@ -8,6 +8,9 @@ export default {
     getters: {
     },
     mutations: {
+        resetCurrentPage(state) {
+            state.currentPage = 1
+        },
         setPage(state, newPage) {
             state.pages = newPage
         },
