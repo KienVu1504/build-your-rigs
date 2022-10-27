@@ -61,11 +61,6 @@ export default {
             price: null,
         };
     },
-
-    mounted() {
-
-    },
-
     methods: {
         async addRAM(e) {
             const ramData = {

@@ -21,7 +21,7 @@
         <br>
         <button class="input-btn" type="submit" id="button">GO!</button>
         <br>
-        <p v-if="error" class="errorShow" id="errorShow">{{error}}</p>
+        <p v-if="error" class="errorShow" id="errorShow">{{ error }}</p>
       </form>
 
       <img src="@/assets/images/gsImage.png" id="gsImage">
@@ -41,8 +41,6 @@ export default {
       cih: '',
       error: ''
     }
-  },
-  mounted() {
   },
   methods: {
     redirect() {

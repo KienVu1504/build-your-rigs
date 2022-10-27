@@ -78,7 +78,7 @@
 import SectionHeader from '@/components/SectionHeader.vue'
 import ActionButton from '@/components/ActionButton.vue'
 import MainSearch from './admin/mainSearch.vue';
-import { createNamespacedHelpers } from 'vuex'
+import { createNamespacedHelpers, mapState } from 'vuex'
 const searchStore = createNamespacedHelpers('search')
 const formStepsStore = createNamespacedHelpers('formStepsData')
 export default {
@@ -92,46 +92,47 @@ export default {
             if (this.activeStep == 0) {
                 if (this.cpu.data) {
                     return this.cpu.data.filter(post => {
-                        return post.name.toLowerCase().includes(this.searchData.toLowerCase())
+                        return post.name.toLowerCase().includes(this.search.toLowerCase())
                     })
                 }
             } else if (this.activeStep == 1) {
                 return this.cooler.data.filter(post => {
-                    return post.name.toLowerCase().includes(this.searchData.toLowerCase())
+                    return post.name.toLowerCase().includes(this.search.toLowerCase())
                 })
             } else if (this.activeStep == 2) {
                 return this.main.data.filter(post => {
-                    return post.name.toLowerCase().includes(this.searchData.toLowerCase())
+                    return post.name.toLowerCase().includes(this.search.toLowerCase())
                 })
             } else if (this.activeStep == 3) {
                 return this.ram.data.filter(post => {
-                    return post.name.toLowerCase().includes(this.searchData.toLowerCase())
+                    return post.name.toLowerCase().includes(this.search.toLowerCase())
                 })
             } else if (this.activeStep == 4) {
                 return this.ssd.data.filter(post => {
-                    return post.name.toLowerCase().includes(this.searchData.toLowerCase())
+                    return post.name.toLowerCase().includes(this.search.toLowerCase())
                 })
             } else if (this.activeStep == 5) {
                 return this.hdd.data.filter(post => {
-                    return post.name.toLowerCase().includes(this.searchData.toLowerCase())
+                    return post.name.toLowerCase().includes(this.search.toLowerCase())
                 })
             } else if (this.activeStep == 6) {
                 return this.gpu.data.filter(post => {
-                    return post.name.toLowerCase().includes(this.searchData.toLowerCase())
+                    return post.name.toLowerCase().includes(this.search.toLowerCase())
                 })
             } else if (this.activeStep == 7) {
                 return this.case.data.filter(post => {
-                    return post.name.toLowerCase().includes(this.searchData.toLowerCase())
+                    return post.name.toLowerCase().includes(this.search.toLowerCase())
                 })
             } else if (this.activeStep == 8) {
                 return this.psu.data.filter(post => {
-                    return post.name.toLowerCase().includes(this.searchData.toLowerCase())
+                    return post.name.toLowerCase().includes(this.search.toLowerCase())
                 })
             } else if (this.activeStep == 9) {
-                return this.selectedData
+                return this.completedRig
             }
         },
         ...formStepsStore.mapState([
+            'activeStep',
             'formSteps'
         ]),
         ...searchStore.mapState([
@@ -143,23 +144,14 @@ export default {
             'hdd',
             'gpu',
             'case',
-            'psu'
+            'psu',
+            'search',
+            'completedRig'
         ]),
-        activeStep() {
-            return this.$store.state.formStepsData.activeStep
-        },
-        valid() {
-            return this.$store.state.valid
-        },
-        animation() {
-            return this.$store.state.animation
-        },
-        searchData() {
-            return this.$store.state.search.search
-        },
-        selectedData() {
-            return this.$store.state.search.completedRig
-        }
+        ...mapState([
+            'valid',
+            'animation'
+        ])
     },
     async mounted() {
         this.checkLocalStorage()
@@ -169,12 +161,23 @@ export default {
         }
     },
     methods: {
-        ...searchStore.mapState([
-            'completedRig'
+        ...formStepsStore.mapMutations([
+            'setValid'
+        ]),
+        ...searchStore.mapMutations([
+            'setCPU',
+            'setCOOLER',
+            'setMAIN',
+            'setRAM',
+            'setSSD',
+            'setHDD',
+            'setGPU',
+            'setCASE',
+            'setPSU',
         ]),
         ...searchStore.mapActions([
             'fetchCpus',
-            'fetchSelectedData'
+            'fetchSelectedData',
         ]),
         ...formStepsStore.mapActions([
             'fetchSteps'
@@ -183,25 +186,25 @@ export default {
             this.$router.push({ path: '/' })
         },
         checkValid(id) {
-            this.$store.commit("formStepsData/setValid")
+            this.setValid()
             if (this.activeStep == 0) {
-                this.$store.commit('search/setCPU', id)
+                this.setCPU(id)
             } else if (this.activeStep == 1) {
-                this.$store.commit('search/setCOOLER', id)
+                this.setCOOLER(id)
             } else if (this.activeStep == 2) {
-                this.$store.commit('search/setMAIN', id)
+                this.setMAIN(id)
             } else if (this.activeStep == 3) {
-                this.$store.commit('search/setRAM', id)
+                this.setRAM(id)
             } else if (this.activeStep == 4) {
-                this.$store.commit('search/setSSD', id)
+                this.setSSD(id)
             } else if (this.activeStep == 5) {
-                this.$store.commit('search/setHDD', id)
+                this.setHDD(id)
             } else if (this.activeStep == 6) {
-                this.$store.commit('search/setGPU', id)
+                this.setGPU(id)
             } else if (this.activeStep == 7) {
-                this.$store.commit('search/setCASE', id)
+                this.setCASE(id)
             } else if (this.activeStep == 8) {
-                this.$store.commit('search/setPSU', id)
+                this.setPSU(id)
             }
         },
         checkLocalStorage() {

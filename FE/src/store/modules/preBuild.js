@@ -14,7 +14,7 @@ export default {
         },
     },
     actions: {
-        async preBuildCount({ commit }) {
+        async fetchPreBuildCount({ commit }) {
             const preBuildQuery = {
                 method: "GET",
                 url: "pre_builds"

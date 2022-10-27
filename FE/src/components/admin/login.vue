@@ -21,7 +21,7 @@
                 <br>
                 <button class="input-btn" type="submit" id="button">Login</button>
                 <br>
-                <span v-if="err" class="errorShow" id="errorShow">{{err}}</span>
+                <span v-if="err" class="errorShow" id="errorShow">{{ err }}</span>
             </form>
 
             <img src="@/assets/images/gsImage.png" id="gsImage">
@@ -34,6 +34,8 @@
   
 <script>
 import axios from "axios";
+import { createNamespacedHelpers } from 'vuex'
+const userTokenStore = createNamespacedHelpers('userToken')
 export default {
     data() {
         return {
@@ -50,7 +52,7 @@ export default {
                 password: this.password
             }).then(function (response) {
                 if (response.status == 200) {
-                    self.setToken(response.data.token)
+                    self.setUserToken(response.data.token)
                     self.redirect()
                 }
             }).catch(function (error) {
@@ -71,8 +73,11 @@ export default {
         redirect() {
             this.$router.push({ path: '/admin' })
         },
-        setToken(token) {
-            this.$store.commit("userToken/setToken", token);
+        ...userTokenStore.mapMutations([
+            'setToken'
+        ]),
+        setUserToken(token) {
+            this.setToken(token);
         }
     }
 }

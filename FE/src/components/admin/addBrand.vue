@@ -55,6 +55,7 @@
 
 <script>
 import axios from "@/plugins/axios";
+import { mapState } from 'vuex'
 export default {
     data() {
         return {
@@ -62,14 +63,10 @@ export default {
             image: ''
         };
     },
-
-    mounted() {
-
-    },
     computed: {
-        animation() {
-            return this.$store.state.animation
-        },
+        ...mapState([
+            'animation'
+        ])
     },
     methods: {
         addBrand(e) {

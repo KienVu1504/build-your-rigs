@@ -9,9 +9,9 @@
         <div class="separator"></div>
         <div class="input-fields">
             <div class="input-fields-wrapper">
-                <router-link tag="div" :to="{path: `/admin/products/` + $route.params.id + '/' + pr_attribute.id}"
+                <router-link tag="div" :to="{ path: `/admin/products/` + $route.params.id + '/' + pr_attribute.id }"
                     class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12"
-                    v-for="(pr_attribute, index) in filteredList" :key="'pr_attribute'+index">
+                    v-for="(pr_attribute, index) in filteredList" :key="'pr_attribute' + index">
                     <div class="tile">
                         <input type="radio" id="inputCheckbox" name="userChoice" class="tile-input">
                         <label for="userChoice" class="tile-label">
@@ -36,7 +36,7 @@
 <script>
 import axios from "@/plugins/axios"
 import qs from "qs"
-
+import { mapState } from 'vuex'
 export default {
     data() {
         return {
@@ -48,11 +48,10 @@ export default {
         this.fetchDatas();
     },
     computed: {
-        animation() {
-            return this.$store.state.animation
-        },
+        ...mapState([
+            'animation'
+        ]),
         filteredList() {
-            // console.log(this.products)
             return this.products.filter(post => {
                 return post.name.toLowerCase().includes(this.search.toLowerCase())
             })

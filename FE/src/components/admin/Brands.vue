@@ -10,8 +10,8 @@
         <div class="input-fields">
             <div class="input-fields-wrapper">
                 <router-link tag="div" :to="{ path: `/admin/brands/` + pr_attribute.id }"
-                    class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12"
-                    v-for="(pr_attribute, index) in fetchBrandsDatas" :key="'pr_attribute' + index">
+                    class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12" v-for="(pr_attribute, index) in brands"
+                    :key="'pr_attribute' + index">
                     <div class="tile">
                         <input type="radio" id="inputCheckbox" name="userChoice" class="tile-input" />
                         <label for="userChoice" class="tile-label">
@@ -28,7 +28,7 @@
                     </div>
                 </router-link>
 
-                <div class="no-data" v-if="fetchBrandsDatas.length == 0">
+                <div class="no-data" v-if="brands.length == 0">
                     <p>Can't find your item :(</p>
                 </div>
             </div>
@@ -40,7 +40,7 @@
 
 <script>
 import Pagination from './pagination.vue';
-import { createNamespacedHelpers } from 'vuex'
+import { createNamespacedHelpers, mapState } from 'vuex'
 const brandsStore = createNamespacedHelpers('brandsData')
 
 export default {
@@ -53,12 +53,12 @@ export default {
         Pagination
     },
     computed: {
-        animation() {
-            return this.$store.state.animation;
-        },
-        fetchBrandsDatas() {
-            return this.$store.state.brandsData.brands
-        }
+        ...mapState([
+            'animation'
+        ]),
+        ...brandsStore.mapState([
+            'brands'
+        ])
     },
     mounted() {
         this.fetchDatas();

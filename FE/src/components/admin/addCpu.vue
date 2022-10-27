@@ -97,7 +97,6 @@ export default {
             'fetchAllDatas'
         ]),
         addCPU(e) {
-            // console.log(this.$refs.imgInput.files);
             let formData = new FormData();
             formData.append("product_id", 1);
             formData.append("name", this.name);

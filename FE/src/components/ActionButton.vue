@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { createNamespacedHelpers, mapState } from 'vuex'
+import { createNamespacedHelpers, mapMutations, mapState } from 'vuex'
 const searchStore = createNamespacedHelpers('search')
 const formStepsStore = createNamespacedHelpers('formStepsData')
 
@@ -39,9 +39,16 @@ export default {
             'fetchPsus',
             'fetchSelectedData'
         ]),
+        ...mapMutations([
+            'setAnimate'
+        ]),
+        ...formStepsStore.mapMutations([
+            'setStep',
+            'setValid'
+        ]),
         nextStep() {
             this.clearForm()
-            this.$store.commit("setAnimate", "animate-out")
+            this.setAnimate("animate-out")
             if (this.activeStep == 0) {
                 this.fetchCoolers();
             } else if (this.activeStep == 1) {
@@ -62,8 +69,8 @@ export default {
                 this.fetchSelectedData();
             }
             setTimeout(() => {
-                this.$store.commit("setAnimate", "animate-in")
-                this.$store.commit("formStepsData/setStep")
+                this.setAnimate("animate-in")
+                this.setStep()
             }, 550);
         },
         checkFields() {
@@ -71,16 +78,16 @@ export default {
                 this.nextStep()
             }
             else {
-                this.$store.commit("setAnimate", "animate-wrong")
+                this.setAnimate("animate-wrong")
                 setTimeout(() => {
-                    this.$store.commit("setAnimate", "")
+                    this.setAnimate("")
                 }, 400);
             }
         },
         clearForm() {
             const radio = document.getElementById("checkClone")
             radio.checked = true;
-            this.$store.commit("formStepsData/setValid")
+            this.setValid()
         },
         rotateBack() {
             const btn = document.getElementById("action-btn")

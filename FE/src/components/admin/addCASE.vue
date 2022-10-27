@@ -62,11 +62,6 @@ export default {
             price: null,
         };
     },
-
-    mounted() {
-
-    },
-
     methods: {
         async addCASE(e) {
             const caseData = {

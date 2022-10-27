@@ -60,11 +60,6 @@ export default {
             price: null,
         };
     },
-
-    mounted() {
-
-    },
-
     methods: {
         async addSSD(e) {
             const ssdData = {

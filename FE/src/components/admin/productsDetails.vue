@@ -69,24 +69,27 @@
 
                             <p>Related Product</p>
                             <div class="relatePr-wrapper" @click="newData">
-                                <router-link tag="div"
-                                    :to="{ path: `/admin/products/` + pr_attribute.product_id + '/' + pr_attribute.id }"
-                                    class="tile-wrapper-outer col-lg-4" v-for="(pr_attribute, index) in relatedData"
-                                    :key="'pr_attribute' + index" v-if="pr_attribute.id != $route.params.pr_id">
-                                    <div class="tile">
-                                        <input type="radio" id="inputCheckbox" name="userChoice" class="tile-input">
-                                        <label for="userChoice" class="tile-label">
-                                            <div class="tile-wrapper">
-                                                <div class="item-img-wrapper">
-                                                    <img :src="pr_attribute.img || pr_attribute.image_url" alt=""
-                                                        class="item-img" />
+                                <template v-for="(pr_attribute, index) in relatedProducts">
+                                    <router-link tag="div"
+                                        :to="{ path: `/admin/products/` + pr_attribute.product_id + '/' + pr_attribute.id }"
+                                        class="tile-wrapper-outer col-lg-4" :key="'pr_attribute' + index"
+                                        v-if="pr_attribute.id != $route.params.pr_id">
+                                        <div class="tile">
+                                            <input type="radio" id="inputCheckbox" name="userChoice" class="tile-input">
+                                            <label for="userChoice" class="tile-label">
+                                                <div class="tile-wrapper">
+                                                    <div class="item-img-wrapper">
+                                                        <img :src="pr_attribute.img || pr_attribute.image_url" alt=""
+                                                            class="item-img" />
+                                                    </div>
+                                                    <h4 class="tile-name">{{ pr_attribute.name }}</h4>
+                                                    <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}
+                                                    </h5>
                                                 </div>
-                                                <h4 class="tile-name">{{ pr_attribute.name }}</h4>
-                                                <h5 class="tile-price" id="tile-priceH">${{ pr_attribute.price }}</h5>
-                                            </div>
-                                        </label>
-                                    </div>
-                                </router-link>
+                                            </label>
+                                        </div>
+                                    </router-link>
+                                </template>
                             </div>
                         </div>
                     </div>
@@ -97,59 +100,62 @@
                         <button type="submit">Post</button>
                     </form>
                     <div class="comments-wrapper">
-                        <div class="comment" v-for="comment in comments" :key="comment.id" v-if="comment.status == 1">
-                            <div class="comment-left">
-                                <div class="left-wrapper">
-                                    <div class="comment-avt">
-                                        <p>{{ comment.name.substring(0, 2).toUpperCase() }}</p>
+                        <template v-for="comment in comments">
+                            <div class="comment" :key="comment.id" v-if="comment.status == 1">
+                                <div class="comment-left">
+                                    <div class="left-wrapper">
+                                        <div class="comment-avt">
+                                            <p>{{ comment.name.substring(0, 2).toUpperCase() }}</p>
+                                        </div>
+                                        <p class="annm-name">{{ comment.name }}</p>
                                     </div>
-                                    <p class="annm-name">{{ comment.name }}</p>
                                 </div>
-                            </div>
-                            <div class="comment-right">
-                                <div class="comment-header">
-                                    <form v-show="currentCommentId == comment.id" class="reply-form"
-                                        @submit.prevent="addNewReply(comment.id, replyBody)">
-                                        <input type="text" v-model="replyBody" placeholder="Enter reply here..."
-                                            class="reply-section">
-                                        <button type="submit">Reply</button>
-                                    </form>
-                                    <form v-show="currentRPCommentId == comment.id" class="reply-form"
-                                        @submit.prevent="reportComment(comment.id, reason)">
-                                        <input type="text" v-model="reason" placeholder="Enter reason here..."
-                                            class="reply-section">
-                                        <button type="submit">Report</button>
-                                    </form>
-                                    <p v-show="currentCommentId != comment.id" class="comment-action"
-                                        @click="toggleReply(comment.id)">Reply</p>
-                                    <p v-show="currentRPCommentId != comment.id" class="comment-action"
-                                        @click="toggleReport(comment.id)">Report</p>
-                                    <p>{{ comment.date_time }}</p>
-                                </div>
-                                <div class="comment-body">
-                                    <p>{{ comment.body }}</p>
-                                </div>
-                                <div class="overflow-wrapper">
-                                    <div class="reply-wrapper" v-for="reply in comment.comments" v-bind:key="reply.id">
-                                        <p class="reply-name">{{ reply.name }} said on {{ reply.date_time }} |
-                                            <span v-show="currentRPReplyId != reply.id" class="comment-action"
-                                                @click="toggleReportCmt(reply.id)">Report</span>
-                                        </p>
-                                        <span class="reply-rp-wrapper">
-                                            <form v-show="currentRPReplyId == reply.id" class="reply-form"
-                                                @submit.prevent="reportComment(reply.id, reason)">
-                                                <button type="submit">Report</button>
-                                                <input type="text" v-model="reason" placeholder="Enter reason here..."
-                                                    class="reply-section">
-                                            </form>
-                                        </span>
-                                        <div class="reply-body">
-                                            <p>{{ reply.body }}</p>
+                                <div class="comment-right">
+                                    <div class="comment-header">
+                                        <form v-show="currentCommentId == comment.id" class="reply-form"
+                                            @submit.prevent="addNewReply(comment.id, replyBody)">
+                                            <input type="text" v-model="replyBody" placeholder="Enter reply here..."
+                                                class="reply-section">
+                                            <button type="submit">Reply</button>
+                                        </form>
+                                        <form v-show="currentRPCommentId == comment.id" class="reply-form"
+                                            @submit.prevent="reportComment(comment.id, reason)">
+                                            <input type="text" v-model="reason" placeholder="Enter reason here..."
+                                                class="reply-section">
+                                            <button type="submit">Report</button>
+                                        </form>
+                                        <p v-show="currentCommentId != comment.id" class="comment-action"
+                                            @click="toggleReply(comment.id)">Reply</p>
+                                        <p v-show="currentRPCommentId != comment.id" class="comment-action"
+                                            @click="toggleReport(comment.id)">Report</p>
+                                        <p>{{ comment.date_time }}</p>
+                                    </div>
+                                    <div class="comment-body">
+                                        <p>{{ comment.body }}</p>
+                                    </div>
+                                    <div class="overflow-wrapper">
+                                        <div class="reply-wrapper" v-for="reply in comment.comments"
+                                            v-bind:key="reply.id">
+                                            <p class="reply-name">{{ reply.name }} said on {{ reply.date_time }} |
+                                                <span v-show="currentRPReplyId != reply.id" class="comment-action"
+                                                    @click="toggleReportCmt(reply.id)">Report</span>
+                                            </p>
+                                            <span class="reply-rp-wrapper">
+                                                <form v-show="currentRPReplyId == reply.id" class="reply-form"
+                                                    @submit.prevent="reportComment(reply.id, reason)">
+                                                    <button type="submit">Report</button>
+                                                    <input type="text" v-model="reason"
+                                                        placeholder="Enter reason here..." class="reply-section">
+                                                </form>
+                                            </span>
+                                            <div class="reply-body">
+                                                <p>{{ reply.body }}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </template>
                     </div>
                     <Pagination @fetchNewDatas="fetchCommentData"></Pagination>
                 </div>
@@ -162,7 +168,7 @@
 import axios from "@/plugins/axios"
 import Pagination from './pagination.vue';
 import qs from "qs"
-import { createNamespacedHelpers } from 'vuex'
+import { createNamespacedHelpers, mapState } from 'vuex'
 const relatePrStore = createNamespacedHelpers('relatePr')
 const commentsStore = createNamespacedHelpers('comments')
 
@@ -184,15 +190,15 @@ export default {
         Pagination
     },
     computed: {
-        animation() {
-            return this.$store.state.animation
-        },
+        ...mapState([
+            'animation'
+        ]),
         ...commentsStore.mapState([
             'comments'
         ]),
-        relatedData() {
-            return this.$store.state.relatePr.relatedProducts
-        }
+        ...relatePrStore.mapState([
+            'relatedProducts'
+        ])
     },
     mounted() {
         this.fetchDatas();
@@ -246,8 +252,8 @@ export default {
             })
         },
         reportComment(id, reason) {
-            this.$store.commit('comments/setReason', reason)
-            this.$store.commit('comments/setRPId', id)
+            this.setReason(reason)
+            this.setRPId(id)
             this.commentRP()
             this.reason = null
         },
@@ -258,16 +264,20 @@ export default {
             'commentRP'
         ]),
         ...commentsStore.mapMutations([
-            'setCommentBody'
+            'setCommentBody',
+            'setReplyBody',
+            'setReplyId',
+            'setReason',
+            'setRPId'
         ]),
         addNewComment(commentBody) {
-            this.$store.commit('comments/setCommentBody', commentBody)
+            this.setCommentBody(commentBody)
             this.addComment()
             this.commentBody = null
         },
         addNewReply(id, replyBody) {
-            this.$store.commit('comments/setReplyBody', replyBody)
-            this.$store.commit('comments/setReplyId', id)
+            this.setReplyBody(replyBody)
+            this.setReplyId(id)
             this.addReply()
             this.replyBody = null
         },

@@ -11,7 +11,7 @@
             <div class="input-fields-wrapper">
                 <router-link tag="div" :to="{ path: `/admin/products/` + $route.params.id + '/' + pr_attribute.id }"
                     class="tile-wrapper-outer col-lg-3 col-md-4 col-sm-6 col-12"
-                    v-for="(pr_attribute, index) in fetchProductsDatas" :key="'pr_attribute' + index">
+                    v-for="(pr_attribute, index) in products" :key="'pr_attribute' + index">
                     <div class="tile">
                         <input type="radio" id="inputCheckbox" name="userChoice" class="tile-input">
                         <label for="userChoice" class="tile-label">
@@ -25,7 +25,7 @@
                         </label>
                     </div>
                 </router-link>
-                <div class="no-data" v-if="fetchProductsDatas.length == 0">
+                <div class="no-data" v-if="products.length == 0">
                     <p>Can't find your item :(</p>
                 </div>
             </div>
@@ -38,7 +38,7 @@
 
 <script>
 import Pagination from './pagination.vue';
-import { createNamespacedHelpers } from 'vuex'
+import { createNamespacedHelpers, mapState } from 'vuex'
 const productStore = createNamespacedHelpers('productsData')
 
 export default {
@@ -54,12 +54,12 @@ export default {
         Pagination
     },
     computed: {
-        animation() {
-            return this.$store.state.animation
-        },
-        fetchProductsDatas() {
-            return this.$store.state.productsData.products
-        }
+        ...mapState([
+            'animation'
+        ]),
+        ...productStore.mapState([
+            'products'
+        ])
     },
     methods: {
         searchReset() {

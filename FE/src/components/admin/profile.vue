@@ -41,6 +41,7 @@
 
 <script>
 import axios from "@/plugins/axios";
+import { mapState } from 'vuex'
 import qs from "qs"
 export default {
 
@@ -51,9 +52,9 @@ export default {
         };
     },
     computed: {
-        animation() {
-            return this.$store.state.animation
-        }
+        ...mapState([
+            'animation'
+        ])
     },
     methods: {
         checkPassword(e) {

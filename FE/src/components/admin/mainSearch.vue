@@ -5,6 +5,7 @@
 </template>
 <script>
 import { createNamespacedHelpers } from 'vuex'
+const searchStore = createNamespacedHelpers('search')
 const formStepsStore = createNamespacedHelpers('formStepsData')
 export default {
     data() {
@@ -18,8 +19,11 @@ export default {
         ])
     },
     methods: {
+        ...searchStore.mapMutations([
+            'setSearchData'
+        ]),
         updateSearch() {
-            this.$store.commit('search/setSearchData', this.search);
+            this.setSearchData(this.search)
         }
     },
 };

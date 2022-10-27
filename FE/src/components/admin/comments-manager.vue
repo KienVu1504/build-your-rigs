@@ -20,23 +20,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-    data() {
-        return {
-
-        };
-    },
-
-    mounted() {
-
-    },
     computed: {
-        animation() {
-            return this.$store.state.animation
-        }
-    },
-    methods: {
-
+        ...mapState([
+            'animation'
+        ])
     },
 };
 </script>

@@ -35,8 +35,9 @@ export default {
             };
             await axios(brandsQuery).then((res) => {
                 this.brands = res.data.brands;
+                // console.log(res.data.meta.page)
                 context.commit('brandsData/setBrands', this.brands, { root: true })
-                context.commit('paging/setPage', res.data.meta.page, { root: true })
+                context.commit('paging/setPage', res.data.meta, { root: true })
             }).catch((err) => {
                 console.log(err);
             });

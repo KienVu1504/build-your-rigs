@@ -17,8 +17,8 @@
                             </div>
                             <div class="form-group mb-3 col-xs-12 col-sm-2">
                                 <label for="stock">Brands</label>
-                                <v-select label="name" :options="options" :reduce="name => name.id" class="form-control"
-                                    v-model="brand">
+                                <v-select label="name" :options="brandsOptions" :reduce="name => name.id"
+                                    class="form-control" v-model="brand">
                                 </v-select>
                             </div>
                         </div>
@@ -85,9 +85,9 @@ export default {
         };
     },
     computed: {
-        options() {
-            return this.$store.state.brandsData.brandsOptions
-        }
+        ...brandStore.mapState([
+            'brandsOptions'
+        ])
     },
     mounted() {
         this.fetchAllDatas();

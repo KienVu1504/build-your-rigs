@@ -279,7 +279,6 @@ export default {
             })
         },
         async fetchSelectedData({ state, commit }) {
-            // console.log(this.selectedData)
             const data = {
                 method: "POST",
                 url: "selected",

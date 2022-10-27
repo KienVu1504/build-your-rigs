@@ -16,10 +16,15 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex'
+const userTokenStore = createNamespacedHelpers('userToken')
 export default {
     methods: {
+        ...userTokenStore.mapMutations([
+            'clearToken'
+        ]),
         logout() {
-            this.$store.commit("userToken/clearToken");
+            this.clearToken()
             this.$router.push({ path: '/admin/login' })
         }
     },

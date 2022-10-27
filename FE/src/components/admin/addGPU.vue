@@ -54,11 +54,6 @@ export default {
             price: null,
         };
     },
-
-    mounted() {
-
-    },
-
     methods: {
         async addGPU(e) {
             const gpuData = {
