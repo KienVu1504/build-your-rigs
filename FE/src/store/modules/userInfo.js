@@ -1,23 +1,23 @@
 import axios from "../../plugins/axios";
 
 export default {
-    namespaced: true,
-    strict: true,
-    state: {
-        name: '',
-        cih: 0,
+  namespaced: true,
+  strict: true,
+  state: {
+    name: '',
+    cih: 0,
+  },
+  getters: {
+  },
+  mutations: {
+    setName(state, newName) {
+      state.name = newName
     },
-    getters: {
+    setCih(state, newCih) {
+      state.cih = newCih
     },
-    mutations: {
-        setName(state, newName) {
-            state.name = newName
-        },
-        setCih(state, newCih) {
-            state.cih = newCih
-        },
-    },
-    actions: {
+  },
+  actions: {
 
-    }
+  }
 }
