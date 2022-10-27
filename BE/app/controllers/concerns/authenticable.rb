@@ -1,8 +1,11 @@
 module Authenticable
+  SECRET_KEY = 'password'
+
   private
 
-  def encode_token(payload)
-    JWT.encode(payload, 'secret')
+  def encode_token(payload, exp = 1.day.from_now)
+    payload[:exp] = exp.to_i
+    JWT.encode(payload, SECRET_KEY)
   end
 
   def decode_token
@@ -10,7 +13,7 @@ module Authenticable
     if auth_header
       token = auth_header.split(' ')[1]
       begin
-        JWT.decode(token, 'secret', true, algorithm: 'HS256')
+        JWT.decode(token, SECRET_KEY, true, algorithm: 'HS256')
       rescue JWT::DecodeError
         nil
       end
