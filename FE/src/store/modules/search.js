@@ -18,12 +18,20 @@ export default {
     completedRig: [],
     search: '',
     selectedData: [],
+    selectedBrand: [],
+    selectedComponent: [],
   },
   getters: {
   },
   mutations: {
     setSearchData(state, newData) {
       state.search = newData
+    },
+    setSelectedBrand(state, newData) {
+      state.selectedBrand = newData
+    },
+    setSelectedComponent(state, newData) {
+      state.selectedComponent = newData
     },
     setCPUData(state, newData) {
       state.cpu = newData
@@ -54,6 +62,9 @@ export default {
     },
     setSearchData(state, newData) {
       state.search = newData
+    },
+    setSelectedData(state, newData) {
+      state.selectedData = newData
     },
     setCPU(state, newData) {
       state.selectedData[0] = newData
@@ -303,6 +314,27 @@ export default {
       }).catch((err) => {
         console.log(err);
       });
+    },
+    async fetchAllWithSearch({ commit }) {
+      const mainsQuery = {
+        method: "GET",
+        url: "search_pr",
+        params: {
+          q: {
+            product_name_cont: state.selectedBrand,
+            product_id_in: state.selectedComponent
+          }
+        },
+        paramsSerializer: params => {
+          return qs.stringify(params)
+        }
+      }
+      await axios(mainsQuery).then(res => {
+        this.selectedData = res.data;
+        commit("setMAINData", this.selectedData);
+      }).catch(err => {
+        console.log(err)
+      })
     },
   },
   modules: {

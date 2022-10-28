@@ -539,17 +539,12 @@ article section .actions button:hover {
 }
 
 .tile-wrapper-outer {
-  /* width: 290px; */
-  /* height: 300px; */
-  /* margin: 15px 10px; */
-  /* border-radius: 20px; */
   position: relative;
   transition: 0.2s all ease-in-out;
   z-index: 1;
 }
 
 .tile {
-  /* width: 290px; */
   height: 300px;
   margin: 15px 10px;
   border-radius: 20px;
@@ -603,7 +598,6 @@ article section .actions button:hover {
   top: 10px;
   left: 10px;
   color: #ff008b;
-  /* display: none; */
 }
 
 .tile:hover {

@@ -1,5 +1,7 @@
 <template>
   <div class="actions">
+    <router-link :to="{ name: 'all-products' }" tag="button" @mouseleave.native="rotateBackAllPr"
+      @mouseenter.native="resetBgAllPr" id="action-pr">Products</router-link>
     <router-link :to="{ name: 'build-guide' }" tag="button" @mouseleave.native="rotateBackGuide"
       @mouseenter.native="resetBgGuide" id="action-guide">Build Guides</router-link>
     <router-link :to="{ name: 'pre-build' }" tag="button" @mouseleave.native="rotateBackRouter"
@@ -111,6 +113,14 @@ export default {
     },
     resetBgGuide() {
       const btn = document.getElementById("action-guide")
+      btn.classList.remove("bg-back");
+    },
+    rotateBackAllPr() {
+      const btn = document.getElementById("action-pr")
+      btn.classList.add("bg-back");
+    },
+    resetBgAllPr() {
+      const btn = document.getElementById("action-pr")
       btn.classList.remove("bg-back");
     },
   },

@@ -27,6 +27,11 @@ const routes = [
     component: () => import('../views/BuildGuide.vue')
   },
   {
+    path: '/products',
+    name: 'all-products',
+    component: () => import('../views/AllProducts.vue')
+  },
+  {
     path: '/admin/',
     name: 'admin-panel',
     component: () => import('../views/Admin.vue'),

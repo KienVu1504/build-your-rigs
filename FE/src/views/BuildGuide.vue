@@ -450,6 +450,8 @@
           </main>
         </div>
         <div class="actions">
+          <router-link :to="{ name: 'all-products' }" tag="button" @mouseleave.native="rotateBackAllPr"
+            @mouseenter.native="resetBgAllPr" id="action-pr">Products</router-link>
           <router-link :to="{ name: 'home' }" tag="button" @mouseleave.native="rotateBackPicker"
             @mouseenter.native="resetBgPicker" id="action-picker">PC Part Picker</router-link>
           <router-link :to="{ name: 'pre-build' }" tag="button" @mouseleave.native="rotateBackRouter"
@@ -483,6 +485,14 @@ export default {
     },
     resetBgPicker() {
       const btn = document.getElementById("action-picker");
+      btn.classList.remove("bg-back");
+    },
+    rotateBackAllPr() {
+      const btn = document.getElementById("action-pr")
+      btn.classList.add("bg-back");
+    },
+    resetBgAllPr() {
+      const btn = document.getElementById("action-pr")
       btn.classList.remove("bg-back");
     },
   },
