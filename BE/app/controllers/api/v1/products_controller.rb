@@ -6,7 +6,10 @@ module Api
 
       def index
         @product = Product.all
-        response_success(@product, each_serializer: ::Products::ProductSerializer)
+
+      
+        render({ meta: @product.count, json: @product, adapter: :json,
+                 each_serializer: ::Products::ProductSerializer })
       end
 
       def show
@@ -21,9 +24,19 @@ module Api
         if @product.valid?
           response_success(@product)
         else
-          rresponse_error(@product.errors.messages)
+          response_error(@product.errors.messages)
         end
       end
+      # def create
+      #   form = Products::ProductForm.new(product_params)
+      #   if form.valid?
+      #     @product = form.save
+      #     response_success(@product)
+      #   else
+      #     response_error(@product.errors.messages)
+
+      #   end
+      # end
 
       def update
         if @product.update(product_params)
